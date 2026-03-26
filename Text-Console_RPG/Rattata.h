@@ -6,6 +6,6 @@ class Rattata : public EnemyPokemon
 public:
 	Rattata(int level);
 	void takeDamage(int p_attackPower);
-	void P_SKill() override;
+	void sKill() override;
 };
 
