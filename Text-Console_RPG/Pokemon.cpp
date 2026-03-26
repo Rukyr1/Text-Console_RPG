@@ -79,14 +79,14 @@ void Charmander::takeDamage(int p_attackPower) {
 	//p_hp = p_hp - p_attackPower;
 }
 
+//꼬부기
+
 class Squirtle : public Pokemon {
 public:
 	Squirtle();
 	void takeDamage(int p_attackPower);
 	void sKill() override;
 };
-
-//꼬부기
 
 Squirtle::Squirtle()
 {
