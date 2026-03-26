@@ -2,6 +2,8 @@
 //player 캐릭터 생성 및 Pokemon 부모클래스 생성
 #include<iostream>
 #include<string>
+#include "Pokemon.h"
+#include "Bulbasaur.h"
 
 
 //포켓몬 타입 정의

@@ -1,6 +1,10 @@
 #pragma once
-class EnemyPokemon
-{
+#include "Pokemon.h"
 
+class EnemyPokemon : public Pokemon
+{
+public:
+    EnemyPokemon(); 
+    void GenerateStats(int level);
 };
 

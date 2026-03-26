@@ -4,8 +4,8 @@
 
 class Squirtle : public Pokemon{
 public:
-	Squirtle(std::string name, int hp, int atk);
-	void P_SKill() override;
+	Squirtle();
 	void takeDamage(int p_attackPower);
+	void P_SKill() override;
 };
 

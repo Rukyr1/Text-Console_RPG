@@ -10,8 +10,8 @@ protected:
 
 public:
 
-	Player()
-	{ }; //생성자(매개변수 플레이어 이름
+	Player();
+	//{ }; //생성자(매개변수 플레이어 이름
 
 
 	virtual ~Player() {}; //소멸자

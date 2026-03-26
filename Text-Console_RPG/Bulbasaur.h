@@ -4,8 +4,8 @@
 
 class Bulbasaur : public Pokemon{
 public:
-	Bulbasaur(std::string name, int hp, int atk);
-	void P_SKill() override;
+	Bulbasaur();
 	void takeDamage(int p_attackPower);
+	void P_SKill() override;
 };
 
