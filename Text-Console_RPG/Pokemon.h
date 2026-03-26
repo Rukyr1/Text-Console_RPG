@@ -37,6 +37,7 @@ public:
 	void takeDamage(int p_attackPower);
 	void printstatus();
 
-	//void P_LevelUp(); 레벨업 로직 
-	//void P_FinalEvolution();  최종 진화
+	void levelUp(); 
+	void finalEvolution();  
+	void evolutionBonus(int hpBonus, int atkBonus);
 };
