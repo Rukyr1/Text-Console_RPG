@@ -10,11 +10,7 @@ protected:
 
 public:
 	Player()
-	{
-		std::cin >> playerName;
-		std::cout << "나의 이름은...: " << playerName << std::endl;
-
-	}; //생성자(매개변수 플레이어 이름
+	{ }; //생성자(매개변수 플레이어 이름
 	virtual ~Player() {}; //소멸자
 
 };
