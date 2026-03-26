@@ -1,4 +1,4 @@
-#include "Pokemon.h"
+ï»¿#include "Pokemon.h"
 
 void Pokemon::P_SKill()
 {
@@ -6,5 +6,5 @@ void Pokemon::P_SKill()
 
 void Pokemon::takeDamage(int p_attackPower)
 {
-	std::cout << p_name << "Àº(´Â)" << " ÇÇÇØ¸¦ ÀÔ¾ú´Ù." << std::endl;
+	std::cout << p_name << "ì€(ëŠ”)" << " í”¼í•´ë¥¼ ìž…ì—ˆë‹¤." << std::endl;
 }
