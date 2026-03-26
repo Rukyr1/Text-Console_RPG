@@ -5,6 +5,8 @@
 #include "Pokemon.h"
 #include "Player.h"
 #include "GameManager.h"
+#include "Item.h"
+#include "Inventory.h"
 
 
 int main()
@@ -19,8 +21,3 @@ int main()
 	return 0;
 }
 
-
-// Inventory<Item> MyInven(120); //인벤토리 칸수
-// MyInven.Additem(Item("회복약", 10, 20)); //인벤에 회복약 넣기 //(이름 가격 효과)
-// MyInven.Printallitems(); // 가지고 있는 아wlrma이템 출력
-// MyInven.UseItem(1); // 회복약 사용
