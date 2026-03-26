@@ -10,13 +10,7 @@ protected:
 
 public:
 
-<<<<<<< HEAD
 	Player(); //생성자(매개변수 플레이어 이름
-=======
-	Player();
-	//{ }; //생성자(매개변수 플레이어 이름
-
->>>>>>> cfc44ed3bbd5762b46f4a8e80d1ceb443a88f9a3
 
 	virtual ~Player() {}; //소멸자
 

@@ -1,8 +1,9 @@
 //main.cpp
 //player 캐릭터 생성 및 Pokemon 부모클래스 생성
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 #include "Pokemon.h"
+#include "Player.h"
 #include "Bulbasaur.h"
 
 
