@@ -4,8 +4,8 @@
 
 class Charmander : public Pokemon{
 public:
-	Charmander(std::string name, int hp, int atk);
-	void P_SKill() override;
+	Charmander();
 	void takeDamage(int p_attackPower);
+	void P_SKill() override;
 };
 
