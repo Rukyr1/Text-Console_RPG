@@ -4,13 +4,13 @@
 
 Rattata::Rattata(int level) : EnemyPokemon()
 {
-	std::string p_name = "꼬렛";
-	p_level = level;
+	std::string PName = "꼬렛";
+	PLevel = level;
 
 	GenerateStats(level);
 }
 
-void Rattata::P_SKill()
+void Rattata::sKill()
 {
 	std::cout << "몸통박치기" << std::endl;
 	//e_damage(임시) = p_attackPower * 3
