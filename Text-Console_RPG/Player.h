@@ -9,12 +9,7 @@ protected:
 	std::string playerName; // 멤버변수 : 플레이어 이름 -> 플레이어는 별명만 입력 받으면 끝
 
 public:
-	Player()
-	{
-		std::cin >> playerName;
-		std::cout << "나의 이름은...: " << playerName << std::endl;
-
-	}; //생성자(매개변수 플레이어 이름
+	Player(); //생성자(매개변수 플레이어 이름
 	virtual ~Player() {}; //소멸자
 
 };

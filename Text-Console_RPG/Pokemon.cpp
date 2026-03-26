@@ -6,5 +6,5 @@ void Pokemon::P_SKill()
 
 void Pokemon::takeDamage(int p_attackPower)
 {
-	std::cout << p_name << "Àº(´Â)" << " ÇÇÇØ¸¦ ÀÔ¾ú´Ù." << std::endl;
+	std::cout << p_name << " ê°€ ëŒ€ë¯¸ì§€ë¥¼ ìž…ì—ˆë‹¤!" << std::endl;
 }
