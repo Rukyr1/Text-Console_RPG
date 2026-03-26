@@ -12,19 +12,20 @@ protected:
 	//std::string skill02;
 
 	int p_level = 1;
-	int p_hp = 200;
-	int p_attackPower = 30; //공격력
-	int p_def = 30;
+	int p_hp = 0;
+	int p_attackPower = 0; //공격력
+	//int p_def = 30;
 	int p_exp = 0; //레벨업에 필요한 경험치는 100 고정
 
 	//int p_currentHp;  체력
 	//int p_maxHp; 최대체력
 public:
 
-	Pokemon() {};
+	Pokemon(std::string name, int hp, int atk) {};
 	~Pokemon() {};
 
-	virtual void P_SKill() {};
+	virtual void P_SKill() = 0;
+	void takeDamage(int p_attackPower);
 
 	void P_Printstatus()
 	{
