@@ -2,6 +2,11 @@
 #include <iostream>
 #include <map>
 
+Pokemon::Pokemon()
+{
+
+}
+
 void Pokemon::sKill()
 {
 

@@ -4,11 +4,17 @@
 #include <string>
 #include "Pokemon.h"
 #include "Player.h"
-#include "Bulbasaur.h"
+#include "GameManager.h"
 
 
 int main()
 {
+	GameManager Stage;
+	Stage.GameStart();
+
+
+
+
 	//P_type my_type = P_type::GRASS or FIRE or WATER;
 	return 0;
 }
