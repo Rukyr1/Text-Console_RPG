@@ -17,7 +17,7 @@ public:
 	~GameManager();
 	
 	void GameStart();
+	void SelectCharacter();
 	void StartBattle();
 	void GameEnding();
 };
-
