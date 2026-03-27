@@ -59,7 +59,7 @@ void Bulbasaur::takeDamage(int PAttackPower)
 
 Charmander::Charmander()
 {
-	std::string PName = "파이리";
+	PName = "파이리";
 	PLevel = 5;
 	PHp = 145;
 	PAttackPower = 55;
@@ -83,7 +83,7 @@ void Charmander::takeDamage(int p_attackPower) {
 
 Squirtle::Squirtle()
 {
-	std::string PName = "꼬부기";
+	PName = "꼬부기";
 	PLevel = 5;
 	PHp = 150;
 	PAttackPower = 50;

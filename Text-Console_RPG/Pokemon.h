@@ -39,6 +39,8 @@ public:
 	void levelUp(); 
 	void finalEvolution();  
 	void evolutionBonus(int hpBonus, int atkBonus);
+
+	std::string getName() { return PName; }
 };
 
 class Bulbasaur : public Pokemon //이상해씨
