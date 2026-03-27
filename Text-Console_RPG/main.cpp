@@ -4,6 +4,9 @@
 
 int main()
 {
+	GameManager Stage;
+	Pokemon Stat;
+	Stage.GameStart();
 
 	//if (PCurrentHp <= 0){
 	//	Stage.GameEnding()
