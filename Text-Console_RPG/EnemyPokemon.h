@@ -1,10 +1,16 @@
 #pragma once
 #include "Pokemon.h"
+#include <string>
 
 class EnemyPokemon : public Pokemon
 {
-public:
-    EnemyPokemon(); 
-    void GenerateStats(int level);
-};
+private:
+	std::string skillName;
+	int skillPower;
 
+public:
+	EnemyPokemon();
+
+	//void GenerateStats(int level);
+	void sKill() override;
+};
