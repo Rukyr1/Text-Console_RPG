@@ -57,13 +57,6 @@ void Bulbasaur::takeDamage(int PAttackPower)
 
 //파이리
 
-class Charmander : public Pokemon {
-public:
-	Charmander();
-	void takeDamage(int p_attackPower);
-	void sKill() override;
-};
-
 Charmander::Charmander()
 {
 	std::string PName = "파이리";
@@ -80,17 +73,13 @@ void Charmander::sKill() {
 }
 
 void Charmander::takeDamage(int p_attackPower) {
+	PHp -= PAttackPower;
+	std::cout << PName << "가" << PAttackPower
+		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
 	//p_hp = p_hp - p_attackPower;
 }
 
 //꼬부기
-
-class Squirtle : public Pokemon {
-public:
-	Squirtle();
-	void takeDamage(int p_attackPower);
-	void sKill() override;
-};
 
 Squirtle::Squirtle()
 {
@@ -108,6 +97,9 @@ void Squirtle::sKill() {
 }
 
 void Squirtle::takeDamage(int p_attackPower) {
+	PHp -= PAttackPower;
+	std::cout << PName << "가" << PAttackPower
+		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
 	//p_hp = p_hp - p_attackPower;
 
 }
