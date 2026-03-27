@@ -72,7 +72,7 @@ void Charmander::skill() {
 	//p_damage(임시) = p_attackPower * 3
 }
 
-void Charmander::takeDamage(int p_attackPower) {
+void Charmander::takeDamage(int PAttackPower) {
 	PHp -= PAttackPower;
 	std::cout << PName << "가" << PAttackPower
 		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
@@ -96,7 +96,7 @@ void Squirtle::skill() {
 	//p_damage(임시) = p_attackPower * 3
 }
 
-void Squirtle::takeDamage(int p_attackPower) {
+void Squirtle::takeDamage(int PAttackPower) {
 	PHp -= PAttackPower;
 	std::cout << PName << "가" << PAttackPower
 		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
