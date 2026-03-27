@@ -1,14 +1,20 @@
-#pragma once
 // Inventory.h
+#pragma once
 #include <iostream>
-
+#include <string>
 
 // Inventory<T> class 정의
 template<typename T>
 class Inventory
 {
-public: //동적 배열 생성
-	Inventory(int capacity = 10) : Isize(0), Igold(0)
+public:
+	//복사 금지 설정   // & 참조 사용
+	Inventory(const Inventory& other) = delete;            // 복사 생성자 금지
+	Inventory& operator=(const Inventory& other) = delete; // 대입 연산자 금지
+
+
+	//동적 배열 생성
+	Inventory(std::string owner = "", int capacity = 10) : IownerName(owner), Isize(0), Igold(0)
 	{
 		Icapacity = (capacity <= 0) ? 1 : capacity;
 
@@ -22,11 +28,13 @@ public: //동적 배열 생성
 		pItems = nullptr;
 	}
 
+
+
 	void Additem(const T& item) // 인벤에 아이템 넣기
 	{
 		if (Isize >= Icapacity)
 		{
-			std::cout << "가방이 꽉 차서(" << item.GetName() << ")을(를) 넣을 수 없습니다" << std::endl;
+			std::cout << "가방이 꽉 차서(" << item.GetName() << ")을(를) 넣을 수 없습니다!" << std::endl;
 			return;
 		}
 		std::cout << "(" << item.GetName() << ")" << "을(를) 가방에 넣었습니다." << std::endl;
@@ -38,24 +46,24 @@ public: //동적 배열 생성
 	{
 		if (Isize <= 0)
 		{
-			std::cout << "가방 비었음" << std::endl;
+			std::cout << "가방이 비어있습니다." << std::endl;
 			return;
 		}
 		pItems[Isize - 1].clear();
 		Isize--;
-		std::cout << "마지막 아이템을 제거했습니다." << std::endl;
+		std::cout << "아이템을 제거했습니다!" << std::endl;
 	}
 
 	void Printallitems() const // 가방안에있는 아이템 출력
 	{
-		std::cout << "\n 현재 가방 (" << Isize << "/" << Icapacity << ")" << std::endl;
+		std::cout << "[" << IownerName << "]" << "\n 현재 가방 (" << Isize << "/" << Icapacity << ")" << std::endl;
 		for (int i = 0; i < Isize; i++)
 		{
 			std::cout << i + 1 << ". " << pItems[i].GetName()
 				<< " | 가격: " << pItems[i].GetPrice()
 				<< " | 효과: " << pItems[i].GetEffect() << std::endl;
 		}
-		if (Isize == 0) std::cout << "비어 있음" << std::endl;
+		if (Isize == 0) std::cout << "비어 있습니다." << std::endl;
 		std::cout << "----------------------------------\n" << std::endl;
 	}
 
@@ -103,12 +111,27 @@ public: //동적 배열 생성
 
 	void Printallgold() const
 	{
-		std::cout << "\n 현재 골드: " << Igold << std::endl;
+		std::cout << "\n 현재 골드: " << Igold << "G" << std::endl;
 	}
+
+	void PrintStatus() const {
+		std::cout << "\n[" << IownerName << "]" << std::endl;
+		std::cout << " [소지 골드] " << Igold << " G" << std::endl;
+		std::cout << " [인벤토리] (" << Isize << "/" << Icapacity << ")" << std::endl;
+		for (int i = 0; i < Isize; i++) {
+			std::cout << i + 1 << ". " << pItems[i].GetName() << " (가격: " << pItems[i].GetPrice() << "G)" << std::endl;
+		}
+		if (Isize == 0) std::cout << " (비어 있습니다.)" << std::endl;
+		std::cout << "================================\n" << std::endl;
+	}
+
+	
 
 private:
 	T* pItems;
+	std::string IownerName;
 	int Icapacity;
 	int Isize;
 	int Igold;
-	};
+
+};

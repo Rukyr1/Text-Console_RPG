@@ -1,4 +1,4 @@
-// Item
+// Item.cpp
 #pragma once
 #include "Item.h"
 #include <iostream>
@@ -14,12 +14,6 @@ const std::string& Item::GetName() const { return Iname; }
 int Item::GetPrice() const { return Iprice; }
 int Item::GetEffect() const { return Ieffect; }
 
-void Item::clear()
-{
-	Iname = "";
-	Iprice = 0;
-	Ieffect = 0;
-}
 // 아이템 사용시 이름 출력
 void Item::Use() const
 {
@@ -27,7 +21,16 @@ void Item::Use() const
 	std::cout << Iname << "을(를) 사용했습니다!" << std::endl;
 }
 
-//Inventory<Item> MyInven(10); //인벤토리 칸수 설정 // 인벤토리칸 필수 제일 위에 올라와야함
+void Item::clear()
+{
+	Iname = "";
+	Iprice = 0;
+	Ieffect = 0;
+}
+
+
+
+//Inventory<Item> MyInven("모험가",10); //인벤토리 ("인벤토리 이름",인벤토리 칸수 설정) // 
 //MyInven.Additem(Item("ex회복약", 10, 20)); //인벤에 ex회복약 넣기 //("이름": 가격: 효과:)
 //MyInven.UseItem(1); // ex회복약 사용 
 //MyInven.Additem(Item("ex회약", 10, 20));
