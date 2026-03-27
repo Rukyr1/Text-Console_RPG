@@ -12,5 +12,5 @@ public:
 	EnemyPokemon();
 
 	//void GenerateStats(int level);
-	void sKill() override;
+	void skill() override;
 };

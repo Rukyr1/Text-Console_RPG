@@ -18,6 +18,6 @@ public:
 	
 	void GameStart();
 	void StartBattle();
-	
+	void GameEnding();
 };
 

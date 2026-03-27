@@ -65,3 +65,11 @@ void GameManager::StartBattle()
 		std::cout << "무엇을 할까?";
 	}*/
 }
+
+void GameManager::GameEnding()
+{
+	std::cout << "포켓몬이 기절했습니다...! " << std::endl;
+	std::cout << "교체할 포켓몬이 없습니다...! " << std::endl;
+	std::cout << "태초마을로 돌아갑니다...!" << std::endl;
+	std::cout << "Game Over!!!" << std::endl;
+}

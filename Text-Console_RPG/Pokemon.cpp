@@ -7,7 +7,7 @@ Pokemon::Pokemon()
 
 }
 
-void Pokemon::sKill()
+void Pokemon::skill()
 {
 
 }
@@ -17,7 +17,7 @@ void Pokemon::takeDamage(int p_attackPower)
 	std::cout << PName << " 가 대미지를 입었다!" << std::endl;
 }
 
-void Pokemon::printstatus()
+void Pokemon::printStatus()
 {
 	std::cout << "------------------------------------" << std::endl;
 	std::cout << "포켓몬의 상태" << std::endl;
@@ -41,7 +41,7 @@ Bulbasaur::Bulbasaur()
 	PExp = 0;
 }
 
-void Bulbasaur::sKill()
+void Bulbasaur::skill()
 {
 	std::cout << "덩쿨채찍!" << std::endl;
 	//p_damage(임시) = p_attackPower * 3
@@ -67,7 +67,7 @@ Charmander::Charmander()
 	PExp = 0;
 }
 
-void Charmander::sKill() {
+void Charmander::skill() {
 	std::cout << "불꽃세레" << std::endl;
 	//p_damage(임시) = p_attackPower * 3
 }
@@ -91,7 +91,7 @@ Squirtle::Squirtle()
 	PExp = 0;
 }
 
-void Squirtle::sKill() {
+void Squirtle::skill() {
 	std::cout << "물대포" << std::endl;
 	//p_damage(임시) = p_attackPower * 3
 }

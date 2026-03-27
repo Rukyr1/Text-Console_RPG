@@ -37,7 +37,7 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
 	skillPower = data.skillPower;//기술위력
 }
 
-void EnemyPokemon::sKill()
+void EnemyPokemon::skill()
 {
 	std::cout << PName << "이(가) "
 		<< skillName << " 사용! (위력: "

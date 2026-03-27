@@ -33,9 +33,9 @@ public:
 	Pokemon();
 	virtual ~Pokemon() {};
 
-	virtual void sKill();
+	virtual void skill();
 	virtual void takeDamage(int PAttackPower);
-	void printstatus();
+	void printStatus();
 	void levelUp(); 
 	void finalEvolution();  
 	void evolutionBonus(int hpBonus, int atkBonus);
@@ -45,7 +45,7 @@ class Bulbasaur : public Pokemon //이상해씨
 {
 public:
 	Bulbasaur();
-	void sKill() override;
+	void skill() override;
 	void takeDamage(int PAttackPower) override;
 };
 
@@ -54,7 +54,7 @@ class Charmander : public Pokemon //파이리
 public:
 	Charmander();
 	void takeDamage(int p_attackPower);
-	void sKill() override;
+	void skill() override;
 };
 
 class Squirtle : public Pokemon //꼬부기
@@ -62,5 +62,5 @@ class Squirtle : public Pokemon //꼬부기
 public:
 	Squirtle();
 	void takeDamage(int p_attackPower);
-	void sKill() override;
+	void skill() override;
 };
