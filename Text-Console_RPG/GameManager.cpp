@@ -106,19 +106,57 @@ void GameManager::SelectCharacter()
 
 	std::cout << MyPokemon->getName() << "로 게임을 시작합니다" << std::endl;
 	//StartBattle();
+
+
 }
 
 void GameManager::StartBattle()
 {
-	Pokemon* EnemyPokemon = new Bulbasaur();
-	//EnemyPokemon->PName = "야생의 이상해씨";
+	Pokemon* Pokemon = new Bulbasaur();
 
-	//std::cout << EnemyPokemon->PName << "가 나타났다!" << std::endl;
+	std::cout << "야생의 " << Pokemon->getName() << "가 나타났다!" << std::endl;
 
 	/*while (MyPokemon->PHp >= 0 && EnemyPokemon->PHp >= 0)
 	{
 		std::cout << "무엇을 할까?";
 	}*/
+
+	//IsBattle = true;
+	//Pokemon->PPrintStats(); 내 포켓몬 스탯(상태) 출력
+	//EnemyPokemon->PPrintStats(); 적 포켓몬 스탯(상태) 출력
+
+	while (true)
+	{
+		int AtkChoice;
+
+		std::cout << "무엇을 할까?" << std::endl;
+		std::cout << "1. 공격 2. 가방 3. 도망" << std::endl;
+		std::cin >> AtkChoice;
+
+		//IsTurnPass = false;
+
+		switch (AtkChoice)
+		{
+		case 1:
+			//std::cout << Pokemon->getName() << "의 공격!" << std::endl;
+			//MyPokemon->skill();
+			//Pokemon->takeDamage(Pokemon->takeDamage(int PAttackPower));
+
+			//에너미 포켓몬 데미지가 어쩌구~ if문~
+
+			//IsTurnPass = true;
+
+			std::cout << "이상해씨의 공격!" << std::endl;
+			break;
+
+		case 2:
+			break;
+
+		case 3:
+			break;
+
+		}
+	}
 }
 
 void GameManager::GameEnding()
@@ -127,4 +165,6 @@ void GameManager::GameEnding()
 	std::cout << "교체할 포켓몬이 없습니다...! " << std::endl;
 	std::cout << "태초마을로 돌아갑니다...!" << std::endl;
 	std::cout << "Game Over!!!" << std::endl;
+
 }
+

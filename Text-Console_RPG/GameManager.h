@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Pokemon.h"
 #include <string>
+#include "BattleManager.h"
 
 class GameManager
 {
@@ -9,7 +10,7 @@ private:
 	Player* player;
 	Pokemon* MyPokemon;
 
-	
+
 
 
 public:
