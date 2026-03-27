@@ -31,16 +31,9 @@ void Pokemon::printstatus()
 
 //이상해씨
 
-class Bulbasaur : public Pokemon {
-public:
-	Bulbasaur();
-	void takeDamage(int p_attackPower);
-	void sKill() override;
-};
-
 Bulbasaur::Bulbasaur()
 {
-	std::string PName = "이상해씨";
+	PName = "이상해씨";
 	PLevel = 5;
 	PHp = 155;
 	PAttackPower = 45;
@@ -48,12 +41,17 @@ Bulbasaur::Bulbasaur()
 	PExp = 0;
 }
 
-void Bulbasaur::sKill() {
+void Bulbasaur::sKill()
+{
 	std::cout << "덩쿨채찍!" << std::endl;
 	//p_damage(임시) = p_attackPower * 3
 }
 
-void Bulbasaur::takeDamage(int p_attackPower) {
+void Bulbasaur::takeDamage(int PAttackPower)
+{
+	PHp -= PAttackPower;
+	std::cout << PName << "가" << PAttackPower
+		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
 	//p_hp = p_hp - p_attackPower;
 }
 

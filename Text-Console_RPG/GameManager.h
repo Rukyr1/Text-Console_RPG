@@ -17,8 +17,7 @@ public:
 	~GameManager();
 	
 	void GameStart();
-
-	
+	void StartBattle();
 	
 };
 

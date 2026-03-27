@@ -31,13 +31,20 @@ protected:
 public:
 
 	Pokemon();
-	~Pokemon() {};
+	virtual ~Pokemon() {};
 
-	virtual void sKill() = 0;
-	void takeDamage(int p_attackPower);
+	virtual void sKill();
+	virtual void takeDamage(int PAttackPower);
 	void printstatus();
-
 	void levelUp(); 
 	void finalEvolution();  
 	void evolutionBonus(int hpBonus, int atkBonus);
+};
+
+class Bulbasaur : public Pokemon
+{
+public:
+	Bulbasaur();
+	void sKill() override;
+	void takeDamage(int PAttackPower) override;
 };

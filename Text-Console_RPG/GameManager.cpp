@@ -3,7 +3,7 @@
 GameManager::GameManager()
 {
 	player = new Player();
-	
+	MyPokemon = nullptr;
 
 }
 
@@ -11,7 +11,7 @@ GameManager::~GameManager()
 {
 	delete player;
 	player = nullptr;
-
+	delete MyPokemon;
 }
 
 void GameManager::GameStart()
@@ -35,7 +35,33 @@ void GameManager::GameStart()
 	std::cout << "입력: ";
 	std::cin >> Choice;
 
+	switch (Choice)
+	{
+	case 1:
+		MyPokemon = new Bulbasaur();
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	default:
+		std::cout << "잘못된 선택입니다." << std::endl;
+		break;
+	}
 
-	
+	//std::cout << MyPokemon->PName << "로 게임을 시작합니다" << std::endl;
+	//StartBattle();
+}
 
+void GameManager::StartBattle()
+{
+	Pokemon* EnemyPokemon = new Bulbasaur();
+	//EnemyPokemon->PName = "야생의 이상해씨";
+
+	//std::cout << EnemyPokemon->PName << "가 나타났다!" << std::endl;
+
+	/*while (MyPokemon->PHp >= 0 && EnemyPokemon->PHp >= 0)
+	{
+		std::cout << "무엇을 할까?";
+	}*/
 }
