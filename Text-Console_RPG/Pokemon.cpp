@@ -57,6 +57,13 @@ void Bulbasaur::takeDamage(int PAttackPower)
 
 //파이리
 
+class Charmander : public Pokemon {
+public:
+	Charmander();
+	void takeDamage(int p_attackPower);
+	void sKill() override;
+};
+
 Charmander::Charmander()
 {
 	std::string PName = "파이리";
@@ -77,6 +84,13 @@ void Charmander::takeDamage(int p_attackPower) {
 }
 
 //꼬부기
+
+class Squirtle : public Pokemon {
+public:
+	Squirtle();
+	void takeDamage(int p_attackPower);
+	void sKill() override;
+};
 
 Squirtle::Squirtle()
 {
