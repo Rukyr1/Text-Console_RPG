@@ -20,23 +20,6 @@ GameManager::~GameManager()
 
 void GameManager::GameStart()
 {
-	/*std::cout << "  ██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗ ███╗   ██╗ " << std::endl;
-	std::cout << "  ██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝████╗ ████║██╔═══██╗████╗  ██║ " << std::endl;
-	std::cout << "  ██████╔╝██║   ██║█████╔╝ █████╗  ██╔████╔██║██║   ██║██╔██╗ ██║ " << std::endl;
-	std::cout << "  ██╔═══╝ ██║   ██║██╔═██╗ ██╔══╝  ██║╚██╔╝██║██║   ██║██║╚██╗██║ " << std::endl;
-	std::cout << "  ██║     ╚██████╔╝██║  ██╗███████╗██║ ╚═╝ ██║╚██████╔╝██║ ╚████║ " << std::endl;
-	std::cout << "  ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ " << std::endl;
-	std::cout << "           ██╗    ██╗ ██████╗ ██████╗ ██╗     ██████╗ " << std::endl;
-	std::cout << "           ██║    ██║██╔═══██╗██╔══██╗██║     ██╔══██╗" << std::endl;
-	std::cout << "           ██║ █╗ ██║██║   ██║██████╔╝██║     ██║  ██║" << std::endl;
-	std::cout << "           ██║███╗██║██║   ██║██╔══██╗██║     ██║  ██║" << std::endl;
-	std::cout << "           ╚███╔███╔╝╚██████╔╝██║  ██║███████╗██████╔╝" << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << "                       아무 키나 입력하세요";*/
-
-
 	std::cout << "╔═══════════════════════════════════════════════════════════════════════╗" << std::endl;
 	std::cout << "║                                                                       ║" << std::endl;
 	std::cout << "║    ██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗ ███╗   ██╗    ║" << std::endl;
@@ -59,7 +42,6 @@ void GameManager::GameStart()
 	std::cout << std::endl;
 	std::cout << "                          아무 키나 입력하세요";
 
-
 	_getch(); // 키 입력
 	system("cls"); // 클리어 시스템
 
@@ -76,10 +58,6 @@ void GameManager::SelectPokemon()
 	
 	std::cout << "안녕하세요. " << PlayerName << "님!" << std::endl;
 
-	player = new Player();
-
-	//MyPokemon* starter = selectStarterPokemon();
-	
 	int Choice = 0;
 	
 	std::cout << "스타팅 포켓몬을 선택하세요~" << std::endl;
@@ -134,48 +112,48 @@ void GameManager::StartBattle()
 		break;
 	}
 	
-
 	std::cout << "야생의 " << EnemyPokemon->getName() << "가 나타났다!" << std::endl;
-
-	/*while (MyPokemon->PHp >= 0 && EnemyPokemon->PHp >= 0)
-	{
-		std::cout << "무엇을 할까?";
-	}*/
-
-	//IsBattle = true;
-	//Pokemon->PPrintStats(); 내 포켓몬 스탯(상태) 출력
-	//EnemyPokemon->PPrintStats(); 적 포켓몬 스탯(상태) 출력
+	std::cout << "가랏! " << MyPokemon->getName() << "!!" << std::endl;
 
 	while (true)
 	{
-		int AtkChoice;
+		int PlayerChoice;
 
 		std::cout << "무엇을 할까?" << std::endl;
 		std::cout << "1. 공격 2. 가방 3. 도망" << std::endl;
-		std::cin >> AtkChoice;
+		std::cin >> PlayerChoice;
 
-		//IsTurnPass = false;
-
-		switch (AtkChoice)
+		switch (PlayerChoice)
 		{
 		case 1:
-			//std::cout << Pokemon->getName() << "의 공격!" << std::endl;
-			//MyPokemon->skill();
-			//Pokemon->takeDamage(Pokemon->takeDamage(int PAttackPower));
+			std::cout << MyPokemon->getName() <<"의 공격!" << std::endl;
+			MyPokemon->skill();
+			EnemyPokemon->takeDamage(MyPokemon->getAttack());
 
-			//에너미 포켓몬 데미지가 어쩌구~ if문~
+			if (EnemyPokemon->getHp() <= 0)
+			{
+				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
+				return;
+			}
+			// 적 공격
+			EnemyPokemon->skill();
+			MyPokemon->takeDamage(EnemyPokemon->getAttack());
 
-			//IsTurnPass = true;
-
-			std::cout << "이상해씨의 공격!" << std::endl;
+			if (MyPokemon->getHp() <= 0)
+			{
+				GameEnding();
+				return;
+			}
 			break;
-
 		case 2:
+			std::cout << "가방 목록" << std::endl;
 			break;
-
 		case 3:
-			break;
-
+			std::cout << "무사히 도망쳤다!" << std::endl;
+			return;
+		case 4:
+			GameEnding();
+			return;
 		}
 	}
 }

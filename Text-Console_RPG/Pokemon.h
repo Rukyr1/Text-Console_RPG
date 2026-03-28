@@ -41,6 +41,8 @@ public:
 	void evolutionBonus(int hpBonus, int atkBonus);
 
 	std::string getName() { return PName; }
+	int getAttack() { return PAttackPower; }
+	int getHp() { return PHp; }
 };
 
 class Bulbasaur : public Pokemon //이상해씨
