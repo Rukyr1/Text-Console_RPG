@@ -43,6 +43,7 @@ public:
 	std::string getName() { return PName; }
 	int getAttack() { return PAttackPower; }
 	int getHp() { return PCurrentHp; }
+	void setHP(int NewHp) { PCurrentHp = NewHp; }
 };
 
 class Bulbasaur : public Pokemon //이상해씨

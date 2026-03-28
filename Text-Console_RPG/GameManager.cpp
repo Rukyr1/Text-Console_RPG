@@ -155,9 +155,28 @@ void GameManager::SelectPokemon()
 		break;
 	}
 
+
+
 	std::string s = MyPokemon->getName() + "로 게임을 시작합니다";
 	typeWrite(s);
 	Sleep(1000);
+
+
+	std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템
+	inventory.Additem(Item("상처약", 50, 10)); //임시 아이템 인벤토리에 추가
+	inventory.Additem(Item("상처약", 50, 10));
+	inventory.Additem(Item("상처약", 50, 10));
+	inventory.Additem(Item("상처약", 50, 10));
+	inventory.Additem(Item("상처약", 50, 10));
+	inventory.Additem(Item("좋은 상처약", 80, 30));
+	inventory.Additem(Item("좋은 상처약", 80, 30));
+	inventory.Additem(Item("좋은 상처약", 80, 30));
+	inventory.Additem(Item("좋은 상처약", 80, 30));
+	inventory.Additem(Item("좋은 상처약", 80, 30));
+
+
+	std::cout << MyPokemon->getName() << "로 게임을 시작합니다" << std::endl;
+
 	StartBattle();
 }
 
@@ -275,18 +294,22 @@ void GameManager::StartBattle()
 			
 			int BagChoice;
 
-			std::cout << "1. 아이템 사용하기" << std::endl << "2. 인벤토리 나가기!" << std::endl;
-
+			std::cout << "4. 인벤토리 나가기!" << std::endl;
+		
 
 			std::cout << "입력 하세요: ";
 			std::cin >> BagChoice;
 
 			if (BagChoice == 1)
 			{
+
+				inventory.UseItem(1); //아이템 사용
+				int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
+				MyPokemon->setHP(NewHp); //체력 설정
 				std::cout << "아이템을 사용했습니다!" << std::endl;
 				break;
 			}
-			else if (BagChoice == 2)
+			else if (BagChoice == 4)
 			{
 				std::cout << "인벤토리를 나갑니다!" << std::endl;
 				IsOpenBag = false;
