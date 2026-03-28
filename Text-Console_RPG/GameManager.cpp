@@ -189,30 +189,33 @@ void GameManager::StartBattle()
 {
 	system("cls");
 
+	int cursor = 1;
+	int key = 0;
+
 #pragma region 전투 UI
-	//std::cout << "┌──────────────────────────────────────────────────────────────┐\n";
-	//std::cout << "│                                                              │\n";
-	//std::cout << "│  ┌──────────────────────────────┐                            │\n";
-	//std::cout << "│  │ 꼬렛                   L13   │                            │\n";
-	//std::cout << "│  │      HP: ██████████░░░░░░░░  │                            │\n";
-	//std::cout << "│  └──────────────────────────────┘                            │\n";
-	//std::cout << "│                                            /\\                │\n";
-	//std::cout << "│                                           /  \\               │\n";
-	//std::cout << "│                                          ( 적포켓몬 )        │\n";
-	//std::cout << "│                                           \\__/               │\n";
-	//std::cout << "│                                                              │\n";
-	//std::cout << "│                                                              │\n";
-	//std::cout << "│        /\\                                                    │\n";
-	//std::cout << "│       /  \\                                                   │\n";
-	//std::cout << "│      ( 내포켓몬 )                                            │\n";
-	//std::cout << "│       \\__/                 ┌──────────────────────────────┐  │\n";
-	//std::cout << "│                            │ "<< MyPokemon->getName() <<"                 L14 │  │\n";
-	//std::cout << "│                            │      HP: ██████████░░░░░░░░  │  │\n";
-	//std::cout << "│                            └──────────────────────────────┘  │\n";
-	//std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
-	//std::cout << "│  무엇을 할까?                        │ 싸운다      가방      │\n";
-	//std::cout << "│                                      │ 포켓몬       도망     │\n";
-	//std::cout << "└──────────────────────────────────────┴───────────────────────┘\n";
+	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+	std::cout << "┃                                                              ┃\n";
+	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
+	std::cout << "┃  │ 꼬렛                   L13   │                            ┃\n";
+	std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
+	std::cout << "┃  └──────────────────────────────┘                            ┃\n";
+	std::cout << "┃                                            /\\                ┃\n";
+	std::cout << "┃                                           /  \\               ┃\n";
+	std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
+	std::cout << "┃                                           \\__/               ┃\n";
+	std::cout << "┃                                                              ┃\n";
+	std::cout << "┃                                                              ┃\n";
+	std::cout << "┃        /\\                                                    ┃\n";
+	std::cout << "┃       /  \\                                                   ┃\n";
+	std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
+	std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
+	std::cout << "┃                            │ "<< MyPokemon->getName() <<"                 L14 │  ┃\n";
+	std::cout << "┃                            │      HP: ██████████░░░░░░░░  │  ┃\n";
+	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
+	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
+	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
+	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 #pragma endregion
 
 	EnemyPokemon = nullptr;
@@ -272,7 +275,26 @@ void GameManager::StartBattle()
 				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
-				MyPokemon->levelUp();
+
+				if (MyPokemon->getPExp() < MyPokemon->getPMaxExp())
+				{
+					int NewExp = MyPokemon->getPExp() + 50;
+					MyPokemon->setPExp(NewExp);
+					std::cout << "경험치 50을 획득했습니다!" << std::endl;
+					if (MyPokemon->getPExp() >= MyPokemon->getPMaxExp())
+					{
+						int NewExp = MyPokemon->getPExp() - 100;
+						MyPokemon->setPExp(NewExp);
+						MyPokemon->levelUp();
+						IsBattle = false;
+						GameLoop();
+						break;
+					}
+					IsBattle = false;
+					GameLoop();
+					break;
+				}
+
 				IsBattle = false;
 				GameLoop();
 				break;
@@ -283,6 +305,7 @@ void GameManager::StartBattle()
 
 			if (MyPokemon->getHp() <= 0)
 			{
+				IsBattle = false;
 				GameEnding();
 				return;
 			}
@@ -302,11 +325,19 @@ void GameManager::StartBattle()
 
 			if (BagChoice == 1)
 			{
-
-				inventory.UseItem(1); //아이템 사용
-				int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
-				MyPokemon->setHP(NewHp); //체력 설정
-				std::cout << "아이템을 사용했습니다!" << std::endl;
+				if (MyPokemon->getHp() < MyPokemon->getPMaxHp())
+				{
+					inventory.UseItem(1); //아이템 사용
+					int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
+					MyPokemon->setHP(NewHp); //체력 설정
+					std::cout << "아이템을 사용했습니다!" << std::endl;
+					break;
+				}
+				else
+				{
+					std::cout << "체력이 가득 차 있어 아이템 사용이 불가합니다." << std::endl;
+					break;
+				}
 				break;
 			}
 			else if (BagChoice == 4)
@@ -357,7 +388,7 @@ void GameManager::GameLoop()
 			break;
 		case 3:
 			std::cout << "게임을 종료합니다." << std::endl;
-			return;
+			exit(0);
 		default:
 			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 			break;

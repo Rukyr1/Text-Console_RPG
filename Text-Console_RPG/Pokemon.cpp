@@ -22,7 +22,7 @@ void Pokemon::printStatus()
 	std::cout << "공격력: " << PAttackPower << std::endl;
 	std::cout << "현재 경험치: " << PExp << std::endl;
 	std::cout << "------------------------------------" << std::endl;
-};
+}
 
 //이상해씨
 
