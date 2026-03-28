@@ -9,7 +9,7 @@ private:
 	Player* player;
 	Pokemon* MyPokemon;
 	Pokemon* EnemyPokemon;
-
+	Inventory<Item> inventory;
 
 
 

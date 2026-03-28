@@ -18,6 +18,7 @@ private:
 	bool IsEscape; //탈출 성공 여부
 	int AtkChoice; //전투 중 선택지
 	int BagChoice; //전투 중 가방 선택지
+	bool IsOpenBag;
 	
 };
 

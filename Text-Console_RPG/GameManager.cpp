@@ -141,6 +141,7 @@ void GameManager::StartBattle()
 	}
 	
 	bool IsBattle = true;
+	bool IsOpenBag = true;
 
 	std::cout << "야생의 " << EnemyPokemon->getName() << "가 나타났다!" << std::endl;
 	std::cout << "가랏! " << MyPokemon->getName() << "!!" << std::endl;
@@ -181,7 +182,29 @@ void GameManager::StartBattle()
 			}
 			break;
 		case 2:
+			IsOpenBag = true;
 			std::cout << "가방 목록" << std::endl;
+			inventory.Printallitems();
+			
+			int BagChoice;
+
+			std::cout << "1. 아이템 사용하기" << std::endl << "2. 인벤토리 나가기!" << std::endl;
+
+
+			std::cout << "입력 하세요: ";
+			std::cin >> BagChoice;
+
+			if (BagChoice == 1)
+			{
+				std::cout << "아이템을 사용했습니다!" << std::endl;
+				break;
+			}
+			else if (BagChoice == 2)
+			{
+				std::cout << "인벤토리를 나갑니다!" << std::endl;
+				IsOpenBag = false;
+				break;
+			}
 			break;
 		case 3:
 			MyPokemon->printStatus();
