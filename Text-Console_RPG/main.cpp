@@ -5,7 +5,7 @@
 int main()
 {
 	GameManager Stage;
-	Pokemon Stat;
+	//Pokemon Stat;
 	Stage.GameStart();
 
 	//	Stage.GameEnding()

@@ -93,10 +93,11 @@ void GameManager::StartBattle()
 {
 	system("cls");
 
-	std::cout << "┌──────────────────────────────────────────────────────────────┐\n";
+#pragma region 전투 UI
+	/*std::cout << "┌──────────────────────────────────────────────────────────────┐\n";
 	std::cout << "│                                                              │\n";
 	std::cout << "│  ┌──────────────────────────────┐                            │\n";
-	std::cout << "│  │ 꼬렛                   L13    │                            │\n";
+	std::cout << "│  │ 꼬렛                   L13   │                            │\n";
 	std::cout << "│  │      HP: ██████████░░░░░░░░  │                            │\n";
 	std::cout << "│  └──────────────────────────────┘                            │\n";
 	std::cout << "│                                            /\\                │\n";
@@ -109,14 +110,14 @@ void GameManager::StartBattle()
 	std::cout << "│       /  \\                                                   │\n";
 	std::cout << "│      ( 내포켓몬 )                                            │\n";
 	std::cout << "│       \\__/                 ┌──────────────────────────────┐  │\n";
-	std::cout << "│                            │ "<< MyPokemon->getName() <<"            L14 │  │\n";
+	std::cout << "│                            │ "<< MyPokemon->getName() <<"                 L14 │  │\n";
 	std::cout << "│                            │      HP: ██████████░░░░░░░░  │  │\n";
 	std::cout << "│                            └──────────────────────────────┘  │\n";
 	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
 	std::cout << "│  무엇을 할까?                        │ 싸운다      가방      │\n";
 	std::cout << "│                                      │ 포켓몬       도망     │\n";
-	std::cout << "└──────────────────────────────────────┴───────────────────────┘\n";
-
+	std::cout << "└──────────────────────────────────────┴───────────────────────┘\n";*/
+#pragma endregion
 
 	EnemyPokemon = nullptr;
 
@@ -147,7 +148,7 @@ void GameManager::StartBattle()
 		int PlayerChoice;
 
 		std::cout << "무엇을 할까?" << std::endl;
-		std::cout << "1. 공격 2. 가방 3. 도망" << std::endl;
+		std::cout << "1.공격 2.가방 3.스탯 4.도망" << std::endl;
 		std::cin >> PlayerChoice;
 
 		switch (PlayerChoice)
@@ -160,6 +161,9 @@ void GameManager::StartBattle()
 			if (EnemyPokemon->getHp() <= 0)
 			{
 				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
+				delete EnemyPokemon;
+
+				MyPokemon->levelUp();
 				return;
 			}
 			// 적 공격
@@ -176,9 +180,12 @@ void GameManager::StartBattle()
 			std::cout << "가방 목록" << std::endl;
 			break;
 		case 3:
+			MyPokemon->printStatus();
+			break;
+		case 4:
 			std::cout << "무사히 도망쳤다!" << std::endl;
 			return;
-		case 4:
+		case 5:
 			GameEnding();
 			return;
 		}

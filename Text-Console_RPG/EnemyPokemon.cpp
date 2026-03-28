@@ -29,7 +29,7 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
 	PLevel = data.level;//선택된 포켓몬의 레벨을 입력
 
 	// 랜덤 능력치
-	PHp = PLevel * (rand() % 11 + 20); //체력을 20부터 30사이의 값을 구해 레벨과 곱하여 정함
+	PMaxHp = PLevel * (rand() % 11 + 20); //체력을 20부터 30사이의 값을 구해 레벨과 곱하여 정함
 	PAttackPower = PLevel * (rand() % 6 + 5);//공격력을 5부터 10사이의 값을 구해 레벨과 곱하여 정함
 
 	// 기술 정보 저장 (멤버 변수 필요)

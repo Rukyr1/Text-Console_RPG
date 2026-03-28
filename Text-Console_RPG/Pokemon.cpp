@@ -12,11 +12,6 @@ void Pokemon::skill()
 
 }
 
-void Pokemon::takeDamage(int p_attackPower)
-{
-	std::cout << PName << " 가 대미지를 입었다!" << std::endl;
-}
-
 void Pokemon::printStatus()
 {
 	std::cout << "------------------------------------" << std::endl;
@@ -35,7 +30,8 @@ Bulbasaur::Bulbasaur()
 {
 	PName = "이상해씨";
 	PLevel = 5;
-	PHp = 155;
+	PMaxHp = 155;
+	PCurrentHp = PMaxHp;
 	PAttackPower = 45;
 	//p_def = 8
 	PExp = 0;
@@ -47,21 +43,14 @@ void Bulbasaur::skill()
 	//p_damage(임시) = p_attackPower * 3
 }
 
-void Bulbasaur::takeDamage(int PAttackPower)
-{
-	PHp -= PAttackPower;
-	std::cout << PName << "가" << PAttackPower
-		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
-	//p_hp = p_hp - p_attackPower;
-}
 
 //파이리
-
 Charmander::Charmander()
 {
 	PName = "파이리";
 	PLevel = 5;
-	PHp = 145;
+	PMaxHp = 145;
+	PCurrentHp = PMaxHp;
 	PAttackPower = 55;
 	//p_def = 5
 	PExp = 0;
@@ -72,20 +61,14 @@ void Charmander::skill() {
 	//p_damage(임시) = p_attackPower * 3
 }
 
-void Charmander::takeDamage(int PAttackPower) {
-	PHp -= PAttackPower;
-	std::cout << PName << "가" << PAttackPower
-		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
-	//p_hp = p_hp - p_attackPower;
-}
-
 //꼬부기
 
 Squirtle::Squirtle()
 {
 	PName = "꼬부기";
 	PLevel = 5;
-	PHp = 150;
+	PMaxHp = 150;
+	PCurrentHp = PMaxHp;
 	PAttackPower = 50;
 	//p_def = 10
 	PExp = 0;
@@ -96,13 +79,19 @@ void Squirtle::skill() {
 	//p_damage(임시) = p_attackPower * 3
 }
 
-void Squirtle::takeDamage(int PAttackPower) {
-	PHp -= PAttackPower;
-	std::cout << PName << "가" << PAttackPower
-		<< "의 데미지를 입었다!" << "[남은 HP: " << PHp << "]" << std::endl;
-	//p_hp = p_hp - p_attackPower;
+void Pokemon::takeDamage(int PAttackPower)
+{
+	PCurrentHp -= PAttackPower;
 
+	if (PCurrentHp < 0)
+	{
+		PCurrentHp = 0;
+	}
+
+	std::cout << PName << "가" << PAttackPower
+		<< "의 데미지를 입었다!" << "[남은 HP: " << PCurrentHp << "]" << std::endl;
 }
+
 
 void Pokemon::levelUp()
 {
