@@ -20,5 +20,6 @@ public:
 	void GameStart();
 	void SelectPokemon();
 	void StartBattle();
+	void GameLoop();
 	void GameEnding();
 };

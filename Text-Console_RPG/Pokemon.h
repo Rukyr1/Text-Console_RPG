@@ -36,6 +36,7 @@ public:
 	virtual void takeDamage(int PAttackPower);
 	void printStatus();
 	void levelUp(); 
+	void recoveryHp();
 	void finalEvolution();  
 	void evolutionBonus(int hpBonus, int atkBonus);
 

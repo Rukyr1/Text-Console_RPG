@@ -124,6 +124,12 @@ void Pokemon::levelUp()
 	}
 }
 
+void Pokemon::recoveryHp()
+{
+	PCurrentHp = PMaxHp;
+	std::cout << PName << "의 Hp가 " << PMaxHp << "로 회복되었습니다." << std::endl;
+}
+
 //진화 보너스
 void Pokemon::evolutionBonus(int hpBonus, int atkBonus) {
 	PMaxHp += hpBonus;

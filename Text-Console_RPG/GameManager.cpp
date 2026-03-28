@@ -162,9 +162,10 @@ void GameManager::StartBattle()
 			{
 				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 				delete EnemyPokemon;
-
+				EnemyPokemon = nullptr;
 				MyPokemon->levelUp();
-				return;
+				GameLoop();
+				break;
 			}
 			// 적 공격
 			EnemyPokemon->skill();
@@ -184,15 +185,48 @@ void GameManager::StartBattle()
 			break;
 		case 4:
 			std::cout << "무사히 도망쳤다!" << std::endl;
-			return;
+			delete EnemyPokemon;
+			EnemyPokemon = nullptr;
+			GameLoop();
+			break;
 		case 5:
 			GameEnding();
 			return;
+		default:
+			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 		}
 	}
 }
 
+void GameManager::GameLoop()
+{
+	while (true)
+	{
+		int choice;
+		std::cout << "<< [마을] 무엇을 할까? >> " << std::endl;
+		std::cout << "1. 풀숲으로 간다(전투)" << std::endl;
+		std::cout << "2. 휴식(휴식)" << std::endl;
+		std::cout << "3. 종료" << std::endl;
+		std::cin >> choice;
 
+		switch (choice)
+		{
+		case 1:
+			StartBattle();
+			break;
+		case 2:
+			MyPokemon->recoveryHp();
+			std::cout << MyPokemon->getName() << "체력을 모두 회복했습니다." << std::endl;
+			break;
+		case 3:
+			std::cout << "게임을 종료합니다." << std::endl;
+			return;
+		default:
+			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
+			break;
+		}
+	}
+}
 
 void GameManager::GameEnding()
 {
