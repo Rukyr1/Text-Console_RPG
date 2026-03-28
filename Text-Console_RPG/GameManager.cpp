@@ -2,6 +2,7 @@
 #include <conio.h> // _getch() 
 #include <cstdlib> // system()
 #include <Windows.h>
+#include <random>
 
 GameManager::GameManager()
 {
@@ -62,12 +63,12 @@ void GameManager::GameStart()
 	_getch(); // 키 입력
 	system("cls"); // 클리어 시스템
 
-	SelectCharacter();
+	SelectPokemon();
 
 	return;
 }
 
-void GameManager::SelectCharacter()
+void GameManager::SelectPokemon()
 {
 	std::string PlayerName;
 	std::cout << "이름 입력하세요: ";
@@ -105,16 +106,36 @@ void GameManager::SelectCharacter()
 	}
 
 	std::cout << MyPokemon->getName() << "로 게임을 시작합니다" << std::endl;
-	//StartBattle();
+	StartBattle();
 
 
 }
 
 void GameManager::StartBattle()
 {
-	Pokemon* Pokemon = new Bulbasaur();
+	EnemyPokemon = nullptr;
 
-	std::cout << "야생의 " << Pokemon->getName() << "가 나타났다!" << std::endl;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(1, 3);
+
+	int RandomNumber = dist(gen);
+	
+	switch (RandomNumber)
+	{
+	case 1:
+		EnemyPokemon = new Bulbasaur(); // 이상해씨
+		break;
+	case 2:
+		EnemyPokemon = new Charmander(); // 파이리
+		break;
+	case 3:
+		EnemyPokemon = new Squirtle(); // 꼬부기
+		break;
+	}
+	
+
+	std::cout << "야생의 " << EnemyPokemon->getName() << "가 나타났다!" << std::endl;
 
 	/*while (MyPokemon->PHp >= 0 && EnemyPokemon->PHp >= 0)
 	{
@@ -158,6 +179,8 @@ void GameManager::StartBattle()
 		}
 	}
 }
+
+
 
 void GameManager::GameEnding()
 {

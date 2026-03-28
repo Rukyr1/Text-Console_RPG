@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
 #include "Pokemon.h"
-#include "EnemyPokemon.h"
 #include "Inventory.h"
 
 

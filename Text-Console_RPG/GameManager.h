@@ -1,6 +1,5 @@
 #pragma once
 #include "Player.h"
-#include "Pokemon.h"
 #include <string>
 #include "BattleManager.h"
 
@@ -9,6 +8,7 @@ class GameManager
 private:
 	Player* player;
 	Pokemon* MyPokemon;
+	Pokemon* EnemyPokemon;
 
 
 
@@ -18,7 +18,7 @@ public:
 	~GameManager();
 	
 	void GameStart();
-	void SelectCharacter();
+	void SelectPokemon();
 	void StartBattle();
 	void GameEnding();
 };
