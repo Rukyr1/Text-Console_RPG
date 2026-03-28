@@ -50,24 +50,99 @@ void GameManager::GameStart()
 	return;
 }
 
+// 커서 (0,0) 조정
+void gotoxy(int x, int y)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD pos = { (SHORT)x, (SHORT)y };
+	SetConsoleCursorPosition(hConsole, pos);
+}
+// 텍스트 한글자씩
+void typeWrite(const std::string& text)
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(20); // 속도 조절 (밀리초)
+	}
+	std::cout << std::endl;
+}
+// 색상 변경 함수
+void setColor(int color) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
 void GameManager::SelectPokemon()
 {
 	std::string PlayerName;
 	std::cout << "이름 입력하세요: ";
 	std::cin >> PlayerName;
-	
+
 	std::cout << "안녕하세요. " << PlayerName << "님!" << std::endl;
+	Sleep(1000);
 
-	int Choice = 0;
-	
-	std::cout << "스타팅 포켓몬을 선택하세요~" << std::endl;
-	std::cout << "1. 이상해씨" << std::endl;
-	std::cout << "2. 파이리" << std::endl;
-	std::cout << "3. 꼬부기" << std::endl;
-	std::cout << "입력: ";
-	std::cin >> Choice;
+	int cursor = 1;
+	int key = 0;
 
-	switch (Choice)
+	// --- 커서 선택 루프 시작 ---
+	while (true)
+	{
+		gotoxy(0, 0);
+
+		std::cout << "안녕하세요. " << PlayerName << "님!                      " << std::endl;
+		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << std::endl;
+		std::cout << "┃                                                       ┃" << std::endl;
+		std::cout << "┃           [ 스타팅 포켓몬을 선택하세요! ]             ┃" << std::endl;
+		std::cout << "┃                                                       ┃" << std::endl;
+		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫" << std::endl;
+		std::cout << "┃                                                       ┃" << std::endl;
+		std::cout << "┃                                                       ┃" << std::endl;
+		std::cout << "┃      ";
+		// --- 1. 이상해씨 (선택 시 초록색: 10) ---
+		if (cursor == 1) setColor(10);
+		std::cout << "  1. 이상해씨   ";
+		setColor(7); // 다시 흰색으로 복구
+
+		// --- 2. 파이리 (선택 시 빨간색: 12) ---
+		if (cursor == 2) setColor(12);
+		std::cout << "  2. 파이리   ";
+		setColor(7);
+
+		// --- 3. 꼬부기 (선택 시 하늘색: 11) ---
+		if (cursor == 3) setColor(11);
+		std::cout << "  3. 꼬부기    ";
+		setColor(7);
+
+		std::cout << "    ┃" << std::endl;
+		std::cout << "┃                                                       ┃" << std::endl;
+		std::cout << "┃                                                       ┃" << std::endl;
+		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" << std::endl;
+		std::cout << " (방향키 ◀ ▶ 이동 / Enter 선택)          " << std::endl;
+
+		key = _getch(); // 키보드 입력 받기
+
+		if (key == 224) // 방향키 특수 값
+		{
+			key = _getch();
+			if (key == 75) // 왼쪽 방향키
+			{
+				if (cursor > 1) cursor--;
+			}
+			else if (key == 77) // 오른쪽 방향키
+			{
+				if (cursor < 3) cursor++;
+			}
+		}
+		else if (key == 13) // Enter 키
+		{
+			break; // 루프 탈출
+		}
+	}
+	// --- 커서 선택 루프 종료 ---
+
+	// 선택된 cursor 값에 따라 객체 생성
+	switch (cursor)
 	{
 	case 1:
 		MyPokemon = new Bulbasaur(); // 이상해씨
@@ -78,45 +153,47 @@ void GameManager::SelectPokemon()
 	case 3:
 		MyPokemon = new Squirtle(); // 꼬부기
 		break;
-	default:
-		std::cout << "잘못된 선택입니다." << std::endl;
-		break;
 	}
 
-	std::cout << MyPokemon->getName() << "로 게임을 시작합니다" << std::endl;
+	std::string s = MyPokemon->getName() + "로 게임을 시작합니다";
+	typeWrite(s);
+	Sleep(1000);
 	StartBattle();
-
-
 }
+
+//void SetColor(int Color)
+//{
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), Color);
+//}
 
 void GameManager::StartBattle()
 {
 	system("cls");
 
 #pragma region 전투 UI
-	/*std::cout << "┌──────────────────────────────────────────────────────────────┐\n";
-	std::cout << "│                                                              │\n";
-	std::cout << "│  ┌──────────────────────────────┐                            │\n";
-	std::cout << "│  │ 꼬렛                   L13   │                            │\n";
-	std::cout << "│  │      HP: ██████████░░░░░░░░  │                            │\n";
-	std::cout << "│  └──────────────────────────────┘                            │\n";
-	std::cout << "│                                            /\\                │\n";
-	std::cout << "│                                           /  \\               │\n";
-	std::cout << "│                                          ( 적포켓몬 )        │\n";
-	std::cout << "│                                           \\__/               │\n";
-	std::cout << "│                                                              │\n";
-	std::cout << "│                                                              │\n";
-	std::cout << "│        /\\                                                    │\n";
-	std::cout << "│       /  \\                                                   │\n";
-	std::cout << "│      ( 내포켓몬 )                                            │\n";
-	std::cout << "│       \\__/                 ┌──────────────────────────────┐  │\n";
-	std::cout << "│                            │ "<< MyPokemon->getName() <<"                 L14 │  │\n";
-	std::cout << "│                            │      HP: ██████████░░░░░░░░  │  │\n";
-	std::cout << "│                            └──────────────────────────────┘  │\n";
-	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
-	std::cout << "│  무엇을 할까?                        │ 싸운다      가방      │\n";
-	std::cout << "│                                      │ 포켓몬       도망     │\n";
-	std::cout << "└──────────────────────────────────────┴───────────────────────┘\n";*/
+	//std::cout << "┌──────────────────────────────────────────────────────────────┐\n";
+	//std::cout << "│                                                              │\n";
+	//std::cout << "│  ┌──────────────────────────────┐                            │\n";
+	//std::cout << "│  │ 꼬렛                   L13   │                            │\n";
+	//std::cout << "│  │      HP: ██████████░░░░░░░░  │                            │\n";
+	//std::cout << "│  └──────────────────────────────┘                            │\n";
+	//std::cout << "│                                            /\\                │\n";
+	//std::cout << "│                                           /  \\               │\n";
+	//std::cout << "│                                          ( 적포켓몬 )        │\n";
+	//std::cout << "│                                           \\__/               │\n";
+	//std::cout << "│                                                              │\n";
+	//std::cout << "│                                                              │\n";
+	//std::cout << "│        /\\                                                    │\n";
+	//std::cout << "│       /  \\                                                   │\n";
+	//std::cout << "│      ( 내포켓몬 )                                            │\n";
+	//std::cout << "│       \\__/                 ┌──────────────────────────────┐  │\n";
+	//std::cout << "│                            │ "<< MyPokemon->getName() <<"                 L14 │  │\n";
+	//std::cout << "│                            │      HP: ██████████░░░░░░░░  │  │\n";
+	//std::cout << "│                            └──────────────────────────────┘  │\n";
+	//std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+	//std::cout << "│  무엇을 할까?                        │ 싸운다      가방      │\n";
+	//std::cout << "│                                      │ 포켓몬       도망     │\n";
+	//std::cout << "└──────────────────────────────────────┴───────────────────────┘\n";
 #pragma endregion
 
 	EnemyPokemon = nullptr;
@@ -143,8 +220,18 @@ void GameManager::StartBattle()
 	bool IsBattle = true;
 	bool IsOpenBag = true;
 
-	std::cout << "야생의 " << EnemyPokemon->getName() << "가 나타났다!" << std::endl;
-	std::cout << "가랏! " << MyPokemon->getName() << "!!" << std::endl;
+	std::string s = "야생의 " + EnemyPokemon->getName() + "가 나타났다!";
+	typeWrite(s);
+	Sleep(500);
+
+	std::cout << std::endl;
+
+	std::string s2 = "가랏! " + MyPokemon->getName() + "!!";
+	typeWrite(s2);
+	Sleep(500);
+
+	std::cout << std::endl;
+
 
 	while (IsBattle)
 	{
@@ -213,6 +300,7 @@ void GameManager::StartBattle()
 			std::cout << "무사히 도망쳤다!" << std::endl;
 			delete EnemyPokemon;
 			EnemyPokemon = nullptr;
+			IsBattle = false;
 			GameLoop();
 			break;
 		case 5:
