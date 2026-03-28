@@ -140,10 +140,12 @@ void GameManager::StartBattle()
 		break;
 	}
 	
+	bool IsBattle = true;
+
 	std::cout << "야생의 " << EnemyPokemon->getName() << "가 나타났다!" << std::endl;
 	std::cout << "가랏! " << MyPokemon->getName() << "!!" << std::endl;
 
-	while (true)
+	while (IsBattle)
 	{
 		int PlayerChoice;
 
@@ -164,6 +166,7 @@ void GameManager::StartBattle()
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
 				MyPokemon->levelUp();
+				IsBattle = false;
 				GameLoop();
 				break;
 			}
