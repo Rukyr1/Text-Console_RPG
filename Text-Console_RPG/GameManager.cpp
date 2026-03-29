@@ -3,6 +3,7 @@
 #include <cstdlib> // system()
 #include <Windows.h>
 #include <random>
+#pragma comment(lib, "WinMM.lib") // PlaySound()
 
 GameManager::GameManager()
 {
@@ -20,6 +21,10 @@ GameManager::~GameManager()
 
 void GameManager::GameStart()
 {
+	// SND_ANYNC: 음악 재생 중에도 다음 코드 실행
+	// SND_LOOP: 무한 반복
+	PlaySound(TEXT("music/1-01.-Opening.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
 	std::cout << "╔═══════════════════════════════════════════════════════════════════════╗" << std::endl;
 	std::cout << "║                                                                       ║" << std::endl;
 	std::cout << "║    ██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗ ███╗   ██╗    ║" << std::endl;
@@ -43,7 +48,14 @@ void GameManager::GameStart()
 	std::cout << "                          아무 키나 입력하세요";
 
 	_getch(); // 키 입력
+
+	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	
+	Sleep(500);
+
 	system("cls"); // 클리어 시스템
+
+	PlaySound(NULL, 0, 0);
 
 	SelectPokemon();
 
@@ -64,7 +76,7 @@ void typeWrite(const std::string& text)
 	{
 		std::cout << c;
 		std::cout.flush();
-		Sleep(20); // 속도 조절 (밀리초)
+		Sleep(10); // 속도 조절 (밀리초)
 	}
 	std::cout << std::endl;
 }
@@ -180,11 +192,6 @@ void GameManager::SelectPokemon()
 	StartBattle();
 }
 
-//void SetColor(int Color)
-//{
-//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), Color);
-//}
-
 void GameManager::StartBattle()
 {
 	system("cls");
@@ -192,40 +199,12 @@ void GameManager::StartBattle()
 	int cursor = 1;
 	int key = 0;
 
-#pragma region 전투 UI
-	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-	std::cout << "┃                                                              ┃\n";
-	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-	std::cout << "┃  │ 꼬렛                   L13   │                            ┃\n";
-	std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
-	std::cout << "┃  └──────────────────────────────┘                            ┃\n";
-	std::cout << "┃                                            /\\                ┃\n";
-	std::cout << "┃                                           /  \\               ┃\n";
-	std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
-	std::cout << "┃                                           \\__/               ┃\n";
-	std::cout << "┃                                                              ┃\n";
-	std::cout << "┃                                                              ┃\n";
-	std::cout << "┃        /\\                                                    ┃\n";
-	std::cout << "┃       /  \\                                                   ┃\n";
-	std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
-	std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
-	std::cout << "┃                            │ "<< MyPokemon->getName() <<"                 L14 │  ┃\n";
-	std::cout << "┃                            │      HP: ██████████░░░░░░░░  │  ┃\n";
-	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
-	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
-	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
-	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
-	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
-#pragma endregion
-
-	EnemyPokemon = nullptr;
-
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dist(1, 3);
 
 	int RandomNumber = dist(gen);
-	
+
 	switch (RandomNumber)
 	{
 	case 1:
@@ -238,6 +217,32 @@ void GameManager::StartBattle()
 		EnemyPokemon = new Squirtle(); // 꼬부기
 		break;
 	}
+
+#pragma region 전투 UI
+	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+	std::cout << "┃                                                              ┃\n";
+	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
+	std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13              │                            ┃\n";
+	std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
+	std::cout << "┃  └──────────────────────────────┘                            ┃\n";
+	std::cout << "┃                                            /\\                ┃\n";
+	std::cout << "┃                                           /  \\               ┃\n";
+	std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
+	std::cout << "┃                                           \\__/               ┃\n";
+	std::cout << "┃                                                              ┃\n";
+	std::cout << "┃                                                              ┃\n";
+	std::cout << "┃        /\\                                                    ┃\n";
+	std::cout << "┃       /  \\                                                   ┃\n";
+	std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
+	std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
+	std::cout << "┃                            │ " << MyPokemon->getName() << "                 L14 │  ┃\n";
+	std::cout << "┃                            │      HP: ██████████░░░░░░░░  │  ┃\n";
+	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
+	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
+	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
+	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+#pragma endregion
 	
 	bool IsBattle = true;
 	bool IsOpenBag = true;
@@ -245,8 +250,6 @@ void GameManager::StartBattle()
 	std::string s = "야생의 " + EnemyPokemon->getName() + "가 나타났다!";
 	typeWrite(s);
 	Sleep(500);
-
-	std::cout << std::endl;
 
 	std::string s2 = "가랏! " + MyPokemon->getName() + "!!";
 	typeWrite(s2);
@@ -257,6 +260,32 @@ void GameManager::StartBattle()
 
 	while (IsBattle)
 	{
+		system("cls");
+
+		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
+		std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13              │                            ┃\n";
+		std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
+		std::cout << "┃  └──────────────────────────────┘                            ┃\n";
+		std::cout << "┃                                            /\\                ┃\n";
+		std::cout << "┃                                           /  \\               ┃\n";
+		std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
+		std::cout << "┃                                           \\__/               ┃\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃        /\\                                                    ┃\n";
+		std::cout << "┃       /  \\                                                   ┃\n";
+		std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
+		std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
+		std::cout << "┃                            │ " << MyPokemon->getName() << "                 L14 │  ┃\n";
+		std::cout << "┃                            │      HP: ██████████░░░░░░░░  │  ┃\n";
+		std::cout << "┃                            └──────────────────────────────┘  ┃\n";
+		std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+		std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
+		std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
+		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+
 		int PlayerChoice;
 
 		std::cout << "무엇을 할까?" << std::endl;
@@ -268,26 +297,30 @@ void GameManager::StartBattle()
 			case 1: // 공격 상황(현재는 항상 선공)
 			{
 				int SkillChoice;
-				std::cout << "기술 선택: (1.몸통박치기 / 2.덩굴채찍): ";
+				std::cout << "기술 선택: (1.몸통박치기 / 2.덩굴채찍): "; // 스킬(현재 2가지) 중 선택
 				std::cin >> SkillChoice;
 
-				system("cls");
-
 				// 내 포켓몬 공격
-				int AttackToEnemy = MyPokemon->skill(SkillChoice);
-				EnemyPokemon->takeDamage(AttackToEnemy);
+				int AttackToEnemy = MyPokemon->skill(SkillChoice); // 스킬 번호 계산
+				EnemyPokemon->takeDamage(AttackToEnemy); // 적에게 데미지
 
+				// 적 쓰러짐
 				if (EnemyPokemon->getHp() <= 0)
 				{
 					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
+
 					delete EnemyPokemon;
 					EnemyPokemon = nullptr;
-					MyPokemon->levelUp();
-					IsBattle = false;
-					GameLoop();
+
+					MyPokemon->levelUp(); // 경험치 획득ㅠ
+
+					IsBattle = false; // 전투 종료 확인
+
+					GameLoop(); // 마을? 복귀(게임 종료 전까지 반복 순환)
 					break;
 				}
 
+				// 적 포켓몬 공격
 				int AttackToMe = EnemyPokemon->skill(1);
 				MyPokemon->takeDamage(AttackToMe);
 
@@ -298,28 +331,6 @@ void GameManager::StartBattle()
 				}
 				break;
 			}
-
-				//
-				//			// 적 포켓몬 데미지 입히기
-				//			int DamageToEnemy = MyPokemon->skill(SkillChoice);
-				//			EnemyPokemon->takeDamage(DamageToEnemy);
-				//
-				//			/*std::cout << MyPokemon->getName() <<"의 공격!" << std::endl;
-				//			MyPokemon->skill();
-				//			EnemyPokemon->takeDamage(MyPokemon->getAttack());*/
-				//
-				//			// 적 공격 차례
-				//#pragma region 적 랜덤 공격
-				//			/*std::uniform_int_distribution<> EnemySkill(1, 2);
-				//			int randEnemySkill = EnemySkill(gen);
-				//			
-				//			int DamageToMe = EnemyPokemon->skill(randEnemySkill);
-				//			MyPokemon->takeDamage(DamageToMe);*/
-				//#pragma endregion
-				//#pragma region 적 단일 공격
-				//			EnemyPokemon->skill(SkillChoice);
-				//			MyPokemon->takeDamage(EnemyPokemon->getAttack());
-				//#pragma endregion
 
 			case 2:
 			{
@@ -337,7 +348,6 @@ void GameManager::StartBattle()
 
 				if (BagChoice == 1)
 				{
-
 					inventory.UseItem(1); //아이템 사용
 					int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
 					MyPokemon->setHP(NewHp); //체력 설정
