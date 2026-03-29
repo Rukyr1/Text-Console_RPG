@@ -4,6 +4,7 @@
 #include <Windows.h> // gotoXy
 #include <random>
 #pragma comment(lib, "WinMM.lib") // PlaySound()
+#include <iomanip> // setw
 
 GameManager::GameManager()
 {
@@ -204,6 +205,23 @@ void GameManager::SelectPokemon()
 	StartBattle();
 }
 
+void printHpBar(int currentHp, int maxHp)
+{
+	int barWidth = 20;
+	float ratio = (float)currentHp / maxHp;
+	if (ratio < 0)
+	{
+		ratio = 0;
+	}
+	int filled = (int)(barWidth * ratio);
+
+	for (int i = 0; i < barWidth; ++i)
+	{
+		if (i < filled) std::cout << "█"; // 실제 2칸 차지
+		else std::cout << "░";            // 실제 2칸 차지
+	}
+}
+
 void GameManager::StartBattle()
 {
 	system("cls");
@@ -232,12 +250,16 @@ void GameManager::StartBattle()
 	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	Sleep(1000);
 
+	// ███████░░░░░░░░
 #pragma region 전투 UI
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 	std::cout << "┃                                                              ┃\n";
 	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-	std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13              │                            ┃\n";
-	std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
+	// 왼쪽 정렬(left)과 15칸 고정(setw)으로 이름 길이가 달라도 테두리가 깨지지 않음
+	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                            ┃\n";
+	std::cout << "┃  │      HP: ";
+	printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp()); // HP 바 출력
+	std::cout << "  │                            ┃\n";
 	std::cout << "┃  └──────────────────────────────┘                            ┃\n";
 	std::cout << "┃                                            /\\                ┃\n";
 	std::cout << "┃                                           /  \\               ┃\n";
@@ -249,8 +271,10 @@ void GameManager::StartBattle()
 	std::cout << "┃       /  \\                                                   ┃\n";
 	std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
 	std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
-	std::cout << "┃                            │ " << MyPokemon->getName() << "                 L14 │  ┃\n";
-	std::cout << "┃                            │      HP: ██████████░░░░░░░░  │  ┃\n";
+	std::cout << "┃                            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14 │  ┃\n";
+	std::cout << "┃                            │      HP: ";
+	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxExp()); // 내 HP 바 출력
+	std::cout << "  │  ┃\n";
 	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
 	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
 	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
@@ -278,6 +302,35 @@ void GameManager::StartBattle()
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃                                                              ┃\n";
 		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
+		// 왼쪽 정렬(left)과 15칸 고정(setw)으로 이름 길이가 달라도 테두리가 깨지지 않음
+		std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                            ┃\n";
+		std::cout << "┃  │      HP: ";
+		printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp()); // HP 바 출력
+		std::cout << "  │                            ┃\n";
+		std::cout << "┃  └──────────────────────────────┘                            ┃\n";
+		std::cout << "┃                                            /\\                ┃\n";
+		std::cout << "┃                                           /  \\               ┃\n";
+		std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
+		std::cout << "┃                                           \\__/               ┃\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃        /\\                                                    ┃\n";
+		std::cout << "┃       /  \\                                                   ┃\n";
+		std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
+		std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
+		std::cout << "┃                            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14 │  ┃\n";
+		std::cout << "┃                            │      HP: ";
+		printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxExp()); // 내 HP 바 출력
+		std::cout << "  │  ┃\n";
+		std::cout << "┃                            └──────────────────────────────┘  ┃\n";
+		std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+		std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
+		std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
+		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+
+		/*std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
 		std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13             │                            ┃\n";
 		std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
 		std::cout << "┃  └──────────────────────────────┘                            ┃\n";
@@ -297,7 +350,7 @@ void GameManager::StartBattle()
 		std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
 		std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
 		std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
-		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";*/
 
 		int PlayerChoice;
 
