@@ -276,6 +276,9 @@ void GameManager::StartBattle()
 	{
 		system("cls"); // UI 갱신
 
+		PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		Sleep(500);
+
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃                                                              ┃\n";
 		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
@@ -321,6 +324,9 @@ void GameManager::StartBattle()
 				// 적 쓰러짐
 				if (EnemyPokemon->getHp() <= 0)
 				{
+					PlaySound(NULL, 0, 0);
+					PlaySound(TEXT("music/1-07. Battle (VS Wild Pokémon).wav"), NULL, SND_FILENAME | SND_ASYNC);
+					Sleep(500);
 					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 					
 					delete EnemyPokemon;
@@ -330,6 +336,7 @@ void GameManager::StartBattle()
 
 					IsBattle = false; // 전투 종료 확인
 
+					PlaySound(NULL, 0, 0);
 					GameLoop(); // 마을? 복귀(게임 종료 전까지 반복 순환)
 					break;
 				}
@@ -447,24 +454,50 @@ void GameManager::GameLoop()
 {
 	while (true)
 	{
+		// SND_ANYNC: 음악 재생 중에도 다음 코드 실행
+		// SND_LOOP: 무한 반복
+		PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+		
+		Sleep(500);
+		system("cls");
+
 		int choice;
-		std::cout << "<< [마을] 무엇을 할까? >> " << std::endl;
-		std::cout << "1. 풀숲으로 간다(전투)" << std::endl;
-		std::cout << "2. 휴식(휴식)" << std::endl;
-		std::cout << "3. 종료" << std::endl;
+		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+		std::cout << "┃ 🌳 마을 - 안전 지역                                          ┃\n";
+		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
+		std::cout << "┃ 플레이어: 김훈철                                             ┃\n";
+		std::cout << "┃ 보유 골드: 1200G                                             ┃\n";
+		std::cout << "┃ 현재 포켓몬: 이상해씨 (Lv.5 / HP: 45/60)                     ┃\n";
+		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃   [1] 🌲 풀숲으로 간다                                       ┃\n";
+		std::cout << "┃   [2] 🏪 상점                                                ┃\n";
+		std::cout << "┃   [3] 🏥 포켓몬 센터                                         ┃\n";
+		std::cout << "┃   [4] 🚨 게임 종료                                           ┃\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┃                                                              ┃\n";
+		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+
+
 		std::cin >> choice;
 
 		switch (choice)
 		{
 		case 1:
+			PlaySound(NULL, 0, 0);
 			StartBattle();
 			break;
 		case 2:
+			std::cout << "상점 준비 중..." << std::endl;
+			//PlaySound(NULL, 0, 0);
+			break;
+		case 3:
 			MyPokemon->recoveryHp();
 			std::cout << MyPokemon->getName() << "체력을 모두 회복했습니다." << std::endl;
 			break;
-		case 3:
+		case 4:
 			std::cout << "게임을 종료합니다." << std::endl;
+			PlaySound(NULL, 0, 0);
 			exit(0);
 		default:
 			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
