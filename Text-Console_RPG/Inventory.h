@@ -27,7 +27,7 @@ public:
 
 		pItems = nullptr;
 	}
-
+	
 
 
 	void Additem(const T& item) // 인벤에 아이템 넣기

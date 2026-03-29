@@ -323,12 +323,26 @@ void GameManager::StartBattle()
 					PlaySound(NULL, 0, 0);
 					PlaySound(TEXT("music/1-08.-Victory-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
 					Sleep(500);
+
 					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
+					if (MyPokemon->getPExp() < MyPokemon->getPMaxExp())
+					{
+						int NewExp = MyPokemon->getPExp() + 50;
+						MyPokemon->setPExp(NewExp);
+						std::cout << "경험치 50을 획득했습니다!" << std::endl;
+						if (MyPokemon->getPExp() >= MyPokemon->getPMaxExp())
+						{
+							int NewExp = MyPokemon->getPExp() - 100;
+							MyPokemon->setPExp(NewExp);
+							MyPokemon->levelUp();
+							break;
+						}
+					}
 					
 					delete EnemyPokemon;
 					EnemyPokemon = nullptr;
 
-					MyPokemon->levelUp(); // 경험치 획득
+					//MyPokemon->levelUp(); // 경험치 획득
 
 					IsBattle = false; // 전투 종료 확인
 
@@ -338,7 +352,7 @@ void GameManager::StartBattle()
 					GameLoop(); // 마을? 복귀(게임 종료 전까지 반복 순환)
 					break;
 				}
-
+				
 				// 적 포켓몬 공격
 				int AttackToMe = EnemyPokemon->skill(1);
 				MyPokemon->takeDamage(AttackToMe);
@@ -395,25 +409,6 @@ void GameManager::StartBattle()
 				std::cout << "무사히 도망쳤다!" << std::endl;
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
-
-				if (MyPokemon->getPExp() < MyPokemon->getPMaxExp())
-				{
-					int NewExp = MyPokemon->getPExp() + 50;
-					MyPokemon->setPExp(NewExp);
-					std::cout << "경험치 50을 획득했습니다!" << std::endl;
-					if (MyPokemon->getPExp() >= MyPokemon->getPMaxExp())
-					{
-						int NewExp = MyPokemon->getPExp() - 100;
-						MyPokemon->setPExp(NewExp);
-						MyPokemon->levelUp();
-						IsBattle = false;
-						GameLoop();
-						break;
-					}
-					IsBattle = false;
-					GameLoop();
-					break;
-				}
 
 				IsBattle = false;
 				GameLoop();
