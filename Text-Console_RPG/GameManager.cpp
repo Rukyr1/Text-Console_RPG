@@ -189,20 +189,17 @@ void GameManager::SelectPokemon()
 	Sleep(1000);
 
 
-	std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템
-	inventory.Additem(Item("상처약", 50, 10)); //임시 아이템 인벤토리에 추가
-	inventory.Additem(Item("상처약", 50, 10));
-	inventory.Additem(Item("상처약", 50, 10));
-	inventory.Additem(Item("상처약", 50, 10));
-	inventory.Additem(Item("상처약", 50, 10));
-	inventory.Additem(Item("좋은 상처약", 80, 30));
-	inventory.Additem(Item("좋은 상처약", 80, 30));
-	inventory.Additem(Item("좋은 상처약", 80, 30));
-	inventory.Additem(Item("좋은 상처약", 80, 30));
-	inventory.Additem(Item("좋은 상처약", 80, 30));
-
-
-	std::cout << MyPokemon->getName() << "로 게임을 시작합니다" << std::endl;
+	//std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템
+	//inventory.Additem(Item("상처약", 50, 10)); //임시 아이템 인벤토리에 추가
+	//inventory.Additem(Item("상처약", 50, 10));
+	//inventory.Additem(Item("상처약", 50, 10));
+	//inventory.Additem(Item("상처약", 50, 10));
+	//inventory.Additem(Item("상처약", 50, 10));
+	//inventory.Additem(Item("좋은 상처약", 80, 30));
+	//inventory.Additem(Item("좋은 상처약", 80, 30));
+	//inventory.Additem(Item("좋은 상처약", 80, 30));
+	//inventory.Additem(Item("좋은 상처약", 80, 30));
+	//inventory.Additem(Item("좋은 상처약", 80, 30));
 
 	StartBattle();
 }
@@ -232,6 +229,8 @@ void GameManager::StartBattle()
 		EnemyPokemon = new Squirtle(); // 꼬부기
 		break;
 	}
+	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	Sleep(1000);
 
 #pragma region 전투 UI
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
@@ -258,7 +257,7 @@ void GameManager::StartBattle()
 	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
 	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 #pragma endregion
-	
+
 	bool IsBattle = true;
 	bool IsOpenBag = true;
 
@@ -275,9 +274,6 @@ void GameManager::StartBattle()
 	while (IsBattle)
 	{
 		system("cls"); // UI 갱신
-
-		PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
-		Sleep(500);
 
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃                                                              ┃\n";
@@ -314,7 +310,7 @@ void GameManager::StartBattle()
 			case 1: // 공격 상황(현재는 항상 선공)
 			{
 				int SkillChoice;
-				std::cout << "기술 선택: (1.몸통박치기 / 2.덩굴채찍): "; // 스킬(현재 2가지) 중 선택
+				std::cout << "기술 선택: ( [1] / [2] ): "; // 스킬(현재 2가지) 중 선택
 				std::cin >> SkillChoice;
 
 				// 내 포켓몬 공격
@@ -325,7 +321,7 @@ void GameManager::StartBattle()
 				if (EnemyPokemon->getHp() <= 0)
 				{
 					PlaySound(NULL, 0, 0);
-					PlaySound(TEXT("music/1-07. Battle (VS Wild Pokémon).wav"), NULL, SND_FILENAME | SND_ASYNC);
+					PlaySound(TEXT("music/1-08.-Victory-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
 					Sleep(500);
 					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 					
@@ -335,6 +331,8 @@ void GameManager::StartBattle()
 					MyPokemon->levelUp(); // 경험치 획득
 
 					IsBattle = false; // 전투 종료 확인
+
+					_getch();
 
 					PlaySound(NULL, 0, 0);
 					GameLoop(); // 마을? 복귀(게임 종료 전까지 반복 순환)
@@ -467,7 +465,7 @@ void GameManager::GameLoop()
 		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 		std::cout << "┃ 플레이어: 김훈철                                             ┃\n";
 		std::cout << "┃ 보유 골드: 1200G                                             ┃\n";
-		std::cout << "┃ 현재 포켓몬: 이상해씨 (Lv.5 / HP: 45/60)                     ┃\n";
+		std::cout << "┃ 현재 포켓몬: " << MyPokemon->getName() << "(Lv.5 / HP: 45 / 60)                     ┃\n";
 		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 		std::cout << "┃                                                              ┃\n";
 		std::cout << "┃   [1] 🌲 풀숲으로 간다                                       ┃\n";
