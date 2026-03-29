@@ -359,6 +359,7 @@ void GameManager::StartBattle()
 
 				if (MyPokemon->getHp() <= 0)
 				{
+					IsBattle = false;
 					GameEnding();
 					return;
 				}
@@ -445,11 +446,11 @@ void GameManager::StartBattle()
 
 void GameManager::GameLoop()
 {
+	PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	while (true)
 	{
 		// SND_ANYNC: 음악 재생 중에도 다음 코드 실행
 		// SND_LOOP: 무한 반복
-		PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		
 		Sleep(500);
 		system("cls");
@@ -505,6 +506,6 @@ void GameManager::GameEnding()
 	std::cout << "교체할 포켓몬이 없습니다...! " << std::endl;
 	std::cout << "태초마을로 돌아갑니다...!" << std::endl;
 	std::cout << "Game Over!!!" << std::endl;
-
+	
 }
 
