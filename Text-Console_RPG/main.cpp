@@ -1,9 +1,11 @@
 //main.cpp
 #include "GameManager.h"
-
+#include <Windows.h> // gotoXy
 
 int main()
 {
+	SetConsoleTitle(L"십칠색조의 pokemon.exe"); //콘솔 창 이름 변경
+
 	GameManager Stage;
 	//Pokemon Stat;
 	Stage.GameStart();

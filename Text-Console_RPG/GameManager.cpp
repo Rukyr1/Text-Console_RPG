@@ -80,6 +80,18 @@ void typeWrite(const std::string& text)
 	}
 	std::cout << std::endl;
 }
+void typeWritecin(const std::string& text)
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(10);
+	}
+}
+
+
+
 // 색상 변경 함수
 void setColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -88,10 +100,13 @@ void setColor(int color) {
 void GameManager::SelectPokemon()
 {
 	std::string PlayerName;
-	std::cout << "이름 입력하세요: ";
+	
+	std::string s1 = "이름을 입력하세요: ";
+	typeWritecin(s1);
 	std::cin >> PlayerName;
-
-	std::cout << "안녕하세요. " << PlayerName << "님!" << std::endl;
+	
+	std::string s2 = "안녕하세요. " + PlayerName + "님!\n";
+	typeWrite(s2);
 	Sleep(1000);
 
 	int cursor = 1;
@@ -311,7 +326,7 @@ void GameManager::StartBattle()
 					delete EnemyPokemon;
 					EnemyPokemon = nullptr;
 
-					MyPokemon->levelUp(); // 경험치 획득ㅠ
+					MyPokemon->levelUp(); // 경험치 획득
 
 					IsBattle = false; // 전투 종료 확인
 
