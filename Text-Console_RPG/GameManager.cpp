@@ -1,7 +1,7 @@
 #include "GameManager.h"
 #include <conio.h> // _getch() 
 #include <cstdlib> // system()
-#include <Windows.h>
+#include <Windows.h> // gotoXy
 #include <random>
 #pragma comment(lib, "WinMM.lib") // PlaySound()
 
@@ -131,7 +131,7 @@ void GameManager::SelectPokemon()
 		std::cout << "┃                                                       ┃" << std::endl;
 		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" << std::endl;
 		std::cout << " (방향키 ◀ ▶ 이동 / Enter 선택)          " << std::endl;
-
+		
 		key = _getch(); // 키보드 입력 받기
 
 		if (key == 224) // 방향키 특수 값
@@ -257,15 +257,14 @@ void GameManager::StartBattle()
 
 	std::cout << std::endl;
 
-
 	while (IsBattle)
 	{
-		system("cls");
+		system("cls"); // UI 갱신
 
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃                                                              ┃\n";
 		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-		std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13              │                            ┃\n";
+		std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13             │                            ┃\n";
 		std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
 		std::cout << "┃  └──────────────────────────────┘                            ┃\n";
 		std::cout << "┃                                            /\\                ┃\n";
@@ -308,7 +307,7 @@ void GameManager::StartBattle()
 				if (EnemyPokemon->getHp() <= 0)
 				{
 					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
-
+					
 					delete EnemyPokemon;
 					EnemyPokemon = nullptr;
 
@@ -329,6 +328,10 @@ void GameManager::StartBattle()
 					GameEnding();
 					return;
 				}
+
+				std::cout << "다음 턴으로 넘어가려면 아무 키나 누르세요..." << std::endl;
+				_getch();
+
 				break;
 			}
 
