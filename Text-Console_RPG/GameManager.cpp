@@ -34,7 +34,7 @@ void GameManager::GameStart()
 	std::cout << "║              ██║ █╗ ██║██║   ██║██████╔╝██║     ██║  ██║              ║" << std::endl;
 	std::cout << "║              ██║███╗██║██║   ██║██╔══██╗██║     ██║  ██║              ║" << std::endl;
 	std::cout << "║              ╚███╔███╔╝╚██████╔╝██║  ██║███████╗██████╔╝              ║" << std::endl;
-	std::cout << "║              ╚══╝╚══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝                 ║" << std::endl;
+	std::cout << "║               ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝               ║" << std::endl;
 	std::cout << "║                                                                       ║" << std::endl;
 	std::cout << "╚═══════════════════════════════════════════════════════════════════════╝" << std::endl;
 	std::cout << std::endl;
@@ -265,14 +265,101 @@ void GameManager::StartBattle()
 
 		switch (PlayerChoice)
 		{
-		case 1:
-			std::cout << MyPokemon->getName() <<"의 공격!" << std::endl;
-			MyPokemon->skill();
-			EnemyPokemon->takeDamage(MyPokemon->getAttack());
-
-			if (EnemyPokemon->getHp() <= 0)
+			case 1: // 공격 상황(현재는 항상 선공)
 			{
-				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
+				int SkillChoice;
+				std::cout << "기술 선택: (1.몸통박치기 / 2.덩굴채찍): ";
+				std::cin >> SkillChoice;
+
+				system("cls");
+
+				// 내 포켓몬 공격
+				int AttackToEnemy = MyPokemon->skill(SkillChoice);
+				EnemyPokemon->takeDamage(AttackToEnemy);
+
+				if (EnemyPokemon->getHp() <= 0)
+				{
+					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
+					delete EnemyPokemon;
+					EnemyPokemon = nullptr;
+					MyPokemon->levelUp();
+					IsBattle = false;
+					GameLoop();
+					break;
+				}
+
+				int AttackToMe = EnemyPokemon->skill(1);
+				MyPokemon->takeDamage(AttackToMe);
+
+				if (MyPokemon->getHp() <= 0)
+				{
+					GameEnding();
+					return;
+				}
+				break;
+			}
+
+				//
+				//			// 적 포켓몬 데미지 입히기
+				//			int DamageToEnemy = MyPokemon->skill(SkillChoice);
+				//			EnemyPokemon->takeDamage(DamageToEnemy);
+				//
+				//			/*std::cout << MyPokemon->getName() <<"의 공격!" << std::endl;
+				//			MyPokemon->skill();
+				//			EnemyPokemon->takeDamage(MyPokemon->getAttack());*/
+				//
+				//			// 적 공격 차례
+				//#pragma region 적 랜덤 공격
+				//			/*std::uniform_int_distribution<> EnemySkill(1, 2);
+				//			int randEnemySkill = EnemySkill(gen);
+				//			
+				//			int DamageToMe = EnemyPokemon->skill(randEnemySkill);
+				//			MyPokemon->takeDamage(DamageToMe);*/
+				//#pragma endregion
+				//#pragma region 적 단일 공격
+				//			EnemyPokemon->skill(SkillChoice);
+				//			MyPokemon->takeDamage(EnemyPokemon->getAttack());
+				//#pragma endregion
+
+			case 2:
+			{
+				IsOpenBag = true;
+				std::cout << "가방 목록" << std::endl;
+				inventory.Printallitems();
+
+				int BagChoice;
+
+				std::cout << "4. 인벤토리 나가기!" << std::endl;
+
+
+				std::cout << "입력 하세요: ";
+				std::cin >> BagChoice;
+
+				if (BagChoice == 1)
+				{
+
+					inventory.UseItem(1); //아이템 사용
+					int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
+					MyPokemon->setHP(NewHp); //체력 설정
+					std::cout << "아이템을 사용했습니다!" << std::endl;
+					break;
+				}
+				else if (BagChoice == 4)
+				{
+					std::cout << "인벤토리를 나갑니다!" << std::endl;
+					IsOpenBag = false;
+					break;
+				}
+				break;
+			}
+			case 3:
+			{
+				MyPokemon->printStatus();
+				break;
+			}
+			case 4:
+			{
+				std::cout << "무사히 도망쳤다!" << std::endl;
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
 
@@ -299,31 +386,13 @@ void GameManager::StartBattle()
 				GameLoop();
 				break;
 			}
-			// 적 공격
-			EnemyPokemon->skill();
-			MyPokemon->takeDamage(EnemyPokemon->getAttack());
-
-			if (MyPokemon->getHp() <= 0)
+			case 5:
 			{
 				IsBattle = false;
 				GameEnding();
 				return;
 			}
-			break;
-		case 2:
-			IsOpenBag = true;
-			std::cout << "가방 목록" << std::endl;
-			inventory.Printallitems();
-			
-			int BagChoice;
-
-			std::cout << "4. 인벤토리 나가기!" << std::endl;
-		
-
-			std::cout << "입력 하세요: ";
-			std::cin >> BagChoice;
-
-			if (BagChoice == 1)
+			default:
 			{
 				if (MyPokemon->getHp() < MyPokemon->getPMaxHp())
 				{
@@ -339,29 +408,9 @@ void GameManager::StartBattle()
 					break;
 				}
 				break;
+
+				std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 			}
-			else if (BagChoice == 4)
-			{
-				std::cout << "인벤토리를 나갑니다!" << std::endl;
-				IsOpenBag = false;
-				break;
-			}
-			break;
-		case 3:
-			MyPokemon->printStatus();
-			break;
-		case 4:
-			std::cout << "무사히 도망쳤다!" << std::endl;
-			delete EnemyPokemon;
-			EnemyPokemon = nullptr;
-			IsBattle = false;
-			GameLoop();
-			break;
-		case 5:
-			GameEnding();
-			return;
-		default:
-			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 		}
 	}
 }

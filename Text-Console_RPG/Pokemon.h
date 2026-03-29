@@ -33,7 +33,7 @@ public:
 	Pokemon();
 	virtual ~Pokemon() {};
 
-	virtual void skill() = 0;
+	virtual int skill(int skillNum) = 0;
 	virtual void takeDamage(int PAttackPower);
 	void printStatus();
 	void levelUp();
@@ -56,19 +56,19 @@ class Bulbasaur : public Pokemon //이상해씨
 {
 public:
 	Bulbasaur();
-	void skill() override;
+	int skill(int skillNum) override;
 };
 
 class Charmander : public Pokemon //파이리
 {
 public:
 	Charmander();
-	void skill() override;
+	int skill(int skillNum) override;
 };
 
 class Squirtle : public Pokemon //꼬부기
 {
 public:
 	Squirtle();
-	void skill() override;
+	int skill(int skillNum) override;
 };

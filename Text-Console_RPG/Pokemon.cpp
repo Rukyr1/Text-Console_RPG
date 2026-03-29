@@ -7,9 +7,9 @@ Pokemon::Pokemon()
 
 }
 
-void Pokemon::skill()
+int Pokemon::skill(int skillNum)
 {
-
+	return 0;
 }
 
 void Pokemon::printStatus()
@@ -36,11 +36,18 @@ Bulbasaur::Bulbasaur()
 	//p_def = 8
 	PExp = 0;
 }
-
-void Bulbasaur::skill()
+int Bulbasaur::skill(int skillNum)
 {
-	std::cout << "덩쿨채찍!" << std::endl;
-	//p_damage(임시) = p_attackPower * 3
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [덩굴채찍]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
 }
 
 
@@ -55,9 +62,18 @@ Charmander::Charmander()
 	//p_def = 5
 	PExp = 0;
 }
-
-void Charmander::skill() {
-	std::cout << "불꽃세레" << std::endl;
+int Charmander::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [불꽃세레]!" << std::endl;
+		return getAttack() + 20;
+	}
 	//p_damage(임시) = p_attackPower * 3
 }
 
@@ -74,8 +90,18 @@ Squirtle::Squirtle()
 	PExp = 0;
 }
 
-void Squirtle::skill() {
-	std::cout << "물대포" << std::endl;
+int Squirtle::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << " 의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << " 의 [물대포]!" << std::endl;
+		return getAttack() + 20;
+	}
 	//p_damage(임시) = p_attackPower * 3
 }
 
