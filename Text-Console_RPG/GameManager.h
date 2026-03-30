@@ -2,17 +2,21 @@
 #include "Player.h"
 #include <string>
 #include "BattleManager.h"
+#include "UIManager.h"
+#include "PrintText.h"
 
 class GameManager
 {
 private:
 	Player* player;
 	Pokemon* MyPokemon;
-	Pokemon* EnemyPokemon;
 	Inventory<Item> inventory;
 
 	std::string playerName;
 
+	UIManager uimanager;
+	BattleManager battlemanager;
+	PrintText printtext;
 
 public:
 	GameManager();
@@ -20,7 +24,6 @@ public:
 	
 	void GameStart();
 	void SelectPokemon();
-	void StartBattle();
 	void GameLoop();
 	void GameEnding();
 };

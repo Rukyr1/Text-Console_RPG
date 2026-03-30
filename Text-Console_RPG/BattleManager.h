@@ -2,14 +2,25 @@
 #include "Player.h"
 #include "Pokemon.h"
 #include "Inventory.h"
+#include "UIManager.h"
+#include "PrintText.h"
 
-
+enum class BattleResult //전투 결과 값
+{
+	Win,
+	Lose,
+	Escape
+};
 
 class BattleManager
 {
 public:
 	BattleManager();
-	void StartBattle();
+	~BattleManager();
+	
+	BattleResult StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory);
+	//함수의 반환타입 함수이름(매개변수);
+
 	
 
 private:
@@ -19,6 +30,13 @@ private:
 	int AtkChoice; //전투 중 선택지
 	int BagChoice; //전투 중 가방 선택지
 	bool IsOpenBag;
-	
+
+	Pokemon* EnemyPokemon;
+	void RandomEnemy();
+
+	UIManager uimanager;
+	PrintText printtext;
+
+
 };
 
