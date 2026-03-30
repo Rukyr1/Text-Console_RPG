@@ -39,7 +39,6 @@ public:
 	void levelUp();
 	void recoveryHp();
 	void finalEvolution();
-	void evolution();
 	void evolutionBonus(int hpBonus, int atkBonus);
 
 
