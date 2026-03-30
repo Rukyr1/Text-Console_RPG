@@ -242,8 +242,35 @@ void GameManager::GameLoop()
 			//PlaySound(NULL, 0, 0);
 			break;
 		case 3:
-			MyPokemon->recoveryHp();
-			std::cout << MyPokemon->getName() << "체력을 모두 회복했습니다." << std::endl;
+			PlaySound(TEXT("music/1-10.-Pokémon-Center.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			int CenterChoice;
+			Sleep(1000);
+			uimanager.PokemonCenterUi();
+			std::cin >> CenterChoice;
+			PlaySound(NULL, 0, 0);
+			switch (CenterChoice)
+			{
+			case 1:
+			{
+
+				PlaySound(TEXT("music/healing-pokemon-sound.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+				Sleep(500);
+				MyPokemon->recoveryHp();
+				std::cout << MyPokemon->getName() << "체력을 모두 회복했습니다." << std::endl;
+				Sleep(3000);
+				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			}
+			break;
+			case 2:
+			{
+				std::cout << "포켓몬 센터를 나갑니다." << std::endl;
+				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			}
+			break;
+			default:
+				std::cout << "잘못된 입력입니다." << std::endl;
+				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			}
 			break;
 		case 4:
 			std::cout << "게임을 종료합니다." << std::endl;

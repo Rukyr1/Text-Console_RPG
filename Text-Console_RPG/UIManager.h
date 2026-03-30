@@ -12,6 +12,7 @@ public:
 	void BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon);
 	void BattleUiBottom();
 	void VillageUi(std::string playerName, Pokemon* MyPokemon);
+	void PokemonCenterUi();
 	
 	void printHpBar(int currentHp, int maxHp);
 
