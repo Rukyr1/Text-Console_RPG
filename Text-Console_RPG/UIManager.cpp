@@ -85,8 +85,6 @@ void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 	std::cout << "┃                                           /  \\               ┃\n";
 	std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
 	std::cout << "┃                                           \\__/               ┃\n";
-	std::cout << "┃                                                              ┃\n";
-	std::cout << "┃                                                              ┃\n";
 	std::cout << "┃        /\\                                                    ┃\n";
 	std::cout << "┃       /  \\                                                   ┃\n";
 	std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
@@ -97,9 +95,12 @@ void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 	std::cout << "  │  ┃\n";
 	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
 }
+
 void UIManager::BattleUiBottom()
 {
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
+	std::cout << "┃                                     ┃                        ┃\n";
+	std::cout << "┃                                     ┃                        ┃\n";
 	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
 	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
 	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";

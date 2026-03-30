@@ -5,6 +5,7 @@
 #include <random>
 #pragma comment(lib, "WinMM.lib") // PlaySound()
 #include <iomanip> // setw
+#include <mmstream.h>
 
 GameManager::GameManager()
 {
@@ -68,7 +69,9 @@ void GameManager::SelectPokemon()
 
 	Sleep(500);
 
-	PlaySound(TEXT("music/1-03.-Professor-Oak.wav"), NULL, SND_FILENAME | SND_ASYNC); //배경음
+	//PlaySound(TEXT("music/1-03.-Professor-Oak.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //배경음
+	mciSendString(TEXT("open \"music/1-03.-Professor-Oak.wav\" type mpegvideo alias bgm"), NULL, 0, NULL);
+	mciSendString(TEXT("play bgm repeat"), NULL, 0, NULL);
 	std::string s2 = "안녕하세요. " + playerName + "님!\n";
 	printtext.typeWrite(s2);
 	Sleep(1000);
@@ -89,7 +92,10 @@ void GameManager::SelectPokemon()
 		if (cursor == 1) setColor(10);
 		if (cursor == 1)
 		{
-			PlaySound(TEXT("music/001-bulbasaur_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //이상해씨 울음소리
+			mciSendString(TEXT("close sfx"), NULL, 0, NULL);
+			mciSendString(TEXT("open \"music/001-bulbasaur_1.wav\" alias sfx"), NULL, 0, NULL);
+			mciSendString(TEXT("play sfx"), NULL, 0, NULL);
+			//PlaySound(TEXT("music/001-bulbasaur_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //이상해씨 울음소리
 		}
 		std::cout << "  1. 이상해씨   ";
 		setColor(7); // 다시 흰색으로 복구
@@ -98,7 +104,10 @@ void GameManager::SelectPokemon()
 		if (cursor == 2) setColor(12);
 		if (cursor == 2)
 		{
-			PlaySound(TEXT("music/004-charmander_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //파이리 울음소리
+			mciSendString(TEXT("close sfx"), NULL, 0, NULL);
+			mciSendString(TEXT("open \"music/004-charmander_1.wav\" alias sfx"), NULL, 0, NULL);
+			mciSendString(TEXT("play sfx"), NULL, 0, NULL);
+			//PlaySound(TEXT("music/004-charmander_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //파이리 울음소리
 		}	
 		std::cout << "  2. 파이리   ";
 		setColor(7);
@@ -107,7 +116,10 @@ void GameManager::SelectPokemon()
 		if (cursor == 3) setColor(11);
 		if (cursor == 3)
 		{
-			PlaySound(TEXT("music/007-squirtle_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //꼬부기 울음소리
+			mciSendString(TEXT("close sfx"), NULL, 0, NULL);
+			mciSendString(TEXT("open \"music/007-squirtle_1.wav\" alias sfx"), NULL, 0, NULL);
+			mciSendString(TEXT("play sfx"), NULL, 0, NULL);
+			//PlaySound(TEXT("music/007-squirtle_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //꼬부기 울음소리
 		}
 
 		std::cout << "  3. 꼬부기    ";
@@ -132,6 +144,8 @@ void GameManager::SelectPokemon()
 		else if (key == 13) // Enter 키
 		{
 			PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			mciSendString(TEXT("stop bgm"), NULL, 0, NULL);
+			mciSendString(TEXT("close bgm"), NULL, 0, NULL);
 			break; // 루프 탈출
 		}
 	}
