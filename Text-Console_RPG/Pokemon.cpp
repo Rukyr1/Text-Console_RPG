@@ -142,14 +142,9 @@ void Pokemon::levelUp()
 	std::cout << "최대 체력이 " << hpGain << ", 공격력이 " << attackGain << " 상승했습니다." << std::endl;
 	std::cout << "체력이 모두 회복되었습니다! (현재 HP: " << PCurrentHp << ", 현재 공격력: " << PAttackPower << ") " << std::endl;
 	
-	//일반 진화 레벨
-	if (PLevel == 10)
-	{
-		evolution();
-	}
 
 	//최대 레벨 달성 시 최종 진화
-	if (PLevel == 15)
+	if (PLevel == 10)
 	{
 		finalEvolution();
 	}
@@ -170,17 +165,18 @@ void Pokemon::evolutionBonus(int hpBonus, int atkBonus) {
 	std::cout << "[진화 보너스] HP +" << hpBonus << ", 공격력 +" << atkBonus << " 상승!" << std::endl;
 }
 
-//일반 진화
-void Pokemon::evolution()
+
+//최종 진화
+void Pokemon::finalEvolution()
 {
-	std::cout << "\n==========!!! 포켓몬 진화 !!!========= = " << std::endl;
+	std::cout << "\n==========!!! 최종 진화 !!!==========" << std::endl;
 
 	//진화 후의 이름 변경
 	static std::map<std::string, std::string> evolutionTable = {
-		{"파이리", "리자드"},
-		{"꼬부기", "어니부기"},
-		{"이상해씨", "이상해풀"}
-
+		{"파이리", "리자몽"},
+		{"꼬부기", "거북왕"},
+		{"이상해씨", "이상해꽃"},
+		// 여기에 몬스터 추가 가능
 	};
 
 	if (evolutionTable.count(PName) > 0)
@@ -191,34 +187,8 @@ void Pokemon::evolution()
 		PName = nextName;
 	}
 
-
-	evolutionBonus(30, 10);
-	std::cout << "======================================" << std::endl;
-}
-
-//최종 진화
-void Pokemon::finalEvolution()
-{
-	std::cout << "\n==========!!! 최종 진화 !!!==========" << std::endl;
-
-	//진화 후의 이름 변경
-	static std::map<std::string, std::string> finalEvolutionTable = {
-		{"리자드", "리자몽"},
-		{"어니부기", "거북왕"},
-		{"이상해풀", "이상해꽃"},
-		// 여기에 몬스터 추가 가능
-	};
-
-	if (finalEvolutionTable.count(PName) > 0)
-	{
-		std::string nextName = finalEvolutionTable[PName];
-		std::cout << PName << "(이)가 한계를 뛰어넘어 " << nextName << "(으)로 최종 진화했습니다!" << std::endl;
-
-		PName = nextName;
-	}
-
 	//진화 보너스 호출
-	evolutionBonus(50, 20);
+	evolutionBonus(500, 100);
 
 	std::cout << "======================================" << std::endl;
 }
