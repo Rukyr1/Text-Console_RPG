@@ -1,0 +1,106 @@
+// Store.h
+
+#pragma once
+#include <iostream>
+#include <string>
+#include <vector>
+#include "Inventory.h"
+#include "Item.h"
+
+class Store
+{
+public:
+    //  상점 이름 설정 및 기본 물품 진열
+    Store(std::string name = "상점") : storeName(name), storeInven("상점칸수", 10)
+    {
+        // 상점 기본 아이템.
+        storeInven.Additem(Item("  상처약   ", 50, 30));  // 이름, 가격, 개수
+        storeInven.Additem(Item("좋은 상처약", 80, 30));
+        storeInven.Additem(Item("이상한 사탕", 1000, 10));
+    }
+
+
+    void InStore(Inventory<Item>& playerInven) {
+        int input = -1;
+
+        while (input != 0) {
+            ShowItems(); // 상점 목록 출력
+            playerInven.Printallgold(); // 플레이어 돈 출력
+
+            std::cout << "구매할 번호 입력 (나가기: 0): ";
+            std::cin >> input;
+
+            if (input == 0) {
+                std::cout << "상점을 나갑니다. 안녕히 가세요!" << std::endl;
+                break;
+            }
+
+            // 직접 구매 로직 실행
+            BuyItem(input, playerInven);
+
+        }
+    }
+
+    // 상점 보기
+    void ShowItems() const
+    {
+        std::cout << "==================================" << std::endl;
+        std::cout << "           [" << storeName << "] " << std::endl;
+        storeInven.Storeitems();
+    }
+
+    // 구매 
+    // 플레이어의 인벤토리를 참조 받아 수정.
+    void BuyItem(int slotIndex, Inventory<Item>& playerInven)
+    {
+        //사용자 입력 1~10 -> 내부인덱스 0~9
+        int internalIdx = slotIndex - 1;
+        // 슬롯 범위 (1 ~ 상점 용량)
+        if (slotIndex < 1 || slotIndex > 10)
+        {
+            std::cout << "잘못된 번호입니다." << std::endl;
+            return;
+        }
+
+
+        //상점 인벤토리에서 해당 번호의 아이템 정보를 가져오기.
+        Item& shopItem = storeInven.GetItem(slotIndex);
+
+        // 재고가 없는경우 출력
+        if (shopItem.GetName() == "" || shopItem.GetCount() <= 0)
+        {
+            std::cout << "판매할 상품이 없습니다." << std::endl;
+            return;
+        }
+
+        int price = shopItem.GetPrice();
+
+        // 플레이어 골드 차감
+        if (playerInven.UseGold(price))
+        {
+
+            // 정상적으로 동작되면 플레이어 인벤토리에 아이템 추가하고 골드차감
+            Item newItem(shopItem.GetName(), shopItem.GetPrice(), 1);
+            playerInven.Additem(newItem);
+
+            std::cout << "[" << shopItem.GetName() << "] 구매 완료!" << std::endl;
+
+            //상점 재고 감소 
+            shopItem.AddCount(-1);
+            if (shopItem.GetCount() <= 0)
+            {
+                shopItem.clear();
+            }
+        }
+
+
+        else
+        {
+            std::cout << "골드가 부족하여 구매할 수 없습니다." << std::endl;
+        }
+    }
+
+private:
+    std::string storeName;
+    Inventory<Item> storeInven; // 상점이 관리하는 인벤토리
+};

@@ -4,6 +4,7 @@
 #include "Pokemon.h"
 #include "Inventory.h"
 #include "Item.h"
+#include "Store.h"
 
 
 //Player.h

@@ -57,3 +57,5 @@ void Item::clear()
 //MyInven.AddGold(10);// 골드 획득 (10골드) 골드 획득시 문구 출력
 //MyInven.UseGold(100);// 골드 사용 (100골드) 골드 사용시 문구 출력 
 //MyInven.Printallgold();// 가지고 있는 골드 출력 
+//Store MyStore("마을 상점"); 상점추가 ("상점이름")
+//MyStore.InStore(MyInven); 상점연결

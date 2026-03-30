@@ -2,6 +2,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <iomanip>
+
 
 // Inventory<T> class 정의
 template<typename T>
@@ -37,7 +39,7 @@ public:
 			if (pItems[i].GetName() == item.GetName() && pItems[i].GetPrice() == item.GetPrice()) //이름과 가격이 같으면 증가
 			{
 				pItems[i].AddCount(item.GetCount());
-				std::cout << item.GetName() << "의 개수가 증가했습니다. (현재: " << pItems[i].GetCount() << "개)" << std::endl;
+				//std::cout << item.GetName() << "의 개수가 증가했습니다. (현재: " << pItems[i].GetCount() << "개)" << std::endl;
 				return;
 			}
 		}
@@ -49,7 +51,7 @@ public:
 			{
 				pItems[i] = item;
 				Isize++;
-				std::cout << item.GetName() << " " << item.GetCount() << "개를 가방에 넣었습니다." << std::endl;
+				//std::cout << item.GetName() << " " << item.GetCount() << "개를 가방에 넣었습니다." << std::endl;
 				return;
 			}
 		}
@@ -60,8 +62,7 @@ public:
 
 	void Printallitems() const // 가방안에있는 아이템 출력
 	{
-		std::cout << "\n[" << IownerName << "]" << "\n 인벤토리 (" << Isize << "/" << Icapacity << ")" << std::endl;
-		std::cout << " 소지 골드: " << Igold << " G" << std::endl;
+		//std::cout <<"\n[" << IownerName << "]" << "\n 인벤토리 (" << Isize << "/" << Icapacity << ")" << std::endl;
 
 		bool HasItem = false; //가방에 아이템이 있는지 체크 하는 변수
 
@@ -80,7 +81,8 @@ public:
 		{
 			std::cout << "\n(비어 있습니다.)" << std::endl;
 		}
-		std::cout << "----------------------------------\n" << std::endl;
+		std::cout << " 소지 골드: " << Igold << " G" << std::endl;
+		std::cout << "----------------------------------" << std::endl;
 	}
 
 	void UseItem(int index)
@@ -118,28 +120,54 @@ public:
 	void AddGold(int gold) // 골드 획득 
 	{
 		Igold += gold;
-		std::cout << gold << "골드를 획득했습니다.";
+		//std::cout << gold << "골드를 획득했습니다.";
 		std::cout << "현재: " << Igold << "G" << std::endl;  // 현재 골드 출력
 	}
 
 	bool UseGold(int gold) { // 골드 사용
 
 		if (Igold < gold) { // 골드 부족시
-			std::cout << "골드가 부족합니다."; //골드 부족 문구
-			std::cout << "필요: " << gold << "G" << "  현재: " << Igold << "G" << std::endl; // 필요골드 현재골드 출력
+			//std::cout << "골드가 부족합니다."; //골드 부족 문구
+			//std::cout << "필요: " << gold << "G" << "  현재: " << Igold << "G" << std::endl; // 필요골드 현재골드 출력
 			return false;
 		}
 		Igold -= gold; //골드 사용
-		std::cout << gold << "골드를 사용했습니다." << std::endl; //골드 사용문구
-		std::cout << "남은 골드: " << Igold << "G" << std::endl; //남은 골드 출력
+		//std::cout << gold << "골드를 사용했습니다." << std::endl; //골드 사용문구
+		//std::cout << "남은 골드: " << Igold << "G" << std::endl; //남은 골드 출력
 		return true;
 	}
 
 	void Printallgold() const //가방안에 있는 아이템과 골드 출력
 	{
-		std::cout << "\n 현재 골드: " << Igold << "G" << std::endl;
+		std::cout << "현재 골드: " << Igold << "G" << std::endl;
 	}
 
+	T& GetItem(int index) {
+		return pItems[index - 1]; // 사용자가 입력한 1번을 배열 0번으로 반환 (상점 사용때문에 추가)
+	}
+
+	void Storeitems() const // 가방안에있는 아이템 출력
+	{
+
+		bool HasItem = false; //가방에 아이템이 있는지 체크 하는 변수
+
+		for (int i = 0; i < Icapacity; i++)
+		{
+
+			if (pItems[i].GetName() != "")// 이름이 있는 아이템만 출력 (비어있는 슬롯은 출력x )
+			{
+				std::cout << i + 1 << ". " << pItems[i].GetName()
+					<< " | 가격: " << pItems[i].GetPrice()
+					<< " | 개수: " << pItems[i].GetCount() << std::endl;
+				HasItem = true;
+			}
+		}
+		if (!HasItem) //아이템이 하나도 없다면 출력
+		{
+			std::cout << "(비어 있습니다.)" << std::endl;
+		}
+		std::cout << "----------------------------------" << std::endl;
+	}
 
 
 
