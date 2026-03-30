@@ -100,15 +100,15 @@ void setColor(int color) {
 
 void GameManager::SelectPokemon()
 {
-	std::string PlayerName;
+	//std::string PlayerName;
 	Sleep(500);
 	std::string s1 = "이름을 입력하세요: ";
 	typeWritecin(s1);
-	std::cin >> PlayerName;
+	std::cin >> playerName;
 	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
 	
 	PlaySound(TEXT("music/1-03.-Professor-Oak.wav"), NULL, SND_FILENAME | SND_ASYNC); //배경음
-	std::string s2 = "안녕하세요. " + PlayerName + "님!\n";
+	std::string s2 = "안녕하세요. " + playerName + "님!\n";
 	typeWrite(s2);
 	Sleep(1000);
 
@@ -120,7 +120,7 @@ void GameManager::SelectPokemon()
 	{
 		gotoxy(0, 0);
 
-		std::cout << "안녕하세요. " << PlayerName << "님!                      " << std::endl;
+		std::cout << "안녕하세요. " << playerName << "님!                      " << std::endl;
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << std::endl;
 		std::cout << "┃                                                       ┃" << std::endl;
 		std::cout << "┃           [ 스타팅 포켓몬을 선택하세요! ]             ┃" << std::endl;
@@ -218,7 +218,7 @@ void GameManager::SelectPokemon()
 	//inventory.Additem(Item("좋은 상처약", 80, 30));
 	//inventory.Additem(Item("좋은 상처약", 80, 30));
 
-	//StartBattle();
+	StartBattle();
 	GameLoop();
 }
 
@@ -294,7 +294,7 @@ void GameManager::StartBattle()
 	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp()); // 내 HP 바 출력
 	std::cout << "  │  ┃\n";
 	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
-	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
 	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
 	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
@@ -382,7 +382,6 @@ void GameManager::StartBattle()
 							int NewExp = MyPokemon->getPExp() - 100;
 							MyPokemon->setPExp(NewExp);
 							MyPokemon->levelUp();
-							return;
 						}
 					}
 					
@@ -455,11 +454,10 @@ void GameManager::StartBattle()
 			}
 			case 4:
 			{
+				IsBattle = false;
 				std::cout << "무사히 도망쳤다!" << std::endl;
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
-				
-				IsBattle = false;
 				//GameLoop();
 				return;
 			}
@@ -494,9 +492,9 @@ void GameManager::StartBattle()
 
 void GameManager::GameLoop()
 {
+	PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	while (true)
 	{
-		PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		// SND_ANYNC: 음악 재생 중에도 다음 코드 실행
 		// SND_LOOP: 무한 반복
 		
@@ -507,7 +505,7 @@ void GameManager::GameLoop()
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃ 🌳 마을 - 안전 지역                                          ┃\n";
 		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
-		std::cout << "┃ 플레이어: 김훈철                                             ┃\n";
+		std::cout << "┃ 플레이어: " << playerName << "                                             ┃\n";
 		std::cout << "┃ 보유 골드: 1200G                                             ┃\n";
 		std::cout << "┃ 현재 포켓몬: " << MyPokemon->getName() << "(Lv.5 / HP: 45 / 60)                     ┃\n";
 		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
