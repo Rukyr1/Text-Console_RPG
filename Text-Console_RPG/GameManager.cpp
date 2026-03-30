@@ -101,11 +101,13 @@ void setColor(int color) {
 void GameManager::SelectPokemon()
 {
 	std::string PlayerName;
-	
+	Sleep(500);
 	std::string s1 = "이름을 입력하세요: ";
 	typeWritecin(s1);
 	std::cin >> PlayerName;
+	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
 	
+	PlaySound(TEXT("music/1-03.-Professor-Oak.wav"), NULL, SND_FILENAME | SND_ASYNC); //배경음
 	std::string s2 = "안녕하세요. " + PlayerName + "님!\n";
 	typeWrite(s2);
 	Sleep(1000);
@@ -129,16 +131,29 @@ void GameManager::SelectPokemon()
 		std::cout << "┃      ";
 		// --- 1. 이상해씨 (선택 시 초록색: 10) ---
 		if (cursor == 1) setColor(10);
+		if (cursor == 1)
+		{
+			PlaySound(TEXT("music/001-bulbasaur_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //이상해씨 울음소리
+		}
 		std::cout << "  1. 이상해씨   ";
 		setColor(7); // 다시 흰색으로 복구
 
 		// --- 2. 파이리 (선택 시 빨간색: 12) ---
 		if (cursor == 2) setColor(12);
+		if (cursor == 2)
+		{
+			PlaySound(TEXT("music/004-charmander_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //파이리 울음소리
+		}	
 		std::cout << "  2. 파이리   ";
 		setColor(7);
 
 		// --- 3. 꼬부기 (선택 시 하늘색: 11) ---
 		if (cursor == 3) setColor(11);
+		if (cursor == 3)
+		{
+			PlaySound(TEXT("music/007-squirtle_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //꼬부기 울음소리
+		}
+
 		std::cout << "  3. 꼬부기    ";
 		setColor(7);
 
@@ -164,6 +179,7 @@ void GameManager::SelectPokemon()
 		}
 		else if (key == 13) // Enter 키
 		{
+			PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			break; // 루프 탈출
 		}
 	}
