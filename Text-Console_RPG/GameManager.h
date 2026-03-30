@@ -11,6 +11,7 @@ private:
 	Pokemon* EnemyPokemon;
 	Inventory<Item> inventory;
 
+	std::string playerName;
 
 
 public:

@@ -100,13 +100,15 @@ void setColor(int color) {
 
 void GameManager::SelectPokemon()
 {
-	std::string PlayerName;
-	
+	//std::string PlayerName;
+	Sleep(500);
 	std::string s1 = "이름을 입력하세요: ";
 	typeWritecin(s1);
-	std::cin >> PlayerName;
+	std::cin >> playerName;
+	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
 	
-	std::string s2 = "안녕하세요. " + PlayerName + "님!\n";
+	PlaySound(TEXT("music/1-03.-Professor-Oak.wav"), NULL, SND_FILENAME | SND_ASYNC); //배경음
+	std::string s2 = "안녕하세요. " + playerName + "님!\n";
 	typeWrite(s2);
 	Sleep(1000);
 
@@ -118,7 +120,7 @@ void GameManager::SelectPokemon()
 	{
 		gotoxy(0, 0);
 
-		std::cout << "안녕하세요. " << PlayerName << "님!                      " << std::endl;
+		std::cout << "안녕하세요. " << playerName << "님!                      " << std::endl;
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << std::endl;
 		std::cout << "┃                                                       ┃" << std::endl;
 		std::cout << "┃           [ 스타팅 포켓몬을 선택하세요! ]             ┃" << std::endl;
@@ -129,16 +131,29 @@ void GameManager::SelectPokemon()
 		std::cout << "┃      ";
 		// --- 1. 이상해씨 (선택 시 초록색: 10) ---
 		if (cursor == 1) setColor(10);
+		if (cursor == 1)
+		{
+			PlaySound(TEXT("music/001-bulbasaur_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //이상해씨 울음소리
+		}
 		std::cout << "  1. 이상해씨   ";
 		setColor(7); // 다시 흰색으로 복구
 
 		// --- 2. 파이리 (선택 시 빨간색: 12) ---
 		if (cursor == 2) setColor(12);
+		if (cursor == 2)
+		{
+			PlaySound(TEXT("music/004-charmander_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //파이리 울음소리
+		}	
 		std::cout << "  2. 파이리   ";
 		setColor(7);
 
 		// --- 3. 꼬부기 (선택 시 하늘색: 11) ---
 		if (cursor == 3) setColor(11);
+		if (cursor == 3)
+		{
+			PlaySound(TEXT("music/007-squirtle_1.wav"), NULL, SND_FILENAME | SND_ASYNC); //꼬부기 울음소리
+		}
+
 		std::cout << "  3. 꼬부기    ";
 		setColor(7);
 
@@ -164,6 +179,7 @@ void GameManager::SelectPokemon()
 		}
 		else if (key == 13) // Enter 키
 		{
+			PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			break; // 루프 탈출
 		}
 	}
@@ -203,6 +219,7 @@ void GameManager::SelectPokemon()
 	//inventory.Additem(Item("좋은 상처약", 80, 30));
 
 	StartBattle();
+	GameLoop();
 }
 
 void printHpBar(int currentHp, int maxHp)
@@ -247,15 +264,16 @@ void GameManager::StartBattle()
 		EnemyPokemon = new Squirtle(); // 꼬부기
 		break;
 	}
-	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	Sleep(1000);
+
+
 
 	// ███████░░░░░░░░
 #pragma region 전투 UI
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 	std::cout << "┃                                                              ┃\n";
 	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-	// 왼쪽 정렬(left)과 15칸 고정(setw)으로 이름 길이가 달라도 테두리가 깨지지 않음
 	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                            ┃\n";
 	std::cout << "┃  │      HP: ";
 	printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp()); // HP 바 출력
@@ -273,10 +291,10 @@ void GameManager::StartBattle()
 	std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
 	std::cout << "┃                            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14 │  ┃\n";
 	std::cout << "┃                            │      HP: ";
-	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxExp()); // 내 HP 바 출력
+	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp()); // 내 HP 바 출력
 	std::cout << "  │  ┃\n";
 	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
-	std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
+	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
 	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
 	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
@@ -302,7 +320,6 @@ void GameManager::StartBattle()
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃                                                              ┃\n";
 		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-		// 왼쪽 정렬(left)과 15칸 고정(setw)으로 이름 길이가 달라도 테두리가 깨지지 않음
 		std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                            ┃\n";
 		std::cout << "┃  │      HP: ";
 		printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp()); // HP 바 출력
@@ -320,37 +337,13 @@ void GameManager::StartBattle()
 		std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
 		std::cout << "┃                            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14 │  ┃\n";
 		std::cout << "┃                            │      HP: ";
-		printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxExp()); // 내 HP 바 출력
+		printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp()); // 내 HP 바 출력
 		std::cout << "  │  ┃\n";
 		std::cout << "┃                            └──────────────────────────────┘  ┃\n";
 		std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
 		std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
 		std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
 		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
-
-		/*std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-		std::cout << "┃                                                              ┃\n";
-		std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-		std::cout << "┃  │ " << EnemyPokemon->getName() << "      L13             │                            ┃\n";
-		std::cout << "┃  │      HP: ██████████░░░░░░░░  │                            ┃\n";
-		std::cout << "┃  └──────────────────────────────┘                            ┃\n";
-		std::cout << "┃                                            /\\                ┃\n";
-		std::cout << "┃                                           /  \\               ┃\n";
-		std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
-		std::cout << "┃                                           \\__/               ┃\n";
-		std::cout << "┃                                                              ┃\n";
-		std::cout << "┃                                                              ┃\n";
-		std::cout << "┃        /\\                                                    ┃\n";
-		std::cout << "┃       /  \\                                                   ┃\n";
-		std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
-		std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
-		std::cout << "┃                            │ " << MyPokemon->getName() << "                 L14 │  ┃\n";
-		std::cout << "┃                            │      HP: ██████████░░░░░░░░  │  ┃\n";
-		std::cout << "┃                            └──────────────────────────────┘  ┃\n";
-		std::cout << "├──────────────────────────────────────┬───────────────────────┤\n";
-		std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
-		std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
-		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";*/
 
 		int PlayerChoice;
 
@@ -380,6 +373,7 @@ void GameManager::StartBattle()
 					std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 					if (MyPokemon->getPExp() < MyPokemon->getPMaxExp())
 					{
+
 						int NewExp = MyPokemon->getPExp() + 50;
 						MyPokemon->setPExp(NewExp);
 						std::cout << "경험치 50을 획득했습니다!" << std::endl;
@@ -388,7 +382,6 @@ void GameManager::StartBattle()
 							int NewExp = MyPokemon->getPExp() - 100;
 							MyPokemon->setPExp(NewExp);
 							MyPokemon->levelUp();
-							break;
 						}
 					}
 					
@@ -399,11 +392,13 @@ void GameManager::StartBattle()
 
 					IsBattle = false; // 전투 종료 확인
 
+					std::cout << "마을로 돌아가려면 아무 키나 누르세요..." << std::endl;
+
 					_getch();
 
 					PlaySound(NULL, 0, 0);
-					GameLoop(); // 마을? 복귀(게임 종료 전까지 반복 순환)
-					break;
+					//GameLoop(); // 마을? 복귀(게임 종료 전까지 반복 순환)
+					return;
 				}
 				
 				// 적 포켓몬 공격
@@ -419,7 +414,6 @@ void GameManager::StartBattle()
 
 				std::cout << "다음 턴으로 넘어가려면 아무 키나 누르세요..." << std::endl;
 				_getch();
-
 				break;
 			}
 
@@ -460,13 +454,12 @@ void GameManager::StartBattle()
 			}
 			case 4:
 			{
+				IsBattle = false;
 				std::cout << "무사히 도망쳤다!" << std::endl;
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
-
-				IsBattle = false;
-				GameLoop();
-				break;
+				//GameLoop();
+				return;
 			}
 			case 5:
 			{
@@ -512,7 +505,7 @@ void GameManager::GameLoop()
 		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 		std::cout << "┃ 🌳 마을 - 안전 지역                                          ┃\n";
 		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
-		std::cout << "┃ 플레이어: 김훈철                                             ┃\n";
+		std::cout << "┃ 플레이어: " << playerName << "                                             ┃\n";
 		std::cout << "┃ 보유 골드: 1200G                                             ┃\n";
 		std::cout << "┃ 현재 포켓몬: " << MyPokemon->getName() << "(Lv.5 / HP: 45 / 60)                     ┃\n";
 		std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
