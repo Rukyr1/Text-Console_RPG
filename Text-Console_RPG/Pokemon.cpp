@@ -105,6 +105,838 @@ int Squirtle::skill(int skillNum)
 	//p_damage(임시) = p_attackPower * 3
 }
 
+//뚜벅초 //풀
+
+Oddish::Oddish()
+{
+	PName = "뚜벅초";
+	PLevel = 13;
+	PMaxHp = 260;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 65;
+	//p_def = 10
+	PExp = 0;
+}
+int Oddish::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [잎날가르기]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//냄새꼬 //풀
+
+Gloom::Gloom()
+{
+	PName = "냄새꼬";
+	PLevel = 28;
+	PMaxHp = 588;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 168;
+	//p_def = 12
+	PExp = 0;
+}
+int Gloom::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [흡수]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//라플레시아 //풀
+
+Vileplume::Vileplume()
+{
+	PName = "라플레시아";
+	PLevel = 32;
+	PMaxHp = 704;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 224;
+	//p_def = 14
+	PExp = 0;
+}
+int Vileplume::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [꽃잎댄스]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//파라스 //풀
+
+Paras::Paras()
+{
+	PName = "파라스";
+	PLevel = 8;
+	PMaxHp = 158;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 64;
+	//p_def = 9
+	PExp = 0;
+}
+int Paras::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [메가드레인]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//파라섹트 //풀
+
+Parasect::Parasect()
+{
+	PName = "파라섹트";
+	PLevel = 24;
+	PMaxHp = 600;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 216;
+	//p_def = 13
+	PExp = 0;
+}
+int Parasect::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [기가드레인]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//모다피 //풀
+
+Bellsprout::Bellsprout()
+{
+	PName = "모다피";
+	PLevel = 13;
+	PMaxHp = 299;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 91;
+	//p_def = 6
+	PExp = 0;
+}
+int Bellsprout::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [덩굴채찍]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//우츠동 //풀
+
+Weepinbell::Weepinbell()
+{
+	PName = "우츠동";
+	PLevel = 28;
+	PMaxHp = 672;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 196;
+	//p_def = 9
+	PExp = 0;
+}
+int Weepinbell::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [잎날가르기]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//우츠보트 //풀
+
+Victreebel::Victreebel()
+{
+	PName = "우츠보트";
+	PLevel = 32;
+	PMaxHp = 800;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 288;
+	//p_def = 10
+	PExp = 0;
+}
+int Victreebel::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [그래스믹서]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//아라리 //풀
+
+Exeggcute::Exeggcute()
+{
+	PName = "아라리";
+	PLevel = 24;
+	PMaxHp = 504;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 120;
+	//p_def = 12
+	PExp = 0;
+}
+int Exeggcute::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [씨폭탄]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//나시 //풀
+
+Exeggutor::Exeggutor()
+{
+	PName = "나시";
+	PLevel = 35;
+	PMaxHp = 945;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 350;
+	//p_def = 13
+	PExp = 0;
+}
+int Exeggutor::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [누르기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [리프스톰]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//식스테일 //불
+
+Vulpix::Vulpix()
+{
+	PName = "식스테일";
+	PLevel = 16;
+	PMaxHp = 288;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 75;
+	//p_def = 6
+	PExp = 0;
+}
+int Vulpix::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [불꽆세례]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//나인테일 //불
+
+Ninetales::Ninetales()
+{
+	PName = "나인테일";
+	PLevel = 28;
+	PMaxHp = 644;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 196;
+	//p_def = 9
+	PExp = 0;
+}
+int Ninetales::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [화염방사]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//가디 //불
+
+Growlithe::Growlithe()
+{
+	PName = "가디";
+	PLevel = 15;
+	PMaxHp = 315;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 99;
+	//p_def = 6
+	PExp = 0;
+}
+int Growlithe::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [화염바퀴]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//윈디 //불
+
+Arcanine::Arcanine()
+{
+	PName = "윈디";
+	PLevel = 26;
+	PMaxHp = 702;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 275;
+	//p_def = 11
+	PExp = 0;
+}
+int Arcanine::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [할퀴기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [플레어드라이브]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//포니타 //불
+
+Ponyta::Ponyta()
+{
+	PName = "포니타";
+	PLevel = 28;
+	PMaxHp = 588;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 168;
+	//p_def = 9
+	PExp = 0;
+}
+int Ponyta::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [불꽃세례]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//날쌩마 //불
+
+Rapidash::Rapidash()
+{
+	PName = "날쌩마";
+	PLevel = 49;
+	PMaxHp = 1078;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 441;
+	//p_def = 10
+	PExp = 0;
+}
+int Rapidash::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [회오리불꽃]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//마그비 //불
+
+Magby::Magby()
+{
+	PName = "마그비";
+	PLevel = 1;
+	PMaxHp = 20;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 7;
+	//p_def = 6
+	PExp = 0;
+}
+int Magby::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [불꽃세례]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//마그마 //불
+
+Magmar::Magmar()
+{
+	PName = "마그마";
+	PLevel = 34;
+	PMaxHp = 714;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 272;
+	//p_def = 9
+	PExp = 0;
+}
+int Magmar::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [불대문자]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//부스터 //불
+
+Flareon::Flareon()
+{
+	PName = "부스터";
+	PLevel = 36;
+	PMaxHp = 756;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 380;
+	//p_def = 9
+	PExp = 0;
+}
+int Flareon::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [플레어드라이브]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//파이어 //불
+
+Moltres::Moltres()
+{
+	PName = "파이어";
+	PLevel = 50;
+	PMaxHp = 1350;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 450;
+	//p_def = 12
+	PExp = 0;
+}
+int Moltres::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [칼바람]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [오버히트]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//고라파덕 //물
+
+Psyduck::Psyduck()
+{
+	PName = "고라파덕";
+	PLevel = 28;
+	PMaxHp = 588;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 168;
+	//p_def = 7
+	PExp = 0;
+}
+int Psyduck::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [물대포]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//골덕 //물
+
+Golduck::Golduck()
+{
+	PName = "골덕";
+	PLevel = 38;
+	PMaxHp = 988;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 277;
+	//p_def = 11
+	PExp = 0;
+}
+int Golduck::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [물의파동]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//발챙이 //물
+
+Poliwag::Poliwag()
+{
+	PName = "발챙이";
+	PLevel = 10;
+	PMaxHp = 195;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 52;
+	//p_def = 7
+	PExp = 0;
+}
+int Poliwag::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [거품]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//슈륙챙이 //물
+
+Poliwhirl::Poliwhirl()
+{
+	PName = "슈륙챙이";
+	PLevel = 23;
+	PMaxHp = 483;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 138;
+	//p_def = 9
+	PExp = 0;
+}
+int Poliwhirl::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [폭포오르기]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//강챙이 //물
+
+Poliwrath::Poliwrath()
+{
+	PName = "강챙이";
+	PLevel = 32;
+	PMaxHp = 986;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 224;
+	//p_def = 13
+	PExp = 0;
+}
+int Poliwrath::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [막치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [아쿠아브레이크]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//왕눈해 //물
+
+Tentacool::Tentacool()
+{
+	PName = "왕눈해";
+	PLevel = 5;
+	PMaxHp = 89;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 21;
+	//p_def = 5
+	PExp = 0;
+}
+int Tentacool::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [거품]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//독파리 //물
+
+Tentacruel::Tentacruel()
+{
+	PName = "독파리";
+	PLevel = 20;
+	PMaxHp = 540;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 155;
+	//p_def = 10
+	PExp = 0;
+}
+int Tentacruel::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [거품광선]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//야돈 //물
+
+Slowpoke::Slowpoke()
+{
+	PName = "야돈";
+	PLevel = 15;
+	PMaxHp = 420;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 90;
+	//p_def = 10
+	PExp = 0;
+}
+int Slowpoke::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [물대포]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//야도란 //물
+
+Slowbro::Slowbro()
+{
+	PName = "야도란";
+	PLevel = 37;
+	PMaxHp = 1036;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 259;
+	//p_def = 15
+	PExp = 0;
+}
+int Slowbro::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [몸통박치기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [물의파동]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//라프라스 //물
+
+Lapras::Lapras()
+{
+	PName = "라프라스";
+	PLevel = 50;
+	PMaxHp = 1520;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 366;
+	//p_def = 11
+	PExp = 0;
+}
+int Lapras::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [누르기]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [하이드로펌프]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//뮤츠 //에스퍼
+
+Mewtwo::Mewtwo()
+{
+	PName = "뮤츠";
+	PLevel = 70;
+	PMaxHp = 2100;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 840;
+	//p_def = 12
+	PExp = 0;
+}
+int Mewtwo::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [염동력]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [사이코브레이크]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
+//뮤 //에스퍼
+
+Mew::Mew()
+{
+	PName = "뮤";
+	PLevel = 100;
+	PMaxHp = 3000;
+	PCurrentHp = PMaxHp;
+	PAttackPower = 1500;
+	//p_def = 20
+	PExp = 0;
+}
+int Mew::skill(int skillNum)
+{
+	if (skillNum == 1)
+	{
+		std::cout << PName << "의 [염동력]!" << std::endl;
+		return getAttack();
+	}
+	else
+	{
+		std::cout << PName << "의 [오리진즈슈퍼노바]!" << std::endl;
+		return getAttack() + 20; // 3배 데미지 리턴
+	}
+}
+
 void Pokemon::takeDamage(int PAttackPower)
 {
 	PCurrentHp -= PAttackPower;
