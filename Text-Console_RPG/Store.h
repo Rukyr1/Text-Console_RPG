@@ -16,8 +16,8 @@ public:
     Store(std::string name = "상점") : storeName(name), storeInven("상점칸수", 10)
     {
         // 상점 기본 아이템.
-        storeInven.Additem(Item("상처약", 50, 30, 20));  // 이름, 가격, 개수, 힐량
-        storeInven.Additem(Item("고급 상처약", 80, 30, 60));
+        storeInven.Additem(Item("상처약", 300, 30, 20));  // 이름, 가격, 개수, 힐량
+        storeInven.Additem(Item("좋은상처약", 700, 30, 60));
         // storeInven.Additem(Item("이상한 사탕", 1000, 10, 10)); 추가 못함
     }
     
@@ -25,7 +25,7 @@ public:
         int input = -1;
 
         while (input != 0) {
-            system("cls");
+            //system("cls");
             ShowItems(); // 상점 목록 출력
             playerInven.Printallgold(); // 플레이어 돈 출력
 
@@ -50,6 +50,8 @@ public:
     {
         std::cout << "==================================" << std::endl;
         std::cout << "     [" << storeName << "] " << std::endl;
+
+        //std::cout << "           [" << storeName << "] " << std::endl;
         storeInven.Storeitems();
     }
 

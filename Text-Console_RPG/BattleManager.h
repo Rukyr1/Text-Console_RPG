@@ -20,7 +20,7 @@ public:
 	BattleManager();
 	~BattleManager();
 	
-	BattleResult StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory);
+	BattleResult StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory, Player* player);
 	//함수의 반환타입 함수이름(매개변수);
 
 	

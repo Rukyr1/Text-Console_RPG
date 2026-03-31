@@ -117,7 +117,7 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 
 //전투 시작 함수 결과 반환 승리/패배/도망
 
-BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory)
+BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory, Player* player)
 {
 	Sleep(500);
 	//전투 BGM
@@ -191,7 +191,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 		case 1: // 공격 상황(현재는 항상 선공)
 		{
 			int SkillChoice;
-			std::cout << "기술 선택: ( [1] / [2] ): "; // 스킬(현재 2가지) 중 선택
+			std::cout << "기술 선택: 1." << MyPokemon->getSkillName(1) << " 2." << MyPokemon->getSkillName(2); // 스킬(현재 2가지) 중 선택
 			std::cin >> SkillChoice;
 
 			// 내 포켓몬 공격
@@ -228,26 +228,30 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 					std::uniform_int_distribution<> ItemChance(1, 100);
 					int ItemRoll = ItemChance(gen); //실제 랜덤 값 생성
 
-					if (ItemRoll <= 70)
+					if (ItemRoll <= 50)
 					{
-						Item potion("상처약", 50, 1, 20);
+						Item potion("상처약", 150, 1, 20);
 						inventory.Additem(potion);
 						std::cout << "상처약을 획득했다!" << std::endl;
 					}
+					else if(51 <= ItemRoll && ItemRoll <= 80 )
+					{
+						Item potion2("좋은상처약", 350, 1, 60);
+						inventory.Additem(potion2);
+						std::cout << "좋은상처약을 획득했다!" << std::endl;
+					}
 					else
 					{
-						Item potion2("고급 상처약", 80, 1, 60);
-						inventory.Additem(potion2);
-						std::cout << "고급 상처약을 획득했다!" << std::endl;
+						Item candy("이상한 사탕", 2400, 1, 1);
+						player->GetInventory().Additem(candy);
+						std::cout << "이상한사탕을 획득했다!" << std::endl;
 					}
-
-
 				}
 
-				std::uniform_int_distribution<> goldDist(50, 500); //50~500 사이
+				std::uniform_int_distribution<> goldDist(50, 300); //50~300 사이
 
 				int gold = goldDist(gen); //실제 랜덤 값 생성
-				inventory.AddGold(gold);
+				inventory.AddGold(gold); //전투보상 골드 획득
 
 				//적 제거
 				delete EnemyPokemon;
@@ -319,6 +323,12 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 						//int AttackToMe = EnemyPokemon->skill(1); //적턴으로 넘기기
 						//MyPokemon->takeDamage(AttackToMe); // 데미지 받기
 						inventory.UpdateInventory(); //인벤토리 정리용
+					}
+					else if (BagChoice == 0)
+					{
+						std::cout << "인벤토리를 나갑니다!" << std::endl;
+						IsOpenBag = false;
+						break;
 					}
 					else
 					{

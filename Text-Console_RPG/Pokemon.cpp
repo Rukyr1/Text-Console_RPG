@@ -14,16 +14,16 @@ int Pokemon::skill(int skillNum)
 }
 
 struct skill;
-struct pokemondata
-{
-	int level;
-	int maxhp;
-	int attackpower;
-
-	std::string skill1;
-	std::string skill2;
-	
-};
+//struct pokemondata
+//{
+//	int level;
+//	int maxhp;
+//	int attackpower;
+//
+//	std::string skill1;
+//	std::string skill2;
+//	
+//};
 
 
 std::map<std::string, pokemondata> skilllist =
@@ -89,6 +89,9 @@ Bulbasaur::Bulbasaur()
 	PAttackPower = 45;
 	//p_def = 8
 	PExp = 0;
+
+	skill1Name = "몸통박치기";
+	skill2Name = "덩굴채찍";
 }
 int Bulbasaur::skill(int skillNum)
 {
@@ -115,6 +118,9 @@ Charmander::Charmander()
 	PAttackPower = 55;
 	//p_def = 5
 	PExp = 0;
+
+	skill1Name = "할퀴기";
+	skill2Name = "불꽃세례";
 }
 int Charmander::skill(int skillNum)
 {
@@ -125,7 +131,7 @@ int Charmander::skill(int skillNum)
 	}
 	else
 	{
-		std::cout << PName << "의 [불꽃세레]!" << std::endl;
+		std::cout << PName << "의 [불꽃세례]!" << std::endl;
 		return getAttack() + 20;
 	}
 	//p_damage(임시) = p_attackPower * 3
@@ -142,6 +148,9 @@ Squirtle::Squirtle()
 	PAttackPower = 50;
 	//p_def = 10
 	PExp = 0;
+
+	skill1Name = "몸통박치기";
+	skill2Name = "물대포";
 }
 
 int Squirtle::skill(int skillNum)
@@ -1063,6 +1072,19 @@ void Pokemon::evolutionBonus(int hpBonus, int atkBonus)
 	PCurrentHp = PMaxHp; // 진화 시 체력 풀 회복
 
 	std::cout << "[진화 보너스] HP +" << hpBonus << ", 공격력 +" << atkBonus << " 상승!" << std::endl;
+}
+
+std::string Pokemon::getSkillName(int index)
+{
+	if (index == 1)
+	{
+		return skill1Name;
+	}
+	else if (index == 2)
+	{
+		return skill2Name;
+	}
+	return "";
 }
 
 

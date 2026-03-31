@@ -4,6 +4,17 @@
 
 //Pokemon.h 
 
+struct pokemondata
+{
+	int level;
+	int maxhp;
+	int attackpower;
+
+	std::string skill1;
+	std::string skill2;
+
+};
+
 //포켓몬 타입 정의
 enum class  PType //일단 스타팅 포켓몬 타입 3개만 //에스퍼 타입추가
 {
@@ -24,10 +35,11 @@ protected:
 	int PMaxExp = 100;
 	int PCurrentHp;
 	int PMaxHp;
+	pokemondata data;
 
 	//int p_def = 30;
-	//std::string skill01;
-	//std::string skill02;
+	std::string skill1Name;
+	std::string skill2Name;
 
 public:
 
@@ -53,6 +65,8 @@ public:
 	int getPMaxExp() { return PMaxExp; }
 	void setHP(int NewHp) { PCurrentHp = NewHp; }
 	void setPExp(int NewExp) { PExp = NewExp;  } 
+	std::string getSkillName(int index);
+
 };
 
 class Bulbasaur : public Pokemon //이상해씨

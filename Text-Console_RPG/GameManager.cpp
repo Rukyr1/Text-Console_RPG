@@ -231,16 +231,12 @@ void GameManager::SelectPokemon()
 		return;
 	}
 	
-	std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템 
-	player->GetInventory().AddGold(500);  //기본 지급 골드
-	player->GetInventory().Additem(Item("상처약", 50, 5, 20)); //임시 아이템 인벤토리에 추가 ("아이템 이름",가격,수량,힐량)
-	player->GetInventory().Additem(Item("고급 상처약", 80, 5, 60));
 	std::string s4 = "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5";//임시 아이템
 	printtext.typeWrite(s4);
 	Sleep(1000);
 	player->GetInventory().AddGold(1000);  //기본 지급 골드
-	player->GetInventory().Additem(Item("상처약", 50, 5, 10)); //임시 아이템 인벤토리에 추가 ("아이템 이름" 가격 수량 힐량)
-	player->GetInventory().Additem(Item("좋은 상처약", 80, 5, 30));
+	player->GetInventory().Additem(Item("상처약", 150, 5, 20)); //임시 아이템 인벤토리에 추가 ("아이템 이름",가격,수량,힐량)
+	player->GetInventory().Additem(Item("좋은상처약", 350, 5, 60));
 
 	GameLoop();
 }
@@ -277,18 +273,18 @@ void GameManager::GameLoop()
 
 		int choice;
 		
-		uimanager.VillageUi(playerName, MyPokemon); //마을 UI
+		uimanager.VillageUi(playerName, MyPokemon, player); //마을 UI
 
 
 		std::cin >> choice;
 
 		switch (choice)
 		{
-		case 1:
+		case 1: //전투
 		{
 			PlaySound(NULL, 0, 0);
 
-			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory());
+			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player);
 
 			if (result == BattleResult::Lose)
 			{
@@ -298,19 +294,61 @@ void GameManager::GameLoop()
 			PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			break;
 		}
-		case 2:
-			std::cout << "상점 준비 중..." << std::endl;
+		case 2: //상점
+		{
+			int ShopChoice;
+			uimanager.ShopUi();
+			std::cout << "입력: ";
+			std::cin >> ShopChoice;
+
+			if (ShopChoice == 1) //구매
 			{
-            	Store MyStore("포켓몬 센터 상점"); //("상점이름") 
-            	MyStore.InStore(player->GetInventory());
-            }
+				uimanager.ShopBuyUi();
+				//Store MyStore("포켓몬 센터 상점"); //("상점이름") 
+				store.InStore(player->GetInventory());
+			}
+			else if (ShopChoice == 2) //판매
+			{
+				int SellChoice;
+				uimanager.ShopSellUi();
+				std::cin >> SellChoice;
+				if (SellChoice == 0)
+				{
+					std::cout << "포켓몬 상점을 나갑니다." << std::endl;
+					Sleep(1000);
+					PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+					return;
+				}
+				else
+				{
+					std::cout << "아직 판매할 수 없습니다. 다음에 다시 방문하세요~!" << std::endl;
+					Sleep(1000);
+					PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+					return;
+				}
+				//판매기능
+			}
+			else if (ShopChoice == 0) //나가기
+			{
+				std::cout << "포켓몬 상점을 나갑니다." << std::endl;
+				Sleep(1000);
+				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+				break;
+			}
+			else
+			{
+				std::cout << "잘못된 입력입니다." << std::endl;
+			}
+			
+        }
 			PlaySound(NULL, 0, 0);
 			break;
-		case 3:
+		case 3: //회복
 			PlaySound(TEXT("music/1-10.-Pokémon-Center.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			int CenterChoice;
 			Sleep(1000);
 			uimanager.PokemonCenterUi();
+			std::cout << "입력: ";
 			std::cin >> CenterChoice;
 			PlaySound(NULL, 0, 0);
 			switch (CenterChoice)
@@ -337,7 +375,7 @@ void GameManager::GameLoop()
 				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			}
 			break;
-		case 4:
+		case 4: //종료
 			std::cout << "게임을 종료합니다." << std::endl;
 			PlaySound(NULL, 0, 0);
 			exit(0);

@@ -17,6 +17,7 @@ private:
 	UIManager uimanager;
 	BattleManager battlemanager;
 	PrintText printtext;
+	Store store;
 
 public:
 	GameManager();
