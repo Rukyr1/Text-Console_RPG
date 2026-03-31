@@ -130,8 +130,8 @@ public:
 	void AddGold(int gold) // 골드 획득 
 	{
 		Igold += gold;
-		//std::cout << gold << "골드를 획득했습니다.";
-		std::cout << "현재: " << Igold << "G" << std::endl;  // 현재 골드 출력
+		std::cout << gold << "골드를 획득했습니다.";
+		//std::cout << "현재: " << Igold << "G" << std::endl;  // 현재 골드 출력
 	}
 
 	bool UseGold(int gold) { // 골드 사용

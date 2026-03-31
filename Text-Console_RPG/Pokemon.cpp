@@ -1014,7 +1014,7 @@ void Pokemon::levelUp()
 	}
 
 	PLevel++;
-	std::cout << "이(가) 레벨 업 했습니다!" << std::endl;
+	std::cout << getName() << "이(가) 레벨 업 했습니다!" << std::endl;
 	//능력치 상승
 	int hpGain = PLevel * 20;
 	int attackGain = PLevel * 5;

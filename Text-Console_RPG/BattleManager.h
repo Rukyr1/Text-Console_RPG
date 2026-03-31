@@ -4,6 +4,8 @@
 #include "Inventory.h"
 #include "UIManager.h"
 #include "PrintText.h"
+#include "Item.h"
+#include <random>
 
 enum class BattleResult //전투 결과 값
 {
@@ -36,6 +38,11 @@ private:
 
 	UIManager uimanager;
 	PrintText printtext;
+	Item item;
+
+	std::random_device rd; //랜덤 시드 
+	std::mt19937 gen;
+
 
 
 };

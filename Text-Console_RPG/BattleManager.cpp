@@ -1,43 +1,44 @@
 #include "BattleManager.h"
-#include <random>//random
-#include <Windows.h>
+#include <Windows.h> //Sleep, PlaySound
 #include <conio.h> //_getch()
 #pragma comment(lib, "WinMM.lib") //PlaySound()
 
 void gotoxy(int x, int y);
 void setColor(int color);
 
-BattleManager::BattleManager()
-	: IsBattle(false)
-	, IsTurnPass(false)
-	, IsEscape(false)
-	, AtkChoice(0)
-	, BagChoice(0)
-	, IsOpenBag(false)
-	, EnemyPokemon(nullptr)
+BattleManager::BattleManager() //생성자 전투 관련 상태 초기화
+	: IsBattle(false) //전투 중 여부
+	, IsTurnPass(false) //턴 종료 여부
+	, IsEscape(false) //도망 여부
+	, AtkChoice(0) //전투 선택
+	, BagChoice(0) //가방 선택
+	, IsOpenBag(false) //가방 열기 여부
+	, EnemyPokemon(nullptr) //적 포켓몬 초기화
+	, rd()
+	, gen(rd())
 {
 }
 
-BattleManager::~BattleManager()
+BattleManager::~BattleManager() //소멸자 동적 할당된 적 포켓몬 메모리 해제
 {
 	delete EnemyPokemon;
 	EnemyPokemon = nullptr;
 
 }
 
-void BattleManager::RandomEnemy()
+void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 {
 	delete EnemyPokemon; //전에 있던 적 포켓몬 제거
 	EnemyPokemon = nullptr;
 
-	system("cls");
+	system("cls"); //화면 초기화
 
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dist(1, 5);
+	//랜덤 설정
+	std::uniform_int_distribution<> dist(1, 4); //랜덤 범위 설정
 
-	int RandomNumber = dist(gen);
+	int RandomNumber = dist(gen); //실제 랜덤 값 생성
 
+	//랜덤 포켓몬 생성
 	switch (RandomNumber)
 	{
 	case 1:
@@ -56,16 +57,19 @@ void BattleManager::RandomEnemy()
 
 }
 
+//전투 시작 함수 결과 반환 승리/패배/도망
 BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory)
 {
+	//전투 BGM
 	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	Sleep(500);
 
-	RandomEnemy();
+	RandomEnemy(); //랜덤 적 생성
 
 	IsBattle = true;
 	IsOpenBag = false;
 
+	//전투 시작 연출 출력
 	std::string s = "야생의 " + EnemyPokemon->getName() + "가 나타났다!";
 	printtext.typeWrite(s);
 	Sleep(500);
@@ -76,9 +80,12 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 
 	std::cout << std::endl;
 
+
 	int cursorX = 0;
 	int cursorY = 0;
 
+
+	//전투 루프
 	while (IsBattle)
 	{
 		bool isSelecting = true;
@@ -179,8 +186,8 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			if (EnemyPokemon->getHp() <= 0) // 적 쓰러짐
 			{
 				PlaySound(NULL, 0, 0);
-				PlaySound(TEXT("music/1-08.-Victory-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC); //이겼을 때 bgm
-				Sleep(500);
+				//승리 BGM
+				PlaySound(TEXT("music/1-08.-Victory-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 				if (MyPokemon->getPExp() < MyPokemon->getPMaxExp()) //승리시 보상 경험치
@@ -197,6 +204,37 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 					}
 				}
 
+				std::uniform_int_distribution<> DropChance(1, 100); //랜덤 범위 설정
+				int DropRoll = DropChance(gen);
+
+				//아이템 드랍 확률 50%
+				if (DropRoll <= 50) //1에서 50의 수가 선택되면 작동
+				{
+					std::uniform_int_distribution<> ItemChance(1, 100);
+					int ItemRoll = ItemChance(gen); //실제 랜덤 값 생성
+
+					if (ItemRoll <= 70)
+					{
+						Item potion("상처약", 50, 1);
+						inventory.Additem(potion);
+						std::cout << "상처약을 획득했다!" << std::endl;
+					}
+					else
+					{
+						Item potion2("고급 상처약", 100, 1);
+						inventory.Additem(potion2);
+						std::cout << "고급 상처약을 획득했다!" << std::endl;
+					}
+
+
+				}
+
+				std::uniform_int_distribution<> goldDist(50, 500); //50~500 사이
+
+				int gold = goldDist(gen); //실제 랜덤 값 생성
+				inventory.AddGold(gold);
+
+				//적 제거
 				delete EnemyPokemon;
 				EnemyPokemon = nullptr;
 
@@ -208,18 +246,18 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 				_getch();
 
 				PlaySound(NULL, 0, 0);
-				return BattleResult::Win;
+				return BattleResult::Win; //승리 반환
 			}
 
 			// 적 포켓몬 공격
 			int AttackToMe = EnemyPokemon->skill(1);
 			MyPokemon->takeDamage(AttackToMe);
 
-			if (MyPokemon->getHp() <= 0)
+			if (MyPokemon->getHp() <= 0) //포켓몬 Hp 확인
 			{
 				IsBattle = false;
 
-				return BattleResult::Lose;
+				return BattleResult::Lose; //패배 반환
 			}
 
 			std::cout << "다음 턴으로 넘어가려면 아무 키나 누르세요..." << std::endl;
@@ -227,27 +265,30 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			break;
 		}
 
+		//가방
 		case 2:
 		{
 			IsOpenBag = true;
 			std::cout << "가방 목록" << std::endl;
 			inventory.Printallitems();
-
-			
-			std::cout << "사용할 아이템 번호를 입력하세요 (나가기: 0): ";
+			std::cout << "\n사용할 아이템 번호를 입력하세요 (나가기: 0): ";
 			std::cin >> BagChoice;
 
-			if (BagChoice > 0) {
+			if (BagChoice > 0)
+			{
 				// 인벤토리에서 아이템 가져오기
 				Item* selectedItem = inventory.GetItemUse(BagChoice - 1);
 
-				if (selectedItem != nullptr) {
+				if (selectedItem != nullptr)
+				{
 					// 풀피인지 확인
-					if (MyPokemon->getHp() >= MyPokemon->getPMaxHp()) {
+					if (MyPokemon->getHp() >= MyPokemon->getPMaxHp())
+					{
 						std::cout << "이미 체력이 가득 차 있습니다!" << std::endl;
 					}
 					// 아이템 사용 
-					else if (selectedItem->Use()) {
+					else if (selectedItem->Use())
+					{
 						int healAmount = selectedItem->GetHeal(); //아이템 힐량 가져오기
 						int currentHp = MyPokemon->getHp();       //현재 체력확인
 						int maxHp = MyPokemon->getPMaxHp();       //최대 채력 확인
@@ -264,20 +305,46 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 						//MyPokemon->takeDamage(AttackToMe); // 데미지 받기
 						inventory.UpdateInventory(); //인벤토리 정리용
 					}
+					int BagChoice;
+
+					std::cout << "0. 인벤토리 나가기!" << std::endl;
+					std::cout << "입력 하세요: ";
+					std::cin >> BagChoice;
+
+					if (BagChoice == 1)
+					{
+						if (MyPokemon->getHp() < MyPokemon->getPMaxHp())
+						{
+							inventory.UseItem(1); //아이템 사용
+							int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
+							MyPokemon->setHP(NewHp); //체력 설정
+							std::cout << "아이템을 사용했습니다!" << std::endl;
+							break;
+						}
+						else {
+							std::cout << "해당 번호에 아이템이 없습니다." << std::endl;
+						}
+					}
+					/*std::cout << "\n아무 키나 누르면 계속합니다...";
+					_getch();*/
+					//인벤토리 종료
+					else if (BagChoice == 0)
+					{
+						std::cout << "인벤토리를 나갑니다!" << std::endl;
+						IsOpenBag = false;
+					}
+					break;
 				}
-				else {
-					std::cout << "해당 번호에 아이템이 없습니다." << std::endl;
-				}
+
 			}
-			std::cout << "\n아무 키나 누르면 계속합니다...";
-			_getch();
-			break;
-		}
+				//스탯	
 		case 3:
 		{
 			MyPokemon->printStatus();
+			_getch();
 			break;
 		}
+		//도망
 		case 4:
 		{
 			IsBattle = false;
@@ -292,7 +359,9 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 			break;
 		}
+			
+		}
 		}
 	}
-	return BattleResult();
 }
+

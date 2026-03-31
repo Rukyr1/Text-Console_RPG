@@ -12,7 +12,7 @@ private:
 public:
 	EnemyPokemon();
 	int skill(int skillNum) override;
-	std::string gatSkill1() { return Pskill1; } //getSkill1()추가 스킬1 이름을 반환
+	std::string getSkill1() { return Pskill1; } //getSkill1()추가 스킬1 이름을 반환
 	std::string getSkill2() { return Pskill2; } //getSkill2()추가 스킬2 이름을 반환
 	//void GenerateStats(int level);
 	//void skill() override;

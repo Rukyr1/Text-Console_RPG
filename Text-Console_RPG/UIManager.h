@@ -15,12 +15,13 @@ public:
 	void PokemonCenterUi();
 	
 	void printHpBar(int currentHp, int maxHp);
-
+	
 
 private:
 
 	Pokemon* MyPokemon;
 	Pokemon* EnemyPokemon;
+	Inventory<Item> inventory;
 
 };
 

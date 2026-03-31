@@ -67,7 +67,7 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
 
     //  스킬 2개 저장
     Pskill1 = data.skillName1;
-    gatSkill1(); //스킬 1 이름을 반환
+    getSkill1(); //스킬 1 이름을 반환
     Pskill2 = data.skillName2;
     getSkill2(); //스킬 2 이름을 반환
 }

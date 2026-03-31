@@ -73,33 +73,35 @@ void UIManager::printHpBar(int currentHp, int maxHp)
 		else std::cout << "░";            // 실제 2칸 차지
 	}
 }
-
+               
+                                              
 void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 {
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                            ┃\n";
+	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13             │                            ┃\n";
 	std::cout << "┃  │      HP: ";
 	printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp()); // HP 바 출력
-	std::cout << "  │                            ┃\n";
-	std::cout << "┃  └──────────────────────────────┘                            ┃\n";
-	std::cout << "┃                                            /\\                ┃\n";
-	std::cout << "┃                                           /  \\               ┃\n";
-	std::cout << "┃                                          ( 적포켓몬 )        ┃\n";
-	std::cout << "┃                                           \\__/               ┃\n";
-	std::cout << "┃        /\\                                                    ┃\n";
-	std::cout << "┃       /  \\                                                   ┃\n";
-	std::cout << "┃      ( 내포켓몬 )                                            ┃\n";
-	std::cout << "┃       \\__/                 ┌──────────────────────────────┐  ┃\n";
-	std::cout << "┃                            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14 │  ┃\n";
-	std::cout << "┃                            │      HP: ";
+	std::cout << "│       │\\ //   \\            ┃\n";
+	std::cout << "┃  └──────────────────────────────┘       |          \\         ┃\n";
+	std::cout << "┃                                         [        \\ /         ┃\n";
+	std::cout << "┃                                           ───    ::\          ┃\n";
+	std::cout << "┃                                          \\ _|:/\\_]           ┃\n";
+	std::cout << "┃       ---                                 -  -               ┃\n";
+	std::cout << "┃     /      \\\\/|                                              ┃\n";
+	std::cout << "┃    [        \\  \\                                             ┃\n";
+	std::cout << "┃    /\\ ____/    ]                                             ┃\n";
+	std::cout << "┃   |       ::  \\            ┌──────────────────────────────┐  ┃\n";
+	std::cout << "┃   \\ ::    /:: |            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14              │  ┃\n";
+	std::cout << "┃      ──────_/_]            │      HP: ";
 	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp()); // 내 HP 바 출력
-	std::cout << "  │  ┃\n";
+	std::cout << "│  ┃\n";
 	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
 }
 
 void UIManager::BattleUiBottom()
 {
+
 
 	//std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓\n";
 
@@ -132,6 +134,14 @@ void UIManager::BattleUiBottom()
 
 	//// 하단
 	//std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛\n";
+
+	/*std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
+	std::cout << "┃                                      ┃                       ┃\n";
+	std::cout << "┃                                      ┃                       ┃\n";
+	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
+	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
+	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";*/
+
 }
 
 void UIManager::VillageUi(std::string playerName, Pokemon* MyPokemon)
@@ -139,9 +149,9 @@ void UIManager::VillageUi(std::string playerName, Pokemon* MyPokemon)
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 	std::cout << "┃ 🌳 마을 - 안전 지역                                          ┃\n";
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
-	std::cout << "┃ 플레이어: " << playerName << "                                             ┃\n";
-	std::cout << "┃ 보유 골드: 1200G                                             ┃\n";
-	std::cout << "┃ 현재 포켓몬: " << MyPokemon->getName() << "(Lv.5 / HP: 45 / 60)                     ┃\n";
+	std::cout << "┃ 플레이어: " << playerName << "                                                 ┃\n";
+	std::cout << "┃ 보유 골드:                                                 ┃\n";
+	std::cout << "┃ 현재 포켓몬: " << MyPokemon->getName() << "  Lv: " << MyPokemon->getLevel() << "  Hp: " << MyPokemon->getHp() << "/" << MyPokemon->getPMaxHp() << "               ┃\n";
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 	std::cout << "┃                                                              ┃\n";
 	std::cout << "┃   [1] 🌲 풀숲으로 간다                                       ┃\n";
@@ -157,7 +167,7 @@ void UIManager::PokemonCenterUi()
 {
 	system("cls");
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-	std::cout << "┃                          POKéMON CENTER                            ┃\n";
+	std::cout << "┃                          POKEMON CENTER                            ┃\n";
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 	std::cout << "┃                                                                    ┃\n";
 	std::cout << "┃                                                                    ┃\n";
@@ -184,9 +194,38 @@ void UIManager::PokemonCenterUi()
 	std::cout << "╚━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 }
 
+//     ┌----   
+//    [     \\ 
+// * \\      ] 
+//*** ┌   ──┐  
+//*[*\\     \\ 
+// \\ \\    │] 
+//   \\__──__  
+//             
                                                                                                                          
-                              
+ //   ---─┐   
+ // /         
+ // [     / **
+ // ┌  ──  /**
+ ///  ::  \\] 
+ //[│ :::  /  
+ // __──__┘                                   
                                                          
-                                                                                                                                                 
+//       ┌----  
+//     [     \\
+//    \\      ]
+//      ─── ─┐ 
+//  __/   \\ \\
+// (  \\     │]
+//   \\__──__  
+
+             
+//      ───    
+//    /     ]  
+//   (         
+//     ──── \\ 
+//  /      \\ ]
+//  -│     │ ] 
+//   __──__┘/  
                                                                                                                                                  
                                          
