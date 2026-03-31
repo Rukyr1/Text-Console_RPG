@@ -23,6 +23,7 @@ public:
 	~GameManager();
 	
 	void GameStart();
+	void IntroScreen();
 	void SelectPokemon();
 	void GameLoop();
 	void GameEnding();

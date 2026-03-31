@@ -8,7 +8,7 @@ int main()
 
 	GameManager Stage;
 	//Pokemon Stat;
-	Stage.GameStart();
+	Stage.IntroScreen();
 
 	//	Stage.GameEnding()
 	//	stat.printstatus() //현재 상태 출력

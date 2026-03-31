@@ -121,25 +121,27 @@ void UIManager::printHpBar(int currentHp, int maxHp)
 void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 {
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
-	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13             │                            ┃\n";
-	std::cout << "┃  │      HP: ";
-	printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp()); // HP 바 출력
-	std::cout << "│       │\\ //   \\            ┃\n";
-	std::cout << "┃  └──────────────────────────────┘       |          \\         ┃\n";
+	std::cout << "┃  ┌───────────────────────────────┐                           ┃\n";
+	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                           ┃\n";
+	std::cout << "┃  │ HP: ";
+	printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp());
+	std::cout << std::right << std::setw(7) << "    │" << "      │\\ //   \\            ┃\n";
+	std::cout << "┃  └───────────────────────────────┘      |          \\         ┃\n";
 	std::cout << "┃                                         [        \\ /         ┃\n";
-	std::cout << "┃                                           ───    ::\          ┃\n";
+	std::cout << "┃                                           ───    ::\\         ┃\n";
 	std::cout << "┃                                          \\ _|:/\\_]           ┃\n";
 	std::cout << "┃       ---                                 -  -               ┃\n";
 	std::cout << "┃     /      \\\\/|                                              ┃\n";
 	std::cout << "┃    [        \\  \\                                             ┃\n";
 	std::cout << "┃    /\\ ____/    ]                                             ┃\n";
-	std::cout << "┃   |       ::  \\            ┌──────────────────────────────┐  ┃\n";
-	std::cout << "┃   \\ ::    /:: |            │ " << std::left << std::setw(15) << MyPokemon->getName() << " L14              │  ┃\n";
-	std::cout << "┃      ──────_/_]            │      HP: ";
-	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp()); // 내 HP 바 출력
-	std::cout << "│  ┃\n";
-	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
+	std::cout << "┃   |       ::  \\            ┌───────────────────────────────┐ ┃\n";
+	std::cout << "┃   \\ ::    /:: |            │ " << std::left << std::setw(15) << MyPokemon->getName() << std::right << std::setw(8) <<" L14              │ ┃\n";
+	std::cout << "┃      ──────_/_]            │ HP: ";
+	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp());
+	std::cout << std::right << std::setw(7) << "│" << " ┃\n";
+
+	std::cout << "┃                            └───────────────────────────────┘ ┃\n";
+	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 }
 
 void UIManager::BattleUiBottom(int cursorX, int cursorY)

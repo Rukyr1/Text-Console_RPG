@@ -12,6 +12,26 @@ void PrintText::typeWrite(const std::string& text) //텍스트 한글자씩
 	}
 	std::cout << std::endl;
 }
+void PrintText::typeWrite20(const std::string& text) //텍스트 한글자씩
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(20); // 속도 조절 (밀리초)
+	}
+	std::cout << std::endl;
+}
+void PrintText::typeWrite50(const std::string& text) //텍스트 한글자씩
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(20); // 속도 조절 (밀리초)
+	}
+	std::cout << std::endl;
+}
 
 void PrintText::typeWritecin(const std::string& text) //텍스트 한글자씩 endl 없음
 {
@@ -20,5 +40,53 @@ void PrintText::typeWritecin(const std::string& text) //텍스트 한글자씩 e
 		std::cout << c;
 		std::cout.flush();
 		Sleep(10);
+	}
+}
+void PrintText::typeWriteSlow(const std::string& text) //텍스트 한글자씩 endl 없음
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(10);
+	}
+	std::cout << std::endl;
+}
+void PrintText::typeWriteSlow20(const std::string& text) //텍스트 한글자씩 endl 없음
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(20);
+	}
+}
+void PrintText::typeWriteSlow50(const std::string& text) //텍스트 한글자씩 endl 없음
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(50);
+	}
+}
+
+void PrintText::typeWriteSlow100(const std::string& text)
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(100);
+	}
+}
+
+void PrintText::typeWriteSlow200(const std::string& text)
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		std::cout.flush();
+		Sleep(200);
 	}
 }

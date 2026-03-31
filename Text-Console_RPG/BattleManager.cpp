@@ -119,14 +119,16 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 
 BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory)
 {
+	Sleep(500);
 	//전투 BGM
 	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-	Sleep(500);
+	Sleep(1000);
 
 	RandomEnemy(); //랜덤 적 생성
 
 	IsBattle = true;
 	IsOpenBag = false;
+
 
 	//전투 시작 연출 출력
 	std::string s = "야생의 " + EnemyPokemon->getName() + "가 나타났다!";
@@ -139,6 +141,8 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 
 	std::cout << std::endl;
 
+	std::cout << "다음 턴으로 넘어가려면 아무 키나 누르세요...";
+	_getch();
 
 	int cursorX = 0;
 	int cursorY = 0;

@@ -39,7 +39,8 @@ void GameManager::GameStart()
 
 	PlaySound(NULL, 0, 0);
 
-	SelectPokemon();
+	//SelectPokemon();
+	IntroScreen();
 
 	return;
 }
@@ -58,21 +59,76 @@ void setColor(int color)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
+void GameManager::IntroScreen()
+{
+	Sleep(1000);
+	mciSendString(TEXT("open \"music/1-03.-Professor-Oak.wav\" type mpegvideo alias bgm"), NULL, 0, NULL);
+	mciSendString(TEXT("play bgm repeat"), NULL, 0, NULL);
+	Sleep(700);
+
+	//std::string s1 = "음, 잘 왔네!";
+	//printtext.typeWriteSlow(s1);
+	//_getch();
+	//PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
+	//Sleep(200);
+	//std::string s2 = "포켓몬스터의 세계에 온 것을 환영한다!";
+	//printtext.typeWriteSlow(s2);
+	//_getch();
+	//PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
+	//Sleep(200);
+	//std::string s3 = "그런데 자네, 모험은 이번이 처음인가?";
+	//printtext.typeWriteSlow(s3);
+	//Sleep(200);
+	//std::string s4 = "괜찮으면 내가 요모조모로 알려주겠네.";
+	//printtext.typeWriteSlow(s4);
+	//Sleep(300);
+	//std::string s5 = "자네의 이름은 뭔가?";
+	//printtext.typeWriteSlow(s5);
+	//Sleep(400);
+
+	std::string s6 = "이름을 입력하세요: ";
+	printtext.typeWritecin(s6);
+	std::cin >> playerName;
+	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
+	std::string s7 = "흠... ";
+	printtext.typeWriteSlow200(s7);
+	Sleep(300);
+	std::string s8 = "[" + playerName + "]라고 하는가. ";
+	Sleep(500);
+	printtext.typeWriteSlow20(s8);
+	std::string s9 = "좋은 이름이군!";
+	Sleep(500);
+	printtext.typeWrite20(s9);
+	_getch();
+	std::string s10 = "이 세계에는 포켓몬스터, ";
+	printtext.typeWriteSlow20(s10);
+	Sleep(300);
+	std::string s11 = "줄여서 “포켓몬”이라 불리는 신비한 생물이 곳곳마다 살고 있네.";
+	printtext.typeWrite20(s11);
+	_getch();
+	std::string s12 = "자네에게 포켓몬을 주겠네. ";
+	printtext.typeWriteSlow20(s12);
+	Sleep(500);
+	std::string s13 = "데리고 여행을 떠나 보게나.";
+	printtext.typeWrite20(s13);
+	Sleep(300);
+
+	std::cout << std::endl;
+
+	std::string s14 = "여정을 떠난다.(계속하려면 아무 키나 입력하세요..)";
+	printtext.typeWrite(s14);
+	_getch();
+	SelectPokemon();
+}
+
 void GameManager::SelectPokemon()
 {
 	if (player == nullptr) player = new Player(); // 추가 인벤토리문제 해결용
 	//std::string PlayerName;
 	Sleep(500);
-	std::string s1 = "이름을 입력하세요: ";
-	printtext.typeWritecin(s1);
-	std::cin >> playerName;
-	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
-
-	Sleep(500);
 
 	//PlaySound(TEXT("music/1-03.-Professor-Oak.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //배경음
-	mciSendString(TEXT("open \"music/1-03.-Professor-Oak.wav\" type mpegvideo alias bgm"), NULL, 0, NULL);
-	mciSendString(TEXT("play bgm repeat"), NULL, 0, NULL);
+	system("cls");
 	std::string s2 = "안녕하세요. " + playerName + "님!\n";
 	printtext.typeWrite(s2);
 	Sleep(1000);
@@ -166,11 +222,9 @@ void GameManager::SelectPokemon()
 		break;
 	}
 
-
-
-	std::string s = MyPokemon->getName() + "로 게임을 시작합니다";
-	printtext.typeWrite(s);
-	Sleep(1000);
+	std::string s3 = MyPokemon->getName() + "로 게임을 시작합니다";
+	printtext.typeWrite(s3);
+	Sleep(500);
 
 	if (player == nullptr) {
 		std::cout << "에러: 플레이어 객체가 생성되지 않았습니다!" << std::endl;
@@ -181,6 +235,12 @@ void GameManager::SelectPokemon()
 	player->GetInventory().AddGold(500);  //기본 지급 골드
 	player->GetInventory().Additem(Item("상처약", 50, 5, 20)); //임시 아이템 인벤토리에 추가 ("아이템 이름",가격,수량,힐량)
 	player->GetInventory().Additem(Item("고급 상처약", 80, 5, 60));
+	std::string s4 = "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5";//임시 아이템
+	printtext.typeWrite(s4);
+	Sleep(1000);
+	player->GetInventory().AddGold(1000);  //기본 지급 골드
+	player->GetInventory().Additem(Item("상처약", 50, 5, 10)); //임시 아이템 인벤토리에 추가 ("아이템 이름" 가격 수량 힐량)
+	player->GetInventory().Additem(Item("좋은 상처약", 80, 5, 30));
 
 	GameLoop();
 }
