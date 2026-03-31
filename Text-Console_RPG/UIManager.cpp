@@ -5,6 +5,9 @@
 #include "Pokemon.h"
 #include <iomanip> //setw
 
+void gotoxy(int x, int y);
+void setColor(int color);
+
 UIManager::UIManager()
 {
 }
@@ -74,7 +77,6 @@ void UIManager::printHpBar(int currentHp, int maxHp)
 void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 {
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-	std::cout << "┃                                                              ┃\n";
 	std::cout << "┃  ┌──────────────────────────────┐                            ┃\n";
 	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                            ┃\n";
 	std::cout << "┃  │      HP: ";
@@ -98,12 +100,38 @@ void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 
 void UIManager::BattleUiBottom()
 {
-	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
-	std::cout << "┃                                     ┃                        ┃\n";
-	std::cout << "┃                                     ┃                        ┃\n";
-	std::cout << "┃  무엇을 할까?                        ┃ 싸운다      가방      ┃\n";
-	std::cout << "┃                                      ┃ 포켓몬       도망     ┃\n";
-	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+
+	//std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓\n";
+
+	//// 1행
+	//std::cout << "┃ ";
+	//if (cursor == 1) setColor(10);
+	//std::cout << "▶ 공격";
+	//setColor(7);
+	//std::cout << "                 ┃ ";
+
+	//if (cursor == 2) setColor(11);
+	//std::cout << "가방";
+	//setColor(7);
+	//std::cout << "                ┃\n";
+
+	//// 중간선
+	//std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━┫\n";
+
+	//// 2행
+	//std::cout << "┃ ";
+	//if (cursor == 3) setColor(14);
+	//std::cout << "▶ 포켓몬";
+	//setColor(7);
+	//std::cout << "             ┃ ";
+
+	//if (cursor == 4) setColor(12);
+	//std::cout << "도망";
+	//setColor(7);
+	//std::cout << "                ┃\n";
+
+	//// 하단
+	//std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛\n";
 }
 
 void UIManager::VillageUi(std::string playerName, Pokemon* MyPokemon)

@@ -4,6 +4,9 @@
 #include <conio.h> //_getch()
 #pragma comment(lib, "WinMM.lib") //PlaySound()
 
+void gotoxy(int x, int y);
+void setColor(int color);
+
 BattleManager::BattleManager()
 	: IsBattle(false)
 	, IsTurnPass(false)
@@ -73,21 +76,96 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 
 	std::cout << std::endl;
 
+	int cursorX = 0;
+	int cursorY = 0;
+
 	while (IsBattle)
 	{
-		system("cls"); //UI 갱신
+		bool isSelecting = true;
 
-		uimanager.BattleUiTop(MyPokemon, EnemyPokemon); //전투 UI 상단
-		uimanager.BattleUiBottom(); //전투 UI 하단
-
-		int PlayerChoice; //전투 중 선택지
-
-		std::cout << "무엇을 할까?" << std::endl;
-		std::cout << "1.공격 2.가방 3.스탯 4.도망" << std::endl;
-		std::cin >> PlayerChoice;
-
-		switch (PlayerChoice)
+		while (isSelecting)
 		{
+			int cursor = cursorY * 2 + cursorX + 1;
+
+			system("cls");
+
+			uimanager.BattleUiTop(MyPokemon, EnemyPokemon);
+
+			std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+
+			// ===== 1줄 =====
+			std::cout << "┃ ";
+
+			// 왼쪽 (대사)
+			std::cout << "무엇을 할까?           ";
+
+			// 오른쪽으로 밀기 (공백 핵심)
+			std::cout << "           ┃ ";
+
+			// 오른쪽 (메뉴 1줄)
+			if (cursorX == 0 && cursorY == 0) setColor(10);
+			std::cout << "   ▶ 공격";
+			setColor(7);
+
+			std::cout << "      ";
+
+			if (cursorX == 1 && cursorY == 0) setColor(11);
+			std::cout << "▶ 가방";
+			setColor(7);
+			std::cout << "    ┃";
+
+			std::cout << "\n";
+
+			// ===== 2줄 =====
+			std::cout << "┃ ";
+
+			// 왼쪽 (대사 2줄)
+			std::cout << "            ";
+
+			std::cout << "                      ┃ ";
+
+			// 오른쪽 (메뉴 2줄)
+			if (cursorX == 0 && cursorY == 1) setColor(14);
+			std::cout << "   ▶ 스탯";
+			setColor(7);
+
+			std::cout << "      ";
+
+			if (cursorX == 1 && cursorY == 1) setColor(12);
+			std::cout << "▶ 도망";
+			setColor(7);
+			std::cout << "    ┃";
+
+			std::cout << "\n";
+
+			std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+
+			uimanager.BattleUiBottom();
+
+			int key = _getch();
+
+			if (key == 224)
+			{
+				key = _getch();
+
+				if (key == 72 && cursorY > 0) cursorY--;
+				if (key == 80 && cursorY < 1) cursorY++;
+				if (key == 75 && cursorX > 0) cursorX--;
+				if (key == 77 && cursorX < 1) cursorX++;
+			}
+			else if (key == 13)
+			{
+				isSelecting = false;
+			}
+		}
+
+		//uimanager.BattleUiBottom(); //전투 UI 하단
+
+		int cursor = cursorY * 2 + cursorX + 1;
+
+		switch (cursor)
+		{
+
 		case 1: // 공격 상황(현재는 항상 선공)
 		{
 			int SkillChoice;
@@ -183,6 +261,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 				IsOpenBag = false;
 				break;
 			}
+			break;
 		}
 		case 3:
 		{
