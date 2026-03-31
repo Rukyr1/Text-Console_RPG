@@ -20,11 +20,14 @@ public:
         storeInven.Additem(Item("좋은상처약", 700, 30, 60));
         // storeInven.Additem(Item("이상한 사탕", 1000, 10, 10)); 추가 못함
     }
-    
-    void InStore(Inventory<Item>& playerInven) {
+
+
+    void InStore(Inventory<Item>& playerInven)
+    {
         int input = -1;
 
-        while (input != 0) {
+        while (input != 0)
+        {
             //system("cls");
             ShowItems(); // 상점 목록 출력
             playerInven.Printallgold(); // 플레이어 돈 출력
@@ -32,10 +35,17 @@ public:
             std::cout << "구매할 번호 입력 (나가기: 0): ";
             std::cin >> input;
 
-            if (input == 0) break;
-             
+            // 입력 오류 방지 (글자 입력 시 루프 방지)
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(1024, '\n');
+                continue;
+            }
 
-            // 구ao 실행
+            if (input == 0) break;
+
+
+            // 구매할 번호 입력
             BuyItem(input, playerInven);
 
             //std::cout << "\n----------------------------------";
@@ -55,12 +65,12 @@ public:
         storeInven.Storeitems();
     }
 
-    // 구매 
+    // 구매시
     // 플레이어의 인벤토리를 참조 받아 수정.
     void BuyItem(int slotIndex, Inventory<Item>& playerInven)
     {
-        
-        int internalIdx = slotIndex - 1;
+
+
         // 슬롯 범위 (1 ~ 상점 용량)
         if (slotIndex < 1 || slotIndex > 10)
         {
@@ -107,7 +117,50 @@ public:
         }
     }
 
+    // 아이템 판매시 
+    void SellItem(int slotIndex, Inventory<Item>& playerInven)
+    {
+
+        // 아이템이 없다면
+        if (slotIndex < 1 || slotIndex > 10)
+        {
+            std::cout << "판매할 아이템이 없습니다." << std::endl;
+            return;
+        }
+
+        // 플레이어 아이템 인벤토리 가져오기
+        Item* pItem = playerInven.GetItem(slotIndex - 1);
+
+        // 아이템 존재 여부 확인 
+        if (pItem == nullptr || pItem->GetName() == "")
+        {
+            std::cout << "판매할 아이템이 없습니다." << std::endl;
+            return;
+        }
+
+        // 판매가격은 원가의 50%가격 
+        int sellPrice = static_cast<int>(pItem->GetPrice() * 0.5);
+        std::string itemName = pItem->GetName();
+
+        //골드 지급하고 아이템 소모
+        playerInven.AddGold(sellPrice);
+
+        //판매시 출력 "아이템 이름" 을 (판매가격) G에 판매했습니다.
+        std::cout << "\n[" << itemName << "]을(를) " << sellPrice << "G에 판매했습니다." << std::endl;
+
+        //1개 판매 
+        pItem->AddCount(-1);
+
+        //아이템 판매후 수량이 없다면 인벤토리정리
+        if (pItem->GetCount() <= 0)
+        {
+            pItem->clear();
+            playerInven.UpdateInventory();
+            std::cout << "아이템을 모두 판매했습니다." << std::endl;
+        }
+    }
 private:
-    std::string storeName;
+    std::string storeName;      // 상점 이름
     Inventory<Item> storeInven; // 상점이 관리하는 인벤토리
+
 };

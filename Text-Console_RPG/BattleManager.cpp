@@ -220,6 +220,15 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			std::cout << "입력: ";
 			std::cin >> SkillChoice;
 
+			//엔터 키 잔여물을 제거 멋대로 넘어가는 것을 방지
+		    //숫자외 다른 문구 입력시 오류로 인해 추가 (인벤토리에서도 같은 문제가 발생하여서 추가)
+			if (std::cin.fail())
+			{
+				std::cin.clear();
+			}
+			std::cin.ignore(1024, '\n');
+
+
 			// 내 포켓몬 공격
 			int AttackToEnemy = MyPokemon->skill(SkillChoice); // 스킬 번호 계산
 			EnemyPokemon->takeDamage(AttackToEnemy); // 적에게 데미지
@@ -323,6 +332,10 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			inventory.Printallitems();
 			std::cout << "사용할 아이템 번호를 입력하세요 (나가기: 0): ";
 			std::cin >> BagChoice;
+
+			//숫자외 다른 문구 입력시 오류로 인해 추가 (인벤토리에서도 같은 문제가 발생하여서 추가)
+			if (std::cin.fail()) std::cin.clear();
+			std::cin.ignore(1024, '\n');
 
 			if (BagChoice > 0)
 			{

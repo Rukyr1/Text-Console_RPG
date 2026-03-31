@@ -3,7 +3,7 @@
 Player::Player()
 	: PlayerName("")
 	, MyPokemon(nullptr)
-	, inventory("", 10)
+	, inventory(PlayerName, 10)
 {};
 
 

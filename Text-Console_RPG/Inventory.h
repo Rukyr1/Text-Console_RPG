@@ -29,10 +29,11 @@ public:
 
 		pItems = nullptr;
 	}
+	const std::string& GetOwnerName() const { return IownerName; } //인벤토리 이름출력용
 
 	T* GetItem(int index)   //아이템 포인터 반환 회복아이템을 사용하기위해 추가
 	{
-		
+
 		if (index < 0 || index >= Isize)
 		{
 			return nullptr;
@@ -40,6 +41,7 @@ public:
 		return &pItems[index];
 	}
 
+	void SetOwnerName(std::string name) { IownerName = name; } // 인벤토리에 플레이어 이름 입력 받기 위해서 추가
 
 
 	void Additem(const T& item) // 아이템 추가 (중복시 개수 증가, 신규시 빈슬롯 삽입)
@@ -219,10 +221,11 @@ public:
 	}
 
 private:
-	T* pItems;
-	std::string IownerName;
-	int Icapacity;
-	int Isize;
-	int Igold;
+	private:
+		T* pItems;                  // 아이템을 저장하기 위해서
+		std::string IownerName;     // 인벤토리 소유자 이름
+		int Icapacity;              // 인벤토리가 가질수있는 최대 칸수
+		int Isize;                  // 현재 아이템이 들어있는 슬롯개수
+		int Igold;                  // 현재 소지하고있는 골드양
 
 };

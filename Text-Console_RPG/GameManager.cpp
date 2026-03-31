@@ -86,6 +86,7 @@ void GameManager::IntroScreen()
 	std::string s6 = "이름을 입력하세요: ";
 	printtext.typeWritecin(s6);
 	std::cin >> playerName;
+	player->GetInventory().SetOwnerName(playerName); //추가. 인벤토리에 플레이어 이름 출력용
 	audio.EnterSfx();
 	std::string s7 = "흠... ";
 	printtext.typeWriteSlow200(s7);
@@ -211,7 +212,9 @@ void GameManager::SelectPokemon()
 	printtext.typeWrite(s3);
 	Sleep(500);
 
-	if (player == nullptr) {
+	if (player == nullptr) //동적 할당된 player 객체가 null인 상태에서 멤버 함수에 접근하면
+		                   //프로그램이 강제 종료 되서 이를 사전에 방지하기 위해서 인벤토리에서 문제발생해서 추가
+	{
 		std::cout << "에러: 플레이어 객체가 생성되지 않았습니다!" << std::endl;
 		return;
 	}
@@ -263,6 +266,15 @@ void GameManager::GameLoop()
 
 		std::cin >> choice;
 
+		//숫자외 다른 문구 입력시 오류로 인해 추가 (인벤토리에서도 같은 문제가 발생하여서 추가)
+		if (std::cin.fail())  //실패시
+		{
+			std::cin.clear();  //초기화
+			std::cin.ignore(1024, '\n');
+			continue; // 다시 메뉴 출력으로 이동
+		}
+		std::cin.ignore(1024, '\n');
+
 		switch (choice)
 		{
 		case 1: //전투
@@ -286,6 +298,10 @@ void GameManager::GameLoop()
 			uimanager.ShopUi(player);
 			std::cout << "입력: ";
 			std::cin >> ShopChoice;
+
+			//숫자외 다른 문구 입력시 오류로 인해 추가 (인벤토리에서도 같은 문제가 발생하여서 추가)
+			if (std::cin.fail()) std::cin.clear();
+			std::cin.ignore(1024, '\n');
 
 			if (ShopChoice == 1) //구매
 			{
@@ -336,6 +352,11 @@ void GameManager::GameLoop()
 			uimanager.PokemonCenterUi();
 			std::cout << "입력: ";
 			std::cin >> CenterChoice;
+
+			//숫자외 다른 문구 입력시 오류로 인해 추가 (인벤토리에서도 같은 문제가 발생하여서 추가)
+			if (std::cin.fail()) std::cin.clear();
+			std::cin.ignore(1024, '\n');
+
 			PlaySound(NULL, 0, 0);
 			switch (CenterChoice)
 			{
