@@ -27,4 +27,5 @@ public:
 	void SelectPokemon();
 	void GameLoop();
 	void GameEnding();
+	void HiddenStage();
 };

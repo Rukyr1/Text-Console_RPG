@@ -1013,7 +1013,7 @@ void Pokemon::takeDamage(int PAttackPower)
 
 void Pokemon::levelUp()
 {
-	if (PLevel >= 10)//최고레벨(10lv) 이후
+	if (PLevel >= 10)//최고레벨(10lv) 
 	{
 		std::cout << "은(는) 이미 최고 레벨입니다." << std::endl;
 		return;
@@ -1025,8 +1025,8 @@ void Pokemon::levelUp()
 	int hpGain = PLevel * 20;
 	int attackGain = PLevel * 5;
 
-	PMaxHp += hpGain;
-	PAttackPower += attackGain;
+	PMaxHp += hpGain;// 최대 체력 = 현재 체력 + level * 20
+	PAttackPower += attackGain;// 공격력 = 현재 공격력 + level * 5
 
 	//체력 풀 회복
 	PCurrentHp = PMaxHp;
@@ -1055,7 +1055,7 @@ void Pokemon::recoveryHp()
 	std::cout << PName << "의 Hp가 " << PMaxHp << "로 회복되었습니다." << std::endl;
 }
 
-//진화 보너스
+//진화 보너스. 진화 및 최종 진화 함수 안에서 값 받기
 void Pokemon::evolutionBonus(int hpBonus, int atkBonus) 
 {
 	PMaxHp += hpBonus;
@@ -1071,7 +1071,7 @@ void Pokemon::evolution()
 	std::cout << "\n==========!!! 포켓몬 진화 !!!==========" << std::endl;
 
 	static std::map<std::string, std::string> evolutionTable =
-	{
+	{//map 으로 2가지 값을 받아 이름을 바꿔서 출력해줌
 		{"파이리", "리자드"},
 		{"꼬부기", "어니부기"},
 		{"이상해씨", "이상해풀"}
@@ -1083,14 +1083,14 @@ void Pokemon::evolution()
 		std::cout << PName << "(이)가 한계를 뛰어넘어 " << nextName << "(으)로 진화했습니다!" << std::endl;
 		PName = nextName;
 	}
-
+	//진화 보너스 값. 체력, 공격력
 	evolutionBonus(30, 10);
 
 	std::cout << "======================================" << std::endl;
 }
 
 
-//최종 진화
+//최종 진화. 일반 진화와 같은 로직
 void Pokemon::finalEvolution()
 {
 	std::cout << "\n==========!!! 최종 진화 !!!==========" << std::endl;

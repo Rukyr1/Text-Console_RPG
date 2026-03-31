@@ -342,6 +342,26 @@ void GameManager::GameLoop()
 			PlaySound(NULL, 0, 0);
 			exit(0);
 			break;
+		case 5:
+		{
+			PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		
+			if (MyPokemon->getLevel() >= 10)//히든 스테이지 충족 조건
+			{
+				std::cout << "조건을 만족했습니다! 히든 스테이지로 이동합니다..." << std::endl;
+				PlaySound(NULL, 0, 0); 
+
+				//HiddenStage(); 
+				
+				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			}
+			else //레벨 부족할 시
+			{
+				std::cout << "레벨이 부족합니다! (현재 레벨: " << MyPokemon->getLevel() << " / 필요 레벨: 10)" << std::endl;
+				Sleep(1500);
+			}
+			break;
+		}
 		default:
 			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 			break;
