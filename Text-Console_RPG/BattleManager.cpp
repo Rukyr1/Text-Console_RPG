@@ -117,18 +117,39 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 
 //전투 시작 함수 결과 반환 승리/패배/도망
 
-BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory, Player* player)
+BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory, Player* player,bool isBoss)
 {
-	Sleep(500);
-	//전투 BGM
-	PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-	Sleep(1000);
-
-	RandomEnemy(); //랜덤 적 생성
-
 	IsBattle = true;
 	IsOpenBag = false;
 
+	Sleep(500);
+	//전투 BGM
+	if (isBoss)
+	{
+		setColor(12);
+		PlaySound(TEXT("music/Dark-Souls-III.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	}
+	else
+	{
+		setColor(7);
+		PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	}
+	if (isBoss)
+	{
+		EnemyPokemon = new Mewtwo();
+	}
+	else
+	{
+		RandomEnemy(); //랜덤 적 생성
+	}
+
+	int cursorX = 0;
+	int cursorY = 0;
+
+	Sleep(500);
+
+	uimanager.BattleUiTop(MyPokemon, EnemyPokemon);
+	uimanager.BattleUiBottom(cursorX, cursorY);
 
 	//전투 시작 연출 출력
 	std::string s = "야생의 " + EnemyPokemon->getName() + "가 나타났다!";
@@ -143,9 +164,6 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 
 	std::cout << "다음 턴으로 넘어가려면 아무 키나 누르세요...";
 	_getch();
-
-	int cursorX = 0;
-	int cursorY = 0;
 
 
 	//전투 루프
@@ -275,7 +293,9 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			if (MyPokemon->getHp() <= 0) //포켓몬 Hp 확인
 			{
 				IsBattle = false;
-
+				std::cout << "[" << MyPokemon->getName() << "] 은(는) 쓰러졌다..." << std::endl;
+				std::cout << "다음 턴으로 넘어가려면 아무 키나 누르세요...";
+				_getch();
 				return BattleResult::Lose; //패배 반환
 			}
 
@@ -350,8 +370,11 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 		//도망
 		case 4:
 		{
+			PlaySound(NULL, 0, 0);
 			IsBattle = false;
 			std::cout << "무사히 도망쳤다!" << std::endl;
+			std::cout << "아무 키나 누르면 계속합니다...";
+			_getch();
 			delete EnemyPokemon;
 			EnemyPokemon = nullptr;
 			//GameLoop();

@@ -41,7 +41,7 @@ void UIManager::StarterUiTop()
 {
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << std::endl;
 	std::cout << "┃                                                       ┃" << std::endl;
-	std::cout << "┃           [ 스타팅 포켓몬을 선택하세요! ]             ┃" << std::endl;
+	std::cout << "┃       [ 같이 모험을 떠날 포켓몬을 선택하세요! ]       ┃" << std::endl;
 	std::cout << "┃                                                       ┃" << std::endl;
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫" << std::endl;
 	std::cout << "┃                                                       ┃" << std::endl;
@@ -116,13 +116,13 @@ void UIManager::printHpBar(int currentHp, int maxHp)
 
 	std::cout << "]";
 }
-               
-                                              
+
+
 void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 {
 	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
 	std::cout << "┃  ┌───────────────────────────────┐                           ┃\n";
-	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << " L13              │                           ┃\n";
+	std::cout << "┃  │ " << std::left << std::setw(15) << EnemyPokemon->getName() << "Lv." << EnemyPokemon->getLevel() << "              │                           ┃\n";
 	std::cout << "┃  │ HP: ";
 	printHpBar(EnemyPokemon->getHp(), EnemyPokemon->getPMaxHp());
 	std::cout << std::right << std::setw(7) << "    │" << "      │\\ //   \\            ┃\n";
@@ -135,7 +135,7 @@ void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 	std::cout << "┃    [        \\  \\                                             ┃\n";
 	std::cout << "┃    /\\ ____/    ]                                             ┃\n";
 	std::cout << "┃   |       ::  \\            ┌───────────────────────────────┐ ┃\n";
-	std::cout << "┃   \\ ::    /:: |            │ " << std::left << std::setw(15) << MyPokemon->getName() << std::right << std::setw(8) <<" L14              │ ┃\n";
+	std::cout << "┃   \\ ::    /:: |            │ " << std::left << std::setw(15) << MyPokemon->getName() << "Lv." << MyPokemon->getLevel() << "              │ ┃\n";
 	std::cout << "┃      ──────_/_]            │ HP: ";
 	printHpBar(MyPokemon->getHp(), MyPokemon->getPMaxHp());
 	std::cout << std::right << std::setw(7) << "│" << " ┃\n";
@@ -200,7 +200,7 @@ void UIManager::VillageUi(std::string playerName, Pokemon* MyPokemon, Player* pl
 	std::cout << "┃ 🌳 마을 - 안전 지역                                          ┃\n";
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 	std::cout << "┃ 플레이어: " << playerName << "                                                ┃\n";
-	std::cout << "┃ 보유 골드: "<< player->GetInventory().GetGold() <<"                                              ┃\n";
+	std::cout << "┃ 보유 골드: " << player->GetInventory().GetGold() << "                                              ┃\n";
 	std::cout << "┃ 현재 포켓몬: " << MyPokemon->getName() << "  Lv: " << MyPokemon->getLevel() << "  Hp: " << MyPokemon->getHp() << "/" << MyPokemon->getPMaxHp() << "  Atk: " << MyPokemon->getAttack() << "           ┃\n";
 	std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n";
 	std::cout << "┃                                                              ┃\n";
@@ -244,7 +244,7 @@ void UIManager::PokemonCenterUi()
 	std::cout << "┃        / ──────────── \\       /      \\                             ┃\n";
 	std::cout << "┃ ──────│ │            │ │     |  /\\ /\\ |               ───── ────── ┃\n";
 	std::cout << "┃      ││ │            │ │    /[│ 0  0 │]\\             │     │       ┃\n";
-	std::cout << "┃      ││ │            │ │────\\   ────   /──────────  /│     │       ┃\n";           
+	std::cout << "┃      ││ │            │ │────\\   ────   /──────────  /│     │       ┃\n";
 	std::cout << "┃      ││ │            │ │      [ \\  / ]            │  │     │       ┃\n";
 	std::cout << "┃      ││ │ ────────── │ │     / \\ \\/ / \\           │  │:::::│       ┃\n";
 	std::cout << "┃      ││ /            \\ │     |  \\_\/  |        ┌──────────────────┐ ┃\n";
@@ -355,7 +355,7 @@ void UIManager::ShopSellUi()
 // \\ \\    │] 
 //   \\__──__  
 //             
-                                                                                                                         
+
  //   ---─┐   
  // /         
  // [     / **
@@ -363,7 +363,7 @@ void UIManager::ShopSellUi()
  ///  ::  \\] 
  //[│ :::  /  
  // __──__┘                                   
-                                                         
+
 //       ┌----  
 //     [     \\
 //    \\      ]
@@ -372,7 +372,7 @@ void UIManager::ShopSellUi()
 // (  \\     │]
 //   \\__──__  
 
-             
+
 //      ───    
 //    /     ]  
 //   (         
@@ -380,7 +380,7 @@ void UIManager::ShopSellUi()
 //  /      \\ ]
 //  -│     │ ] 
 //   __──__┘/  
-                                                                                                                                                 
+
 void UIManager::EndingUi(Pokemon* MyPokemon)
 {
 	std::cout << "╔═══════════════════════════════════════════════════════════════════════════╗" << std::endl;

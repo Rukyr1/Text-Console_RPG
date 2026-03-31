@@ -123,6 +123,9 @@ void GameManager::IntroScreen()
 
 void GameManager::SelectPokemon()
 {
+	std::string s6 = "이름을 입력하세요: ";
+	printtext.typeWritecin(s6);
+	std::cin >> playerName;
 	if (player == nullptr) player = new Player(); // 추가 인벤토리문제 해결용
 	//std::string PlayerName;
 	Sleep(500);
@@ -284,7 +287,7 @@ void GameManager::GameLoop()
 		{
 			PlaySound(NULL, 0, 0);
 
-			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player);
+			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player, false);
 
 			if (result == BattleResult::Lose)
 			{
@@ -389,6 +392,9 @@ void GameManager::GameLoop()
 				std::cout << "조건을 만족했습니다! 히든 스테이지로 이동합니다..." << std::endl;
 				PlaySound(NULL, 0, 0); 
 
+				system("cls");
+				BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player, true);
+
 				//HiddenStage(); 
 				
 				PlaySound(TEXT("music/1-06.-Road-to-Viridian-City-–-From-Pallet.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
@@ -398,6 +404,14 @@ void GameManager::GameLoop()
 				std::cout << "레벨이 부족합니다! (현재 레벨: " << MyPokemon->getLevel() << " / 필요 레벨: 10)" << std::endl;
 				Sleep(1500);
 			}
+			break;
+		}
+		case 6:
+		{
+			PlaySound(NULL, 0, 0);
+			system("cls");
+			
+			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player, true);
 			break;
 		}
 		default:
