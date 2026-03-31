@@ -289,13 +289,13 @@ void GameManager::GameLoop()
 	}
 }
 
-void GameManager::GameEnding()
+void GameManager::GameEnding() //게임종료시 호출되는 함수입니다.여기서 게임종료란 전투에서 패배입니다.
 {
-	Sleep(500);
-	system("cls");
-	//사운드 찾는 중 없으면 안넣을게요
+	Sleep(500); //500ms(0.5.초 일시정지)
+	system("cls"); //콘솔화면 클리어 시스템
+	
 
-	uimanager.EndingUi(MyPokemon);
+	uimanager.EndingUi(MyPokemon); //uimanger객체생성, MyPokemon으로 인자를 받아 EndingUi를 불러옵니다.
 	exit(0);
 }
 

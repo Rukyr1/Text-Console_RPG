@@ -15,7 +15,7 @@ public:
 	void PokemonCenterUi();
 	
 	void printHpBar(int currentHp, int maxHp);
-	void EndingUi(Pokemon* MyPokemon);
+	void EndingUi(Pokemon* MyPokemon); //게임종료(전투패배)시 나타나는 엔딩UI 정의 입니다.
 
 private:
 

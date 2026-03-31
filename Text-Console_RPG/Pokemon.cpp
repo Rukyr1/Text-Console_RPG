@@ -72,7 +72,7 @@ void Pokemon::printStatus()
 	std::cout << "포켓몬의 상태" << std::endl;
 	std::cout << "현재 포켓몬: " << PName << std::endl;
 	std::cout << "레벨: " << "Lv. " << PLevel << std::endl;
-	std::cout << "HP: " << PCurrentHp << std::endl;
+	std::cout << "HP: " << PCurrentHp << std::endl; //원래 PHp 멤버변수 초기화하여 작성 but,상태 출력 시 현재 HP를 출력해야하니, PCUrrentHp 변수로 사용
 	std::cout << "공격력: " << PAttackPower << std::endl;
 	std::cout << "현재 경험치: " << PExp << std::endl;
 	std::cout << "------------------------------------" << std::endl;
