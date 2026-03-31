@@ -159,29 +159,35 @@ int Squirtle::skill(int skillNum)
 	//p_damage(임시) = p_attackPower * 3
 }
 
+//이 코드는 적 포켓몬을 각각 클래스 형태로 직접 구현한 것으로, 생성자에서 이름·레벨·체력·공격력 같은 기본 능력치를 미리 설정하고,
+// skill() 함수에서 두 가지 기술 중 하나를 선택해 공격하도록 만든 구조다.
+//각 포켓몬은 거의 동일한 구조를 가지며, 차이점은 능력치와 스킬 이름만 다르게 설정되어 있다.
+// skill(1)이면 기본 공격, 그 외에는 더 강한 스킬(공격력 + 20)을 사용하는 방식이다.
+//전체적으로는 풀, 불, 물, 에스퍼 총 3~4가지 속성 기준으로 약 30마리 이상의 적 포켓몬을 미리 만들어 둔 형태이며, 이를 통해 다양한 적이 등장하도록 구성한 것이다.
+
 //뚜벅초 //풀
 
 Oddish::Oddish()
 {
-	PName = "뚜벅초";
-	PLevel = 13;
-	PMaxHp = 260;
-	PCurrentHp = PMaxHp;
-	PAttackPower = 65;
+	PName = "뚜벅초"; //포켓몬이름
+	PLevel = 13; //레벨
+	PMaxHp = 260; //최대체력
+	PCurrentHp = PMaxHp; // 현재체력
+	PAttackPower = 65; // 공격력
 	//p_def = 10
-	PExp = 0;
+	PExp = 0; //경험치
 }
 int Oddish::skill(int skillNum)
 {
 	if (skillNum == 1)
 	{
 		std::cout << PName << "의 [몸통박치기]!" << std::endl;
-		return getAttack();
+		return getAttack(); //기술 사용시 getAttack() 을 반환
 	}
 	else
 	{
 		std::cout << PName << "의 [잎날가르기]!" << std::endl;
-		return getAttack() + 20; // 3배 데미지 리턴
+		return getAttack() + 20;  //기술 사용시 getAttack() 을 반환
 	}
 }
 

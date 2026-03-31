@@ -3,14 +3,18 @@
 #include <cstdlib>
 #include <iostream>
 
+//EnemyList에 저장된 여러 포켓몬 데이터 중 하나를 랜덤으로 선택해 적 포켓몬을 생성하고, 그 정보(이름, 타입, 레벨, 스킬)를 객체에 설정하는 구조다.
+//이후 레벨을 기반으로 체력과 공격력을 랜덤하게 계산해 능력치를 정하고,
+//전투 시 skill() 함수로 스킬을 사용하며 공격력을 반환한다.
+
 //  데이터 구조
 struct PokemonData //타입, 이름, 레벨, 기술1, 기술2 를 저장하는 데이터
 {
-    std::string PType;
-	std::string name;
-	int level;
-	std::string skillName1;
-	std::string skillName2;
+    std::string PType; //타입
+	std::string name; //적 포켓몬 이름
+	int level; //레벨
+	std::string skillName1; //스킬1
+	std::string skillName2; //스킬2
 };
 
 // 포켓몬 리스트
@@ -55,13 +59,13 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
     int index = rand() % EnemyList.size(); // 리스트 중에서 랜덤 선택
     PokemonData data = EnemyList[index];
 
-    PType = data.PType;
-    PName = data.name;
-    PLevel = data.level;
+    PType = data.PType; //타입 입력
+    PName = data.name; //이름 입력
+    PLevel = data.level; //레벨 입력
 
     // 랜덤 능력치
     PMaxHp = PLevel * (rand() % 11 + 20); //레벨 * (20부터 30)
-    PCurrentHp = PMaxHp;
+    PCurrentHp = PMaxHp; //현재 체력
     PAttackPower = PLevel * (rand() % 6 + 5); //레벨 * (10부터 20)
     PExp = 0;
 
