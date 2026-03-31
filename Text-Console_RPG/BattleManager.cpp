@@ -16,6 +16,8 @@ BattleManager::BattleManager() //생성자 전투 관련 상태 초기화
 	, EnemyPokemon(nullptr) //적 포켓몬 초기화
 	, rd()
 	, gen(rd())
+{
+}
 
 void typeWriter(std::string text)
 {
@@ -74,17 +76,6 @@ public:
 	}
 };
 
-BattleManager::BattleManager()
-	: IsBattle(false)
-	, IsTurnPass(false)
-	, IsEscape(false)
-	, AtkChoice(0)
-	, BagChoice(0)
-	, IsOpenBag(false)
-	, EnemyPokemon(nullptr)
-{
-}
-
 BattleManager::~BattleManager() //소멸자 동적 할당된 적 포켓몬 메모리 해제
 {
 	delete EnemyPokemon;
@@ -103,8 +94,6 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 	std::uniform_int_distribution<> dist(1, 4); //랜덤 범위 설정
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dist(1, 4);
-
 	int RandomNumber = dist(gen); //실제 랜덤 값 생성
 
 	//랜덤 포켓몬 생성
