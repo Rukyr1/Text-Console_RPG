@@ -15,7 +15,7 @@ public:
 	void PokemonCenterUi();
 	
 	void printHpBar(int currentHp, int maxHp);
-	
+	void EndingUi(Pokemon* MyPokemon);
 
 private:
 
