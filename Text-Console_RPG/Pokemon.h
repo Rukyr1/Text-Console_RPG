@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "AudioManager.h"
 
 //Pokemon.h 
 
@@ -36,6 +37,7 @@ protected:
 	int PCurrentHp;
 	int PMaxHp;
 	pokemondata data;
+	AudioManager audio;
 
 	//int p_def = 30;
 	std::string skill1Name;

@@ -6,6 +6,7 @@
 #include "PrintText.h"
 #include "Item.h"
 #include <random>
+#include "AudioManager.h"
 
 enum class BattleResult //전투 결과 값
 {
@@ -39,6 +40,7 @@ private:
 	UIManager uimanager;
 	PrintText printtext;
 	Item item;
+	AudioManager audio;
 
 	std::random_device rd; //랜덤 시드 
 	std::mt19937 gen;

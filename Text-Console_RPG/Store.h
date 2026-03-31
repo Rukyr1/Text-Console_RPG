@@ -38,9 +38,9 @@ public:
             // 구ao 실행
             BuyItem(input, playerInven);
 
-            std::cout << "\n----------------------------------";
+            //std::cout << "\n----------------------------------";
             playerInven.Printallgold(); // 실시간 골드 출력
-            std::cout << "아무 키나 누르면 목록으로 돌아갑니다...";
+            std::cout << "아무 키나 누르면 목록으로 돌아갑니다..." << std::endl;
             _getch();
         }
     }
@@ -48,8 +48,8 @@ public:
     // 상점 보기
     void ShowItems() const
     {
-        std::cout << "==================================" << std::endl;
-        std::cout << "     [" << storeName << "] " << std::endl;
+        //std::cout << "==================================" << std::endl;
+       // std::cout << "     [" << storeName << "] " << std::endl;
 
         //std::cout << "           [" << storeName << "] " << std::endl;
         storeInven.Storeitems();

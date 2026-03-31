@@ -4,6 +4,7 @@
 #include "BattleManager.h"
 #include "UIManager.h"
 #include "PrintText.h"
+#include "AudioManager.h"
 
 class GameManager
 {
@@ -18,6 +19,7 @@ private:
 	BattleManager battlemanager;
 	PrintText printtext;
 	Store store;
+	AudioManager audio;
 
 public:
 	GameManager();

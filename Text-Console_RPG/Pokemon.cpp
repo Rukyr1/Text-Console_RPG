@@ -1028,6 +1028,7 @@ void Pokemon::levelUp()
 		return;
 	}
 
+	audio.LevelUp();
 	PLevel++;
 	std::cout << getName() << "이(가) 레벨 업 했습니다!" << std::endl;
 	//능력치 상승
@@ -1046,12 +1047,14 @@ void Pokemon::levelUp()
 	//기본 진화 레벨
 	if (PLevel == 7)
 	{
+		audio.Evolution();
 		evolution();
 	}
 
-	//최대 레벨 달성 시 최종 진화
+	//최대 레벨 달성 시 최종 진화 
 	if (PLevel == 10)
 	{
+		audio.Evolution();
 		finalEvolution();
 	}
 

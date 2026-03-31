@@ -119,6 +119,13 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 
 BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory, Player* player,bool isBoss)
 {
+	Sleep(500);
+	//전투 BGM
+	audio.BattleWild();
+	Sleep(1000);
+
+	RandomEnemy(); //랜덤 적 생성
+
 	IsBattle = true;
 	IsOpenBag = false;
 
@@ -209,7 +216,8 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 		case 1: // 공격 상황(현재는 항상 선공)
 		{
 			int SkillChoice;
-			std::cout << "기술 선택: 1." << MyPokemon->getSkillName(1) << " 2." << MyPokemon->getSkillName(2); // 스킬(현재 2가지) 중 선택
+			std::cout << "기술 선택: 1." << MyPokemon->getSkillName(1) << " 2." << MyPokemon->getSkillName(2) << std::endl;; // 스킬(현재 2가지) 중 선택
+			std::cout << "입력: ";
 			std::cin >> SkillChoice;
 
 			// 내 포켓몬 공격
@@ -220,7 +228,8 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			{
 				PlaySound(NULL, 0, 0);
 				//승리 BGM
-				PlaySound(TEXT("music/1-08.-Victory-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				audio.BattleWildVictory();
+				//PlaySound(TEXT("music/1-08.-Victory-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 				std::cout << EnemyPokemon->getName() << " 이(가) 쓰러졌다!" << std::endl;
 				if (MyPokemon->getPExp() < MyPokemon->getPMaxExp()) //승리시 보상 경험치
@@ -233,6 +242,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 					{
 						int NewExp = MyPokemon->getPExp() - 100; //경험치 0으로 초기화
 						MyPokemon->setPExp(NewExp);
+						audio.LevelUp();
 						MyPokemon->levelUp();
 					}
 				}
@@ -245,6 +255,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 				{
 					std::uniform_int_distribution<> ItemChance(1, 100);
 					int ItemRoll = ItemChance(gen); //실제 랜덤 값 생성
+					audio.ItemReward();
 
 					if (ItemRoll <= 50)
 					{
