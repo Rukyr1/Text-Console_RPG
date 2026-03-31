@@ -119,31 +119,30 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 
 BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory, Player* player,bool isBoss)
 {
-	Sleep(500);
-	//전투 BGM
-	audio.BattleWild();
-	Sleep(1000);
-
-	RandomEnemy(); //랜덤 적 생성
-
 	IsBattle = true;
 	IsOpenBag = false;
 
-	Sleep(500);
+	if (EnemyPokemon != nullptr)
+	{
+		delete EnemyPokemon;
+		EnemyPokemon = nullptr;
+	}
+
 	//전투 BGM
 	if (isBoss)
 	{
 		setColor(12);
-		PlaySound(TEXT("music/Dark-Souls-III.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+		audio.BossBgm();
 	}
 	else
 	{
 		setColor(7);
-		PlaySound(TEXT("music/1-07.-Battle-_VS-Wild-Pokémon_.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+		audio.BattleWild();
 	}
 	if (isBoss)
 	{
 		EnemyPokemon = new Mewtwo();
+		
 	}
 	else
 	{
@@ -153,7 +152,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 	int cursorX = 0;
 	int cursorY = 0;
 
-	Sleep(500);
+	Sleep(700);
 
 	uimanager.BattleUiTop(MyPokemon, EnemyPokemon);
 	uimanager.BattleUiBottom(cursorX, cursorY);

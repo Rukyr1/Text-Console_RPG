@@ -15,6 +15,8 @@ public:
 	void BattleWild(); //야생 포켓몬과 대결 할 때 배경음악
 	void BattleWildVictory(); //야생 포켓몬과 대결에서 승리했을 때 배경음악
 	void Evolution(); //포켓몬 진화 배경음악
+	void BossBgm();
+
 
 	//------------SFX------------
 	void EnterSfx(); //엔터 누를 때 효과음

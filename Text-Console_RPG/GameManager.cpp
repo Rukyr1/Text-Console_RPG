@@ -120,6 +120,9 @@ void GameManager::IntroScreen()
 
 void GameManager::SelectPokemon()
 {
+	/*std::string s6 = "이름을 입력하세요: ";
+	printtext.typeWritecin(s6);
+	std::cin >> playerName;*/
 	if (player == nullptr) player = new Player(); // 추가 인벤토리문제 해결용
 	//std::string PlayerName;
 	Sleep(500);
@@ -267,7 +270,7 @@ void GameManager::GameLoop()
 		{
 		case 1: //전투
 		{
-			PlaySound(NULL, 0, 0);
+			//PlaySound(NULL, 0, 0);
 
 			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player, false);
 

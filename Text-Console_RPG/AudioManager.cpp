@@ -55,6 +55,11 @@ void AudioManager::Evolution()
 	PlaySound(TEXT("music/1-41.-Evolution.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
+void AudioManager::BossBgm()
+{
+	PlaySound(TEXT("music/Dark-Souls-III.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+}
+
 void AudioManager::EnterSfx()
 {
 	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC);
