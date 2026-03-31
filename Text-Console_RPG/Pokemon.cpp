@@ -5,7 +5,7 @@
 
 Pokemon::Pokemon()
 {
-
+	 
 }
 
 int Pokemon::skill(int skillNum)
