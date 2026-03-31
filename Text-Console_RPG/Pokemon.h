@@ -5,11 +5,12 @@
 //Pokemon.h 
 
 //포켓몬 타입 정의
-enum class  PType //일단 스타팅 포켓몬 타입 3개만
+enum class  PType //일단 스타팅 포켓몬 타입 3개만 //에스퍼 타입추가
 {
 	GRASS,
 	FIRE,
-	WATER
+	WATER,
+	Psychic
 };
 
 class Pokemon //포켓몬 클래스 멤버변수 -> 레벨, 체력, 공격력, 경험치

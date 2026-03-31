@@ -4,37 +4,70 @@
 #include <iostream>
 
 //  데이터 구조
-struct PokemonData //순서대로 적포켓몬 이름, 레벨, 기술이름, 기술위력 을 받는 데이터.
+struct PokemonData //타입, 이름, 레벨, 기술1, 기술2 를 저장하는 데이터
 {
+    std::string PType;
 	std::string name;
 	int level;
-	std::string skillName;
-	int skillPower;
+	std::string skillName1;
+	std::string skillName2;
 };
 
 // 포켓몬 리스트
 static std::vector<PokemonData> EnemyList =
 {
-	{"피카츄", 5, "전기쇼크", 10},
-	{"이브이", 4, "몸통박치기", 8},
-	{"야돈", 6, "물대포", 7}
+    {"GRASS", "뚜벅초", 13, "몸통박치기", "잎날가르기"},
+    {"GRASS", "냄새꼬", 28, "몸통박치기", "흡수"},
+    {"GRASS", "라플레시아", 32, "몸통박치기", "꽃잎댄스"},
+    {"GRASS", "파라스", 8, "할퀴기", "메가드레인"},
+    {"GRASS", "파라섹트", 24, "할퀴기", "기가드레인"},
+    {"GRASS", "모다피", 13, "몸통박치기", "덩굴채찍"},
+    {"GRASS", "우츠동", 28, "몸통박치기", "잎날가르기"},
+    {"GRASS", "우츠보트", 32, "몸통박치기", "그래스믹서"},
+    {"GRASS", "아라리", 24, "몸통박치기", "씨폭탄"},
+    {"GRASS", "나시", 35, "누르기", "리프스톰"},
+    {"FIRE", "식스테일", 16, "할퀴기", "불꽃세례"},
+    {"FIRE", "나인테일", 28, "할퀴기", "화염방사"},
+    {"FIRE", "가디", 15, "할퀴기", "화염바퀴"},
+    {"FIRE", "윈디", 26, "할퀴기", "플레어드라이브"},
+    {"FIRE", "포니타", 28, "막치기", "불꽃세례"},
+    {"FIRE", "날쌩마", 49, "막치기", "불꽃세례"},
+    {"FIRE", "마그비", 1, "막치기", "덩굴채찍"},
+    {"FIRE", "마그마", 34, "막치기", "불대문자"},
+    {"FIRE", "부스터", 36, "몸통박치기", "플레어드라이브"},
+    {"FIRE", "파이어", 50, "칼바람", "오버히트"},
+    {"WATER", "고라파덕", 28, "막치기", "물대포"},
+    {"WATER", "골덕", 38, "막치기", "물의파동"},
+    {"WATER", "발챙이", 10, "몸통박치기", "거품"},
+    {"WATER", "슈룩챙이", 23, "막치기", "폭포오르기"},
+    {"WATER", "강챙이", 32, "막치기", "아쿠아브레이크"},
+    {"WATER", "왕눈해", 5, "몸통박치기", "거품"},
+    {"WATER", "독파리", 20, "몸통박치기", "거품광선"},
+    {"WATER", "야돈", 15, "몸통박치기", "물대포"},
+    {"WATER", "야도란", 37, "몸통박치기", "물의파동"},
+    {"WATER", "라프라스", 50, "누르기", "하이드로펌프"},
+    {"Psychic", "뮤츠", 70, "염동력", "사이코브레이크"},
+    {"Psychic", "뮤", 100, "염동력", "오리진즈슈퍼노바"}
 };
 
 EnemyPokemon::EnemyPokemon() : Pokemon()
 {
-	int index = rand() % EnemyList.size(); // 리스트 중에서 랜덤 선택
-	PokemonData data = EnemyList[index];
+    int index = rand() % EnemyList.size(); // 리스트 중에서 랜덤 선택
+    PokemonData data = EnemyList[index];
 
-	PName = data.name;// 선택된 포켓몬의 이름을 입력
-	PLevel = data.level;//선택된 포켓몬의 레벨을 입력
+    PType = data.PType;
+    PName = data.name;
+    PLevel = data.level;
 
-	// 랜덤 능력치
-	PMaxHp = PLevel * (rand() % 11 + 20); //체력을 20부터 30사이의 값을 구해 레벨과 곱하여 정함
-	PAttackPower = PLevel * (rand() % 6 + 5);//공격력을 5부터 10사이의 값을 구해 레벨과 곱하여 정함
+    // 랜덤 능력치
+    PMaxHp = PLevel * (rand() % 11 + 20); //레벨 * (20부터 30)
+    PCurrentHp = PMaxHp;
+    PAttackPower = PLevel * (rand() % 6 + 5); //레벨 * (10부터 20)
+    PExp = 0;
 
-	// 기술 정보 저장 (멤버 변수 필요)
-	skillName = data.skillName;//기술이름
-	skillPower = data.skillPower;//기술위력
+    //  스킬 2개 저장
+    Pskill1 = data.skillName1;
+    Pskill2 = data.skillName2;
 }
 
 //void EnemyPokemon::skill()
@@ -43,3 +76,4 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
 //		<< "이(가) "<< skillName 
 //		<< " 사용! (위력: "<< skillPower << ")" << std::endl;
 //}
+
