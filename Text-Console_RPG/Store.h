@@ -29,8 +29,8 @@ public:
         while (input != 0)
         {
             //system("cls");
-            ShowItems(); // 상점 목록 출력
-            playerInven.Printallgold(); // 플레이어 돈 출력
+           // ShowItems(); // 상점 목록 출력
+           //playerInven.Printallgold(); // 플레이어 돈 출력
 
             std::cout << "구매할 번호 입력 (나가기: 0): ";
             std::cin >> input;

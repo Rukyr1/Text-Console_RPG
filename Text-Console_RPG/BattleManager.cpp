@@ -327,7 +327,6 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 		case 2:
 		{
 			IsOpenBag = true;
-			std::cout << "가방 목록" << std::endl;
 			inventory.Printallitems();
 			std::cout << "사용할 아이템 번호를 입력하세요 (나가기: 0): ";
 			std::cin >> BagChoice;

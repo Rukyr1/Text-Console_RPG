@@ -75,7 +75,7 @@ public:
 	
 	void Printallitems() const //소지중인 모든 아이템 및 골드 출력
 	{
-		//std::cout <<"\n[" << IownerName << "]" << "\n 인벤토리 (" << Isize << "/" << Icapacity << ")" << std::endl;
+		std::cout <<"[" << IownerName << "]" << "인벤토리 (" << Isize << "/" << Icapacity << ")" << std::endl;
 
 		bool HasItem = false; //가방에 아이템이 있는지 체크 하는 변수
 
