@@ -67,7 +67,9 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
 
     //  스킬 2개 저장
     Pskill1 = data.skillName1;
+    gatSkill1(); //스킬 1 이름을 반환
     Pskill2 = data.skillName2;
+    getSkill2(); //스킬 2 이름을 반환
 }
 
 //void EnemyPokemon::skill()
@@ -76,4 +78,17 @@ EnemyPokemon::EnemyPokemon() : Pokemon()
 //		<< "이(가) "<< skillName 
 //		<< " 사용! (위력: "<< skillPower << ")" << std::endl;
 //}
+int EnemyPokemon::skill(int skillNum)
+{
+    if (skillNum == 1)
+    {
+        std::cout << PName << "의 [" << Pskill1 << "]!" << std::endl;
+        return getAttack();
+    }
+    else
+    {
+        std::cout << PName << "의 [" << Pskill2 << "]!" << std::endl;
+        return getAttack() + 20;
+    }
+}
 
