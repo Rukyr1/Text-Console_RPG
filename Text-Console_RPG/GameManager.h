@@ -10,7 +10,7 @@ class GameManager
 private:
 	Player* player;
 	Pokemon* MyPokemon;
-	Inventory<Item> inventory;
+	
 
 	std::string playerName;
 

@@ -25,7 +25,7 @@ bool Item::Use() //아이템 사용시 출력
 	if (Icount > 0)
 	{
 		Icount--;
-		std::cout << Iname << "을(를) 1개 사용했습니다! (남은 개수:" << Icount << ")" << std::endl;
+		std::cout << Iname << "을(를) 1개 사용했습니다! (남은 개수:" << Icount << ")";
 		return true;
 	}
 	std::cout << Iname << "아이템이 부족합니다." << std::endl; //아이템 부족시 출력

@@ -89,7 +89,7 @@ public:
 		}
 		if (!HasItem) //아이템이 하나도 없다면 출력
 		{
-			std::cout << "\n(비어 있습니다.)" << std::endl;
+			std::cout << "(비어 있습니다.)" << std::endl;
 		}
 		std::cout << " 소지 골드: " << Igold << " G" << std::endl;
 		std::cout << "----------------------------------" << std::endl;

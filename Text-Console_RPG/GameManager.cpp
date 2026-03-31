@@ -60,6 +60,7 @@ void setColor(int color)
 
 void GameManager::SelectPokemon()
 {
+	if (player == nullptr) player = new Player(); // 추가 인벤토리문제 해결용
 	//std::string PlayerName;
 	Sleep(500);
 	std::string s1 = "이름을 입력하세요: ";
@@ -171,11 +172,15 @@ void GameManager::SelectPokemon()
 	printtext.typeWrite(s);
 	Sleep(1000);
 
-
-	//inventory.AddGold(10); //기본 지급 골드
-	//std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템 
-	//inventory.Additem(Item("상처약", 50, 5, 10)); //임시 아이템 인벤토리에 추가 ("아이템 이름" 가격 수량 힐량)
-	//inventory.Additem(Item("좋은 상처약", 80, 5, 30));
+	if (player == nullptr) {
+		std::cout << "에러: 플레이어 객체가 생성되지 않았습니다!" << std::endl;
+		return;
+	}
+	
+	std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템 
+	player->GetInventory().AddGold(1000);  //기본 지급 골드
+	player->GetInventory().Additem(Item("상처약", 50, 5, 10)); //임시 아이템 인벤토리에 추가 ("아이템 이름" 가격 수량 힐량)
+	player->GetInventory().Additem(Item("좋은 상처약", 80, 5, 30));
 
 	GameLoop();
 }
@@ -223,7 +228,7 @@ void GameManager::GameLoop()
 		{
 			PlaySound(NULL, 0, 0);
 
-			BattleResult result = battlemanager.StartBattle(MyPokemon, inventory);
+			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory());
 
 			if (result == BattleResult::Lose)
 			{
@@ -235,11 +240,11 @@ void GameManager::GameLoop()
 		}
 		case 2:
 			std::cout << "상점 준비 중..." << std::endl;
-			//{
-            //	Store MyStore("포켓몬 센터 상점"); //("상점이름") 
-            //	MyStore.InStore(player->GetInventory());
-            //}
-			//PlaySound(NULL, 0, 0);
+			{
+            	Store MyStore("포켓몬 센터 상점"); //("상점이름") 
+            	MyStore.InStore(player->GetInventory());
+            }
+			PlaySound(NULL, 0, 0);
 			break;
 		case 3:
 			PlaySound(TEXT("music/1-10.-Pokémon-Center.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);

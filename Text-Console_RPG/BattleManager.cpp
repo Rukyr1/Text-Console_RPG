@@ -234,7 +234,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			inventory.Printallitems();
 
 			
-			std::cout << "\n사용할 아이템 번호를 입력하세요 (나가기: 0): ";
+			std::cout << "사용할 아이템 번호를 입력하세요 (나가기: 0): ";
 			std::cin >> BagChoice;
 
 			if (BagChoice > 0) {
