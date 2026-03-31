@@ -30,6 +30,16 @@ public:
 		pItems = nullptr;
 	}
 
+	T* GetItem(int index)   //회복아이템을 사용하기위해 필요
+	{
+		
+		if (index < 0 || index >= Isize)
+		{
+			return nullptr;
+		}
+		return &pItems[index];
+	}
+
 
 
 	void Additem(const T& item) // 인벤에 아이템 넣기
@@ -111,7 +121,7 @@ public:
 			{
 				std::cout << pItems[targetIndex].GetName() << "을(를) 모두 소모했습니다." << std::endl;
 				pItems[targetIndex].clear();
-				Isize--;
+				UpdateInventory();
 
 			}
 		}
@@ -142,8 +152,19 @@ public:
 		std::cout << "현재 골드: " << Igold << "G" << std::endl;
 	}
 
-	T& GetItem(int index) {
-		return pItems[index - 1]; // 사용자가 입력한 1번을 배열 0번으로 반환 (상점 사용때문에 추가)
+	T* GetItemUse(int index)//회복용 아이템 사용
+	{
+		if (index < 0 || index >= Icapacity) return nullptr; //사용자
+	    
+
+		if (pItems[index].GetName() == "") return nullptr; //빈슬롯
+		
+		return &pItems[index]; //주소전달용
+	}
+
+	T& GetItemShop(int index)//상점용
+	{
+		return pItems[index - 1];
 	}
 
 	void Storeitems() const // 가방안에있는 아이템 출력
@@ -169,7 +190,28 @@ public:
 		std::cout << "----------------------------------" << std::endl;
 	}
 
+	void UpdateInventory() {
+		for (int i = 0; i < Icapacity - 1; i++) {
+			// 현재 칸이 비어있는데 다음 칸에 아이템이 있다면 당기기
+			if (pItems[i].GetName() == "" && pItems[i + 1].GetName() != "") {
+				pItems[i] = pItems[i + 1];
+				pItems[i + 1].clear();
+				// 당긴 후 이전 칸들이 비었을 수 있으므로 i를 다시 0으로 돌리거나 반복 검사
+				i = -1;
+			}
+		}
 
+		// Isize 갱신 (실제 데이터가 있는 칸 수 계산)
+		int count = 0;
+		for (int i = 0; i < Icapacity; i++) if (pItems[i].GetName() != "") count++;
+		Isize = count;
+	}
+
+	
+	int GetGold() const  //골드
+	{
+		return Igold;
+	}
 
 private:
 	T* pItems;

@@ -6,13 +6,15 @@
 
 
 
-Item::Item(const std::string& name, int price, int count)  // 아이템("이름" 가격 개수)
-	: Iname(name), Iprice(price), Icount(count) {
+Item::Item(const std::string& name, int price, int count, int heal)  // 아이템("이름" 가격 개수 힐량)
+	: Iname(name), Iprice(price), Icount(count), IhealAmount(heal) {
 }
 
 const std::string& Item::GetName() const { return Iname; }
 int Item::GetPrice() const { return Iprice; }
 int Item::GetCount() const { return Icount; }
+int Item::GetHeal()  const { return IhealAmount; } //힐 추가
+
 void Item::AddCount(int Pieces)
 {
 	Icount += Pieces;
@@ -36,6 +38,7 @@ void Item::clear()
 	Iname = "";
 	Iprice = 0;
 	Icount = 0;
+	IhealAmount = 0;
 }
 
 
