@@ -16,6 +16,72 @@ BattleManager::BattleManager() //생성자 전투 관련 상태 초기화
 	, EnemyPokemon(nullptr) //적 포켓몬 초기화
 	, rd()
 	, gen(rd())
+
+void typeWriter(std::string text)
+{
+	for (char c : text)
+	{
+		std::cout << c;
+		Sleep(30);
+	}
+}
+
+class DialogueManager
+{
+private:
+	int startY = 15; // 대화창 시작 위치
+	int width = 40;
+
+public:
+	void Clear()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			gotoxy(0, startY + i);
+			std::cout << std::string(width, ' ');
+		}
+	}
+
+	void DrawBox()
+	{
+		gotoxy(0, startY);
+		std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓";
+
+		for (int i = 1; i <= 2; i++)
+		{
+			gotoxy(0, startY + i);
+			std::cout << "┃                              ┃";
+		}
+
+		gotoxy(0, startY + 3);
+		std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛";
+	}
+
+	void Print(const std::string& text)
+	{
+		Clear();
+		DrawBox();
+
+		gotoxy(2, startY + 1);
+		typeWriter(text);
+	}
+
+	void Wait()
+	{
+		gotoxy(2, startY + 2);
+		std::cout << "▶ 계속하려면 아무 키...";
+		_getch();
+	}
+};
+
+BattleManager::BattleManager()
+	: IsBattle(false)
+	, IsTurnPass(false)
+	, IsEscape(false)
+	, AtkChoice(0)
+	, BagChoice(0)
+	, IsOpenBag(false)
+	, EnemyPokemon(nullptr)
 {
 }
 
@@ -35,6 +101,9 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 
 	//랜덤 설정
 	std::uniform_int_distribution<> dist(1, 4); //랜덤 범위 설정
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(1, 4);
 
 	int RandomNumber = dist(gen); //실제 랜덤 값 생성
 
@@ -58,6 +127,7 @@ void BattleManager::RandomEnemy() //랜덤 적 포켓몬 생성 함수
 }
 
 //전투 시작 함수 결과 반환 승리/패배/도망
+
 BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inventory)
 {
 	//전투 BGM
@@ -88,66 +158,15 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 	//전투 루프
 	while (IsBattle)
 	{
+		int cursor = 0;
 		bool isSelecting = true;
 
 		while (isSelecting)
 		{
-			int cursor = cursorY * 2 + cursorX + 1;
-
 			system("cls");
 
 			uimanager.BattleUiTop(MyPokemon, EnemyPokemon);
-
-			std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-
-			// ===== 1줄 =====
-			std::cout << "┃ ";
-
-			// 왼쪽 (대사)
-			std::cout << "무엇을 할까?           ";
-
-			// 오른쪽으로 밀기 (공백 핵심)
-			std::cout << "           ┃ ";
-
-			// 오른쪽 (메뉴 1줄)
-			if (cursorX == 0 && cursorY == 0) setColor(10);
-			std::cout << "   ▶ 공격";
-			setColor(7);
-
-			std::cout << "      ";
-
-			if (cursorX == 1 && cursorY == 0) setColor(11);
-			std::cout << "▶ 가방";
-			setColor(7);
-			std::cout << "    ┃";
-
-			std::cout << "\n";
-
-			// ===== 2줄 =====
-			std::cout << "┃ ";
-
-			// 왼쪽 (대사 2줄)
-			std::cout << "            ";
-
-			std::cout << "                      ┃ ";
-
-			// 오른쪽 (메뉴 2줄)
-			if (cursorX == 0 && cursorY == 1) setColor(14);
-			std::cout << "   ▶ 스탯";
-			setColor(7);
-
-			std::cout << "      ";
-
-			if (cursorX == 1 && cursorY == 1) setColor(12);
-			std::cout << "▶ 도망";
-			setColor(7);
-			std::cout << "    ┃";
-
-			std::cout << "\n";
-
-			std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
-
-			uimanager.BattleUiBottom();
+			uimanager.BattleUiBottom(cursorX, cursorY);
 
 			int key = _getch();
 
@@ -164,15 +183,18 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			{
 				isSelecting = false;
 			}
+
+			cursor = cursorY * 2 + cursorX + 1;
 		}
 
 		//uimanager.BattleUiBottom(); //전투 UI 하단
 
-		int cursor = cursorY * 2 + cursorX + 1;
+		/*gotoxy(0, 0);
+		uimanager.BattleUiTop(MyPokemon, EnemyPokemon);
+		uimanager.BattleUiBottom(cursorY, cursorY);*/
 
 		switch (cursor)
 		{
-
 		case 1: // 공격 상황(현재는 항상 선공)
 		{
 			int SkillChoice;

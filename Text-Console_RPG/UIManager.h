@@ -10,7 +10,7 @@ public:
 	void StarterUiTop();
 	void StarterUiBottom();
 	void BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon);
-	void BattleUiBottom();
+	void BattleUiBottom(int cursorX, int cursorY);
 	void VillageUi(std::string playerName, Pokemon* MyPokemon);
 	void PokemonCenterUi();
 	

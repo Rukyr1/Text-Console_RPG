@@ -57,21 +57,64 @@ void UIManager::StarterUiBottom()
 	std::cout << " (방향키 ◀ ▶ 이동 / Enter 선택)          " << std::endl;
 }
 
+//void UIManager::printHpBar(int currentHp, int maxHp)
+//{
+//	int barWidth = 20;
+//	float ratio = (float)currentHp / maxHp;
+//	if (ratio < 0)
+//	{
+//		ratio = 0;
+//	}
+//	int filled = (int)(barWidth * ratio);
+//
+//	for (int i = 0; i < barWidth; ++i)
+//	{
+//		if (i < filled) std::cout << "█"; // 실제 2칸 차지
+//		else std::cout << "░";            // 실제 2칸 차지
+//	}
+//}
+
+int getKoreanWidth(const std::string& str)
+{
+	int width = 0;
+
+	for (unsigned char c : str)
+	{
+		if (c >= 0x80) width += 2; // 한글/특수문자
+		else width += 1;
+	}
+
+	return width;
+}
+
+std::string fixWidth(const std::string& str, int targetWidth)
+{
+	std::string result = str;
+	int width = getKoreanWidth(str);
+
+	int pad = targetWidth - width;
+	if (pad < 0) pad = 0;
+
+	result.append(pad, ' ');
+	return result;
+}
+
 void UIManager::printHpBar(int currentHp, int maxHp)
 {
-	int barWidth = 20;
-	float ratio = (float)currentHp / maxHp;
-	if (ratio < 0)
-	{
-		ratio = 0;
-	}
-	int filled = (int)(barWidth * ratio);
+	int barWidth = 20; // 고정
 
-	for (int i = 0; i < barWidth; ++i)
+	float ratio = (float)currentHp / maxHp;
+	int filled = (int)(ratio * barWidth);
+
+	std::cout << "[";
+
+	for (int i = 0; i < barWidth; i++)
 	{
-		if (i < filled) std::cout << "█"; // 실제 2칸 차지
-		else std::cout << "░";            // 실제 2칸 차지
+		if (i < filled) std::cout << "█";
+		else std::cout << " ";
 	}
+
+	std::cout << "]";
 }
                
                                               
@@ -99,38 +142,43 @@ void UIManager::BattleUiTop(Pokemon* MyPokemon, Pokemon* EnemyPokemon)
 	std::cout << "┃                            └──────────────────────────────┘  ┃\n";
 }
 
-void UIManager::BattleUiBottom()
+void UIManager::BattleUiBottom(int cursorX, int cursorY)
 {
-
+	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓\n";
 
 	//std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓\n";
+	// ===== 1줄 =====
+	std::cout << "┃ 무엇을 할까?                          ┃   ";
 
-	//// 1행
-	//std::cout << "┃ ";
-	//if (cursor == 1) setColor(10);
-	//std::cout << "▶ 공격";
-	//setColor(7);
-	//std::cout << "                 ┃ ";
 
-	//if (cursor == 2) setColor(11);
-	//std::cout << "가방";
-	//setColor(7);
-	//std::cout << "                ┃\n";
+	if (cursorX == 0 && cursorY == 0) setColor(10);
+	std::cout << "▶ 공격";
+	setColor(7);
 
-	//// 중간선
-	//std::cout << "┣━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━┫\n";
+	std::cout << "  ";
 
-	//// 2행
-	//std::cout << "┃ ";
-	//if (cursor == 3) setColor(14);
-	//std::cout << "▶ 포켓몬";
-	//setColor(7);
-	//std::cout << "             ┃ ";
+	if (cursorX == 1 && cursorY == 0) setColor(11);
+	std::cout << " ▶ 가방";
+	setColor(7);
 
-	//if (cursor == 4) setColor(12);
-	//std::cout << "도망";
-	//setColor(7);
-	//std::cout << "                ┃\n";
+	std::cout << "    ┃\n";
+
+	// ===== 2줄 =====
+	std::cout << "┃                                       ┃   ";
+
+	if (cursorX == 0 && cursorY == 1) setColor(14);
+	std::cout << "▶ 스탯";
+	setColor(7);
+
+	std::cout << "   ";
+
+	if (cursorX == 1 && cursorY == 1) setColor(12);
+	std::cout << "▶ 도망";
+	setColor(7);
+
+	std::cout << "    ┃\n";
+
+	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
 	//// 하단
 	//std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━┛\n";
