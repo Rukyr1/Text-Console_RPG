@@ -226,13 +226,13 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 
 					if (ItemRoll <= 70)
 					{
-						Item potion("상처약", 50, 1);
+						Item potion("상처약", 50, 1, 20);
 						inventory.Additem(potion);
 						std::cout << "상처약을 획득했다!" << std::endl;
 					}
 					else
 					{
-						Item potion2("고급 상처약", 100, 1);
+						Item potion2("고급 상처약", 80, 1, 60);
 						inventory.Additem(potion2);
 						std::cout << "고급 상처약을 획득했다!" << std::endl;
 					}
@@ -282,7 +282,7 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			IsOpenBag = true;
 			std::cout << "가방 목록" << std::endl;
 			inventory.Printallitems();
-			std::cout << "\n사용할 아이템 번호를 입력하세요 (나가기: 0): ";
+			std::cout << "사용할 아이템 번호를 입력하세요 (나가기: 0): ";
 			std::cin >> BagChoice;
 
 			if (BagChoice > 0)
@@ -316,39 +316,17 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 						//MyPokemon->takeDamage(AttackToMe); // 데미지 받기
 						inventory.UpdateInventory(); //인벤토리 정리용
 					}
-					int BagChoice;
-
-					std::cout << "0. 인벤토리 나가기!" << std::endl;
-					std::cout << "입력 하세요: ";
-					std::cin >> BagChoice;
-
-					if (BagChoice == 1)
+					else
 					{
-						if (MyPokemon->getHp() < MyPokemon->getPMaxHp())
-						{
-							inventory.UseItem(1); //아이템 사용
-							int NewHp = MyPokemon->getHp() + 10; //임시 아이템 체력 +10
-							MyPokemon->setHP(NewHp); //체력 설정
-							std::cout << "아이템을 사용했습니다!" << std::endl;
-							break;
-						}
-						else {
-							std::cout << "해당 번호에 아이템이 없습니다." << std::endl;
-						}
+						std::cout << "해당 번호에 아이템이 없습니다." << std::endl;
 					}
-					/*std::cout << "\n아무 키나 누르면 계속합니다...";
-					_getch();*/
-					//인벤토리 종료
-					else if (BagChoice == 0)
-					{
-						std::cout << "인벤토리를 나갑니다!" << std::endl;
-						IsOpenBag = false;
-					}
-					break;
 				}
-
+				std::cout << "아무 키나 누르면 계속합니다...";
+				_getch();
 			}
-				//스탯	
+			break;
+		}
+			//스탯	
 		case 3:
 		{
 			MyPokemon->printStatus();
@@ -370,9 +348,9 @@ BattleResult BattleManager::StartBattle(Pokemon* MyPokemon, Inventory<Item>& inv
 			std::cout << "잘못된 입력입니다. 다시 선택해주세요." << std::endl;
 			break;
 		}
-			
+
 		}
-		}
+		
 	}
 }
 

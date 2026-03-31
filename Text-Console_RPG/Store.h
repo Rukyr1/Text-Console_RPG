@@ -16,9 +16,9 @@ public:
     Store(std::string name = "상점") : storeName(name), storeInven("상점칸수", 10)
     {
         // 상점 기본 아이템.
-        storeInven.Additem(Item("상처약", 50, 30, 10));  // 이름, 가격, 개수, 힐량
-        storeInven.Additem(Item("좋은 상처약", 80, 30, 30));
-        storeInven.Additem(Item("이상한 사탕", 1000, 10, 10));
+        storeInven.Additem(Item("상처약", 50, 30, 20));  // 이름, 가격, 개수, 힐량
+        storeInven.Additem(Item("고급 상처약", 80, 30, 60));
+        // storeInven.Additem(Item("이상한 사탕", 1000, 10, 10)); 추가 못함
     }
     
     void InStore(Inventory<Item>& playerInven) {
@@ -49,7 +49,7 @@ public:
     void ShowItems() const
     {
         std::cout << "==================================" << std::endl;
-        std::cout << "           [" << storeName << "] " << std::endl;
+        std::cout << "     [" << storeName << "] " << std::endl;
         storeInven.Storeitems();
     }
 
