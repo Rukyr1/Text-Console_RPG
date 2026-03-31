@@ -63,25 +63,25 @@ void GameManager::IntroScreen()
 	audio.IntroBgm();
 	Sleep(700);
 
-	//std::string s1 = "음, 잘 왔네!";
-	//printtext.typeWriteSlow(s1);
-	//_getch();
-	//PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
-	//Sleep(200);
-	//std::string s2 = "포켓몬스터의 세계에 온 것을 환영한다!";
-	//printtext.typeWriteSlow(s2);
-	//_getch();
-	//PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
-	//Sleep(200);
-	//std::string s3 = "그런데 자네, 모험은 이번이 처음인가?";
-	//printtext.typeWriteSlow(s3);
-	//Sleep(200);
-	//std::string s4 = "괜찮으면 내가 요모조모로 알려주겠네.";
-	//printtext.typeWriteSlow(s4);
-	//Sleep(300);
-	//std::string s5 = "자네의 이름은 뭔가?";
-	//printtext.typeWriteSlow(s5);
-	//Sleep(400);
+	std::string s1 = "음, 잘 왔네!";
+	printtext.typeWriteSlow(s1);
+	_getch();
+	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
+	Sleep(200);
+	std::string s2 = "포켓몬스터의 세계에 온 것을 환영한다!";
+	printtext.typeWriteSlow(s2);
+	_getch();
+	PlaySound(TEXT("music/pokemon_a_button.wav"), NULL, SND_FILENAME | SND_ASYNC); //Enter 효과음
+	Sleep(200);
+	std::string s3 = "그런데 자네, 모험은 이번이 처음인가?";
+	printtext.typeWriteSlow(s3);
+	Sleep(200);
+	std::string s4 = "괜찮으면 내가 요모조모로 알려주겠네.";
+	printtext.typeWriteSlow(s4);
+	Sleep(300);
+	std::string s5 = "자네의 이름은 뭔가?";
+	printtext.typeWriteSlow(s5);
+	Sleep(400);
 
 	std::string s6 = "이름을 입력하세요: ";
 	printtext.typeWritecin(s6);
@@ -120,9 +120,6 @@ void GameManager::IntroScreen()
 
 void GameManager::SelectPokemon()
 {
-	std::string s6 = "이름을 입력하세요: ";
-	printtext.typeWritecin(s6);
-	std::cin >> playerName;
 	if (player == nullptr) player = new Player(); // 추가 인벤토리문제 해결용
 	//std::string PlayerName;
 	Sleep(500);
