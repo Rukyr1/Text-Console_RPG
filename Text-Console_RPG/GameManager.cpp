@@ -178,9 +178,9 @@ void GameManager::SelectPokemon()
 	}
 	
 	std::cout << "스타팅 패키지 : 상처약 x 5, 좋은 상처약 x 5 " << std::endl; //임시 아이템 
-	player->GetInventory().AddGold(1000);  //기본 지급 골드
-	player->GetInventory().Additem(Item("상처약", 50, 5, 10)); //임시 아이템 인벤토리에 추가 ("아이템 이름" 가격 수량 힐량)
-	player->GetInventory().Additem(Item("좋은 상처약", 80, 5, 30));
+	player->GetInventory().AddGold(500);  //기본 지급 골드
+	player->GetInventory().Additem(Item("상처약", 50, 5, 20)); //임시 아이템 인벤토리에 추가 ("아이템 이름",가격,수량,힐량)
+	player->GetInventory().Additem(Item("고급 상처약", 80, 5, 60));
 
 	GameLoop();
 }
