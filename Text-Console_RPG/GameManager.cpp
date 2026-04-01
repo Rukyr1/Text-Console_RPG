@@ -264,7 +264,7 @@ void GameManager::GameLoop()
 
 		int choice;
 		
-		uimanager.VillageUi(playerName, MyPokemon, player); //마을 UI
+		uimanager.VillageHiddenUi(playerName, MyPokemon, player); //마을 UI
 
 
 		std::cin >> choice;
@@ -315,6 +315,7 @@ void GameManager::GameLoop()
 			{
 				int SellChoice;
 				uimanager.ShopSellUi(player);
+				std::cout << "입력: ";
 				std::cin >> SellChoice;
 				if (SellChoice == 0)
 				{
@@ -324,13 +325,13 @@ void GameManager::GameLoop()
 					audio.VillageBgm();
 					break;
 				}
-				else
-				{
-					std::cout << "아직 판매할 수 없습니다. 다음에 다시 방문하세요~!" << std::endl;
-					Sleep(1000);
-					audio.VillageBgm();
-					break;
-				}
+				
+				store.SellItem(SellChoice, player->GetInventory());
+
+				std::cout << "아무 키나 누르면 계속합니다..." << std::endl;
+				_getch();
+				audio.VillageBgm();
+				break;
 				//판매기능
 			}
 			else if (ShopChoice == 0) //나가기
@@ -402,6 +403,12 @@ void GameManager::GameLoop()
 				system("cls");
 				BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player, true);
 
+				if (result == BattleResult::Lose)
+				{
+					GameEnding();
+					return;
+				}
+
 				//HiddenStage(); 
 				audio.VillageBgm();
 				
@@ -419,6 +426,12 @@ void GameManager::GameLoop()
 			system("cls");
 			
 			BattleResult result = battlemanager.StartBattle(MyPokemon, player->GetInventory(), player, true);
+			if (result == BattleResult::Lose)
+			{
+				GameEnding();
+				return;
+			}
+
 			break;
 		}
 		default:

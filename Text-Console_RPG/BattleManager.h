@@ -35,7 +35,7 @@ private:
 	bool IsOpenBag;
 
 	Pokemon* EnemyPokemon;
-	void RandomEnemy();
+	void RandomEnemy(Pokemon* MyPokemon);
 
 	UIManager uimanager;
 	PrintText printtext;
