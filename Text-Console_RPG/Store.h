@@ -16,8 +16,8 @@ public:
     Store(std::string name = "상점") : storeName(name), storeInven("상점칸수", 10)
     {
         // 상점 기본 아이템.
-        storeInven.Additem(Item("상처약", 150, 30, 20));  // 이름, 가격, 개수, 힐량
-        storeInven.Additem(Item("좋은상처약", 350, 30, 60));
+        storeInven.Additem(Item("상처약", 300, 30, 20));  // 이름, 가격, 개수, 힐량
+        storeInven.Additem(Item("좋은상처약", 700, 30, 60));
         // storeInven.Additem(Item("이상한 사탕", 1000, 10, 10)); 추가 못함
     }
 
